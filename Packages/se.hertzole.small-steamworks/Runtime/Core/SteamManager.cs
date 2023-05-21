@@ -19,7 +19,8 @@ namespace Hertzole.SmallSteamworks
 			get
 			{
 #if !DISABLESTEAMWORKS
-				return SteamManagerBehavior.instance.isInitialized;
+				return SteamManagerBehavior.instance != null && SteamManagerBehavior.instance.isInitialized;
+
 #else
 				return false;
 #endif
