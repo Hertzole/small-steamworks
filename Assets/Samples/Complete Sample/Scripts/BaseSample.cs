@@ -1,7 +1,11 @@
-﻿namespace Hertzole.SmallSteamworks.CompleteSample
+﻿using UnityEngine;
+
+namespace Hertzole.SmallSteamworks.CompleteSample
 {
-	public class BaseSample
+	public abstract class BaseSample : MonoBehaviour
 	{
+		public virtual void ShowSample() { }
 		
+		public virtual void HideSample() { }
 	}
 }

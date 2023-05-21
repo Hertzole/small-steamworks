@@ -1,7 +1,4 @@
-﻿namespace Samples.Complete_Sample.Achievements
+﻿namespace Hertzole.SmallSteamworks.CompleteSample
 {
-	public class AchievementsSample
-	{
-		
-	}
+	public class AchievementsSample : BaseSample { }
 }

@@ -1,6 +1,8 @@
-﻿namespace Samples.Complete_Sample.Friends
+﻿using UnityEngine;
+
+namespace Hertzole.SmallSteamworks.CompleteSample
 {
-	public class FriendsSample
+	public class FriendsSample : BaseSample
 	{
 		
 	}
