@@ -9,6 +9,10 @@ Achievements are a great way to encourage and reward your players with milestone
 
 This page will teach you how you can use Small Steamworks to interact with your game's achievements.
 
+:::caution
+All of these methods require the current user stats to have been called! They are by default fetched when the game starts, but they may not be available if you are calling these methods before the stats have been fetched. See [Request Current Stats](stats#request-current-stats).
+:::
+
 ## Unlocking Achievements
 
 ```cs
@@ -80,6 +84,10 @@ bool isUnlocked = SteamManager.Achievements.IsAchievementUnlocked("API_NAME", ou
 ```
 
 Check if an achievement is unlocked for a specific user:
+
+:::caution
+You must request the user stats for the user before you can get the unlock status for a user. That is an asynchronous operation, so you must use a callback or an `async` method call. See [Request User Stats](stats#request-user-stats).
+:::
 
 ```cs
 // You can either create the Steam ID directly or you get it from somewhere else.
