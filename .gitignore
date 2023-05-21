@@ -88,6 +88,7 @@ crashlytics-build.properties
 /[Dd]ocs/.env.development.local
 /[Dd]ocs/.env.test.local
 /[Dd]ocs/.env.production.local
+/[Dd]ocs/.vscode
 /[Dd]ocs/npm-debug.log*
 /[Dd]ocs/yarn-debug.log*
 /[Dd]ocs/yarn-error.log*

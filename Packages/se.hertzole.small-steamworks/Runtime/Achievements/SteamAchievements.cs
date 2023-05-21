@@ -4,29 +4,36 @@ using System;
 using System.Collections.Generic;
 using Hertzole.SmallSteamworks.Helpers;
 using Steamworks;
-using UnityEngine;
 
 namespace Hertzole.SmallSteamworks
 {
 	internal sealed class SteamAchievements : ISteamAchievements
 	{
-		private bool hasGlobalStats = false;
-
 		private readonly SteamLogger<SteamAchievements> logger;
 
 		private readonly SteamCallback<UserAchievementStored_t> userAchievementStoredCallback;
 		private readonly SteamCallback<UserAchievementIconFetched_t> userAchievementIconFetchedCallback;
 		private SteamCallback<GlobalAchievementPercentagesReady_t>? globalAchievementPercentagesReadyCallback;
 
-		public uint NumberOfAchievements { get { return SteamUserStats.GetNumAchievements(); } }
+		/// <inheritdoc />
+		public uint NumberOfAchievements
+		{
+			get { return SteamUserStats.GetNumAchievements(); }
+		}
+
+		/// <inheritdoc />
+		public bool HasGlobalStats { get; private set; } = false;
 
 		public SteamAchievements()
 		{
 			logger = new SteamLogger<SteamAchievements>();
 
 			// Have a predicate to make sure the callback only fires for this app.
-			userAchievementStoredCallback = new SteamCallback<UserAchievementStored_t>(CallbackType.Callback, OnUserAchievementStored, t => t.m_nGameID == SteamUtils.GetAppID().m_AppId);
-			userAchievementIconFetchedCallback = new SteamCallback<UserAchievementIconFetched_t>(CallbackType.Callback, OnUserAchievementIconFetched, t => t.m_nGameID.m_GameID == SteamUtils.GetAppID().m_AppId);
+			userAchievementStoredCallback =
+				new SteamCallback<UserAchievementStored_t>(CallbackType.Callback, OnUserAchievementStored, t => t.m_nGameID == SteamUtils.GetAppID().m_AppId);
+
+			userAchievementIconFetchedCallback = new SteamCallback<UserAchievementIconFetched_t>(CallbackType.Callback, OnUserAchievementIconFetched,
+				t => t.m_nGameID.m_GameID == SteamUtils.GetAppID().m_AppId);
 		}
 
 		private const string KEY_NAME = "name";
@@ -161,7 +168,7 @@ namespace Hertzole.SmallSteamworks
 		{
 			ThrowIfCurrentStatsNotAvailable();
 
-			bool success = SteamUserStats.GetAchievement(achievementName, out bool isUnlocked);
+			bool success = SteamUserStats.GetAchievementAndUnlockTime(achievementName, out bool isUnlocked, out uint unlockTimeSeconds);
 			if (!success)
 			{
 				throw new InvalidSteamAchievementException(achievementName);
@@ -171,7 +178,8 @@ namespace Hertzole.SmallSteamworks
 			string? description = SteamUserStats.GetAchievementDisplayAttribute(achievementName, KEY_DESCRIPTION);
 			string? hidden = SteamUserStats.GetAchievementDisplayAttribute(achievementName, KEY_HIDDEN);
 
-			return new SteamAchievement(achievementName, name, description, hidden == "1", isUnlocked);
+			return new SteamAchievement(achievementName, name, description, hidden == "1", isUnlocked,
+				isUnlocked ? DateTime.UnixEpoch.AddSeconds(unlockTimeSeconds) : DateTime.MinValue);
 		}
 
 		/// <inheritdoc />
@@ -186,7 +194,8 @@ namespace Hertzole.SmallSteamworks
 			{
 				if (onIconFetched != null)
 				{
-					userAchievementIconFetchedCallback.RegisterOnce(t => { onIconFetched?.Invoke(new SteamImage(t.m_nIconHandle)); }, t => t.m_rgchAchievementName == achievementName);
+					userAchievementIconFetchedCallback.RegisterOnce(t => { onIconFetched?.Invoke(new SteamImage(t.m_nIconHandle)); },
+						t => t.m_rgchAchievementName == achievementName);
 				}
 			}
 			else
@@ -215,7 +224,6 @@ namespace Hertzole.SmallSteamworks
 			ThrowIfGlobalStatsNotAvailable();
 
 			int i = SteamUserStats.GetMostAchievedAchievementInfo(out string name, Constants.k_cchStatNameMax, out float percentage, out bool achieved);
-			Debug.Log(i);
 			while (i != 0)
 			{
 				yield return new SteamGlobalAchievementInfo(name, percentage, achieved);
@@ -245,7 +253,7 @@ namespace Hertzole.SmallSteamworks
 		{
 			globalAchievementPercentagesReadyCallback ??= new SteamCallback<GlobalAchievementPercentagesReady_t>(CallbackType.CallResult);
 
-			hasGlobalStats = false;
+			HasGlobalStats = false;
 			SteamAPICall_t call = SteamUserStats.RequestGlobalAchievementPercentages();
 			globalAchievementPercentagesReadyCallback.RegisterOnce(call, (t, failed) =>
 			{
@@ -261,7 +269,7 @@ namespace Hertzole.SmallSteamworks
 					{
 						case EResult.k_EResultOK:
 							onStatsFetched?.Invoke(GlobalAchievementStatsResult.Success);
-							hasGlobalStats = true;
+							HasGlobalStats = true;
 							break;
 						case EResult.k_EResultInvalidState:
 							onStatsFetched?.Invoke(GlobalAchievementStatsResult.InvalidState);
@@ -279,7 +287,8 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		private void OnUserAchievementStored(UserAchievementStored_t param)
 		{
-			logger.Log($"{nameof(param.m_nGameID)}: {param.m_nGameID}, {nameof(param.m_rgchAchievementName)}: {param.m_rgchAchievementName}, {nameof(param.m_nCurProgress)}: {param.m_nCurProgress}, {nameof(param.m_nMaxProgress)}: {param.m_nMaxProgress}");
+			logger.Log(
+				$"{nameof(param.m_nGameID)}: {param.m_nGameID}, {nameof(param.m_rgchAchievementName)}: {param.m_rgchAchievementName}, {nameof(param.m_nCurProgress)}: {param.m_nCurProgress}, {nameof(param.m_nMaxProgress)}: {param.m_nMaxProgress}");
 
 			// If the progress is 0 and the max progress is 0, then the achievement is unlocked.
 			if (param.m_nCurProgress == 0 && param.m_nMaxProgress == 0)
@@ -290,7 +299,8 @@ namespace Hertzole.SmallSteamworks
 
 		private void OnUserAchievementIconFetched(UserAchievementIconFetched_t param)
 		{
-			logger.Log($"{nameof(param.m_nGameID)}: {param.m_nGameID}, {nameof(param.m_rgchAchievementName)}: {param.m_rgchAchievementName}, {nameof(param.m_bAchieved)}: {param.m_bAchieved}, {nameof(param.m_nIconHandle)}: {param.m_nIconHandle})");
+			logger.Log(
+				$"{nameof(param.m_nGameID)}: {param.m_nGameID}, {nameof(param.m_rgchAchievementName)}: {param.m_rgchAchievementName}, {nameof(param.m_bAchieved)}: {param.m_bAchieved}, {nameof(param.m_nIconHandle)}: {param.m_nIconHandle})");
 		}
 
 		public void Dispose()
@@ -325,7 +335,7 @@ namespace Hertzole.SmallSteamworks
 
 		private void ThrowIfGlobalStatsNotAvailable()
 		{
-			if (!hasGlobalStats)
+			if (!HasGlobalStats)
 			{
 				throw new NoGlobalAchievementStatsException();
 			}
