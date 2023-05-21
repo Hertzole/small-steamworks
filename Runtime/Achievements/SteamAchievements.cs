@@ -270,8 +270,8 @@ namespace Hertzole.SmallSteamworks
 					switch (t.m_eResult)
 					{
 						case EResult.k_EResultOK:
-							onStatsFetched?.Invoke(GlobalAchievementStatsResult.Success);
 							HasGlobalStats = true;
+							onStatsFetched?.Invoke(GlobalAchievementStatsResult.Success);
 							break;
 						case EResult.k_EResultInvalidState:
 							onStatsFetched?.Invoke(GlobalAchievementStatsResult.InvalidState);
