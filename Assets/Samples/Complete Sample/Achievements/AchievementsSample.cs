@@ -67,5 +67,16 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 				}
 			});
 		}
+
+		public void ResetAllAchievements()
+		{
+			SteamManager.Achievements.ResetAllAchievements();
+			
+			// Reset all the achievement boxes.
+			foreach (AchievementBox box in achievementBoxes)
+			{
+				box.SetUnlockStatus(false);
+			}
+		}
 	}
 }
