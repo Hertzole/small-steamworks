@@ -17,6 +17,11 @@ namespace Hertzole.SmallSteamworks
 		uint NumberOfAchievements { get; }
 
 		/// <summary>
+		///     Is true if global stats are available; false otherwise.
+		/// </summary>
+		bool HasGlobalStats { get; }
+
+		/// <summary>
 		///     Called when an achievement is unlocked.
 		/// </summary>
 		event AchievementUnlockCallback? OnAchievementUnlocked;
@@ -241,7 +246,10 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="achievementName"></param>
 		/// <param name="currentProgress"></param>
 		/// <param name="maxProgress"></param>
-		/// <returns></returns>
+		/// <returns>
+		///     True if the progress was shown to the user; false if the the achievement is already unlocked or if
+		///     currentProgress is more than maxProgress.
+		/// </returns>
 		bool IndicateAchievementProgress(in string achievementName, in uint currentProgress, in uint maxProgress);
 
 		/// <summary>
