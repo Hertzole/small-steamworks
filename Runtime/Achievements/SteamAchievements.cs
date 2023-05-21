@@ -221,10 +221,12 @@ namespace Hertzole.SmallSteamworks
 		/// <inheritdoc />
 		public IEnumerable<SteamGlobalAchievementInfo> GetMostAchievedAchievements()
 		{
+			logger.Log($"Getting most achieved achievements | Has global stats: {HasGlobalStats}");
+			
 			ThrowIfGlobalStatsNotAvailable();
 
 			int i = SteamUserStats.GetMostAchievedAchievementInfo(out string name, Constants.k_cchStatNameMax, out float percentage, out bool achieved);
-			while (i != 0)
+			while (i != -1)
 			{
 				yield return new SteamGlobalAchievementInfo(name, percentage, achieved);
 				i = SteamUserStats.GetNextMostAchievedAchievementInfo(i, out name, Constants.k_cchStatNameMax, out percentage, out achieved);
