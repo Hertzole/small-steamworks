@@ -129,6 +129,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8226836103409493348}
     m_Modifications:
+    - target: {fileID: 195486397149370187, guid: cf157da9db144fb4d91d666b278b00cc, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5748241093809661824, guid: cf157da9db144fb4d91d666b278b00cc, type: 3}
       propertyPath: m_Name
       value: Label
