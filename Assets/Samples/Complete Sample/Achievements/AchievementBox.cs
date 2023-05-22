@@ -31,6 +31,8 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 		private bool isHidden;
 		private DateTime unlockTime;
 
+		private SteamImage? iconImage;
+
 		private void Awake()
 		{
 			toggleLockButton.onClick.AddListener(() =>
@@ -64,6 +66,15 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 			if (SteamManager.IsInitialized)
 			{
 				SteamManager.Achievements.OnAchievementUnlocked -= OnAchievementUnlocked;
+			}
+		}
+
+		private void OnDestroy()
+		{
+			if (iconImage != null)
+			{
+				iconImage.Value.Dispose();
+				iconImage = null;
 			}
 		}
 
@@ -108,9 +119,16 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 			unlockTimeLabel.text = isUnlocked ? $"{unlockTime:yyyy-MM-dd HH:mm:ss}" : "Not unlocked yet.";
 			unlockLabel.text = isUnlocked ? "Unlocked" : "Locked";
 			buttonLabel.text = isUnlocked ? "Lock" : "Unlock";
-			
-			SteamManager.Achievements.GetAchievementIcon(achievementApiName, (SteamImage image) =>
+
+			if (iconImage != null)
 			{
+				iconImage.Value.Dispose();
+				iconImage = null;
+			}
+			
+			SteamManager.Achievements.GetAchievementIcon(achievementApiName, image =>
+			{
+				iconImage = image;
 				icon.texture = image.Texture;
 			});
 		}
