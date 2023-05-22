@@ -1,6 +1,7 @@
 ﻿#if !DISABLESTEAMWORKS
 #nullable enable
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Text;
 using Hertzole.SmallSteamworks.Helpers;
@@ -99,6 +100,16 @@ namespace Hertzole.SmallSteamworks
 		{
 			hasGlobalStats = false;
 			ThrowIfCurrentStatsNotFetched();
+
+			if (historyDays < 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(historyDays), "History days cannot be less than 0.");
+			}
+
+			if (historyDays > 60)
+			{
+				throw new ArgumentOutOfRangeException(nameof(historyDays), "History days cannot be more than 60.");
+			}
 
 			SteamAPICall_t call = SteamUserStats.RequestGlobalStats(historyDays);
 			globalStatsReceivedCallResult.RegisterOnce(call, (t, failure) =>
@@ -285,36 +296,50 @@ namespace Hertzole.SmallSteamworks
 			return value;
 		}
 
-		public int GetGlobalStatHistoryInt(in string statName, in long[] buffer)
+		public long[] GetGlobalStatHistoryInt(in string statName, in int maxDays = 60)
 		{
 			ThrowIfNoGlobalStats();
 			ThrowIfStatNameIsInvalid(statName);
 
+			long[]? buffer = ArrayPool<long>.Shared.Rent(maxDays);
+
 			int count = SteamUserStats.GetGlobalStatHistory(statName, buffer, (uint) buffer.Length);
 			if (count == 0)
 			{
+				ArrayPool<long>.Shared.Return(buffer);
 				logger.LogError($"Failed to get global stat history for {statName}!");
-				return 0;
+				return Array.Empty<long>();
 			}
+			
+			long[] result = new long[count];
+			Array.Copy(buffer, result, count);
+			ArrayPool<long>.Shared.Return(buffer);
 
 			logger.Log($"Successfully got global stat history for {statName}!");
-			return count;
+			return result;
 		}
 
-		public int GetGlobalStatHistoryFloat(in string statName, in double[] buffer)
+		public double[] GetGlobalStatHistoryFloat(in string statName, in int maxDays = 60)
 		{
 			ThrowIfNoGlobalStats();
 			ThrowIfStatNameIsInvalid(statName);
+			
+			double[]? buffer = ArrayPool<double>.Shared.Rent(maxDays);
 
 			int count = SteamUserStats.GetGlobalStatHistory(statName, buffer, (uint) buffer.Length);
 			if (count == 0)
 			{
+				ArrayPool<double>.Shared.Return(buffer);
 				logger.LogError($"Failed to get global stat history for {statName}!");
-				return 0;
+				return  Array.Empty<double>();
 			}
 
+			double[] result = new double[count];
+			Array.Copy(buffer, result, count);
+			ArrayPool<double>.Shared.Return(buffer);
+			
 			logger.Log($"Successfully got global stat history for {statName}!");
-			return count;
+			return result;
 		}
 
 		public bool UpdateAvgRateStat(in string statName, in float countThisSession, in double sessionLength)

@@ -34,9 +34,9 @@ namespace Hertzole.SmallSteamworks
 
 		double GetGlobalStatFloat(in string statName);
 
-		int GetGlobalStatHistoryInt(in string statName, in long[] buffer);
+		long[] GetGlobalStatHistoryInt(in string statName, in int maxDays = 60);
 
-		int GetGlobalStatHistoryFloat(in string statName, in double[] buffer);
+		double[] GetGlobalStatHistoryFloat(in string statName, in int maxDays = 60);
 		
 		bool UpdateAvgRateStat(in string statName, in float countThisSession, in double sessionLength);
 	}
