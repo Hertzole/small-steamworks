@@ -9,7 +9,7 @@ namespace Hertzole.SmallSteamworks
 	{
 		public void Dispose()
 		{
-			#if !DISABLESTEAMWORKS
+#if !DISABLESTEAMWORKS
 			SteamRemoteStorage.EndFileWriteBatch();
 #endif
 		}
