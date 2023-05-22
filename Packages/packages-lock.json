@@ -56,7 +56,9 @@
       "version": "file:se.hertzole.small-steamworks",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {}
+      "dependencies": {
+        "com.rlabrecque.steamworks.net": ""
+      }
     },
     "com.unity.modules.imgui": {
       "version": "1.0.0",
