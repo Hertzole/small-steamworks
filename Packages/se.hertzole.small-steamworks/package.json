@@ -5,7 +5,9 @@
   "description": "Easy to use Steamworks integration for Unity. Based on Steamworks.NET, it wraps the API in a more user friendly way. It implements a callback based system and a async layer for the API. It also includes a few helper method to make it easier to use.",
   "unity": "2021.3",
   "unityRelease": "0f1",
-  "dependencies": {  },
+  "dependencies": {
+    "com.rlabrecque.steamworks.net": ""
+  },
   "keywords": [
     "steamworks",
     "steam"
