@@ -125,11 +125,11 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public void GetScores(in SteamLeaderboard leaderboard, in int count, in int offset = 1, GetScoresCallback? callback = null)
+		public void GetScores(in SteamLeaderboard leaderboard, in int count, in int offset = 0, GetScoresCallback? callback = null)
 		{
 			ThrowIfLeaderboardIsInvalid(leaderboard);
 
-			GetScoresInternal(leaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, offset, offset + count - 1, callback);
+			GetScoresInternal(leaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, offset + 1, (offset + 1) + count - 1, callback);
 		}
 
 		public void GetScoresFromFriends(in SteamLeaderboard leaderboard, GetScoresCallback? callback = null)
