@@ -1093,7 +1093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5878435485871295128, guid: f21688a8732838540a1cff0ea3e38fb4, type: 3}
       propertyPath: m_Text
-      value: -10
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5878435485871295128, guid: f21688a8732838540a1cff0ea3e38fb4, type: 3}
       propertyPath: m_ContentType

@@ -143,7 +143,7 @@ namespace Hertzole.SmallSteamworks
 		{
 			ThrowIfLeaderboardIsInvalid(leaderboard);
 
-			GetScoresInternal(leaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobalAroundUser, rangeStart, rangeEnd, callback);
+			GetScoresInternal(leaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobalAroundUser, -rangeStart, rangeEnd, callback);
 		}
 
 		private void GetScoresInternal(in SteamLeaderboard leaderboard, in ELeaderboardDataRequest dataRequest, in int rangeStart, in int rangeEnd, GetScoresCallback? callback = null)

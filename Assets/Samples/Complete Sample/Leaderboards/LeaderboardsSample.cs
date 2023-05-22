@@ -229,7 +229,7 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 
 			if (!int.TryParse(minRangeField.text, NumberStyles.Integer, CultureInfo.InvariantCulture, out int minRange))
 			{
-				minRange = -10;
+				minRange = 10;
 			}
 			
 			if (!int.TryParse(maxRangeField.text, NumberStyles.Integer, CultureInfo.InvariantCulture, out int maxRange))

@@ -134,7 +134,7 @@ namespace Hertzole.SmallSteamworks
 			return SteamManager.Leaderboards.GetScoresFromFriendsAsync(leaderboard, cancellationToken);
 		}
 
-		public static Task<GetScoresResponse> GetScoresAroundUserAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in int rangeStart, in int rangeEnd, CancellationToken cancellationToken = default)
+		public static Task<GetScoresResponse> GetScoresAroundUserAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in int rangeStart = 10, in int rangeEnd = 10, CancellationToken cancellationToken = default)
 		{
 			TaskCompletionSource<GetScoresResponse> tcs = new TaskCompletionSource<GetScoresResponse>();
 
@@ -152,7 +152,7 @@ namespace Hertzole.SmallSteamworks
 			return tcs.Task;
 		}
 
-		public static Task<GetScoresResponse> GetScoresAroundUserAsync(this in SteamLeaderboard leaderboard, in int rangeStart, in int rangeEnd, CancellationToken cancellationToken = default)
+		public static Task<GetScoresResponse> GetScoresAroundUserAsync(this in SteamLeaderboard leaderboard, in int rangeStart = 10, in int rangeEnd = 10, CancellationToken cancellationToken = default)
 		{
 			return SteamManager.Leaderboards.GetScoresAroundUserAsync(leaderboard, rangeStart, rangeEnd, cancellationToken);
 		}

@@ -116,6 +116,6 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="rangeStart">The index to start downloading entries.</param>
 		/// <param name="rangeEnd">The last index to retrieve entries.</param>
 		/// <param name="callback">Called when the scores have been retrieved.</param>
-		void GetScoresAroundUser(in SteamLeaderboard leaderboard, in int rangeStart = -10, in int rangeEnd = 10, GetScoresCallback? callback = null);
+		void GetScoresAroundUser(in SteamLeaderboard leaderboard, in int rangeStart = 10, in int rangeEnd = 10, GetScoresCallback? callback = null);
 	}
 }
