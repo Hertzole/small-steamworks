@@ -342,9 +342,22 @@ namespace Hertzole.SmallSteamworks
 			return result;
 		}
 
-		public bool UpdateAvgRateStat(in string statName, in float countThisSession, in double sessionLength)
+		public bool UpdateAvgRateStat(in string statName, in float countThisSession, in double sessionLength, bool shouldStore = true)
 		{
-			return SteamUserStats.UpdateAvgRateStat(statName, countThisSession, sessionLength);
+			bool result = SteamUserStats.UpdateAvgRateStat(statName, countThisSession, sessionLength);
+			if (!result)
+			{
+				logger.LogError($"Failed to update average rate stat {statName}!");
+				return false;
+			}
+			
+			if (shouldStore)
+			{
+				SteamUserStats.StoreStats();
+			}
+			
+			logger.Log($"Successfully updated average rate stat {statName}!");
+			return true;
 		}
 
 		public void Dispose()
