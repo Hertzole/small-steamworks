@@ -8,9 +8,9 @@ namespace Hertzole.SmallSteamworks
 	{
 		SteamUser Me { get; }
 
-		string GetMyPersonaName();
+		string GetMyDisplayName();
 
-		string GetUserPersonaName(SteamID id);
+		string GetUserDisplayName(SteamID id);
 
 		void RequestUserInformation(SteamID id, bool requireNameOnly = true, UserInformationRetrievedCallback? callback = null);
 

@@ -21,12 +21,12 @@ namespace Hertzole.SmallSteamworks
 
 		public SteamUser Me { get { return new SteamUser(Steamworks.SteamUser.GetSteamID(), Steamworks.SteamFriends.GetPersonaName(), true, Steamworks.SteamFriends.GetPersonaState() == EPersonaState.k_EPersonaStateOnline, Steamworks.SteamFriends.GetFriendSteamLevel(Steamworks.SteamUser.GetSteamID())); } }
 
-		public string GetMyPersonaName()
+		public string GetMyDisplayName()
 		{
 			return Steamworks.SteamFriends.GetPersonaName();
 		}
 
-		public string GetUserPersonaName(SteamID id)
+		public string GetUserDisplayName(SteamID id)
 		{
 			return Steamworks.SteamFriends.GetFriendPersonaName(id);
 		}
