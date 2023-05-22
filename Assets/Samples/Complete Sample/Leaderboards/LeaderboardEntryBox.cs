@@ -37,9 +37,9 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 
 			rankLabel.text = $"#{entry.GlobalRank}";
 			scoreLabel.text = entry.Score.ToString(CultureInfo.InvariantCulture);
-			nameLabel.text = entry.UserID.Name;
+			nameLabel.text = entry.User.Name;
 
-			SteamManager.Friends.GetAvatar(entry.UserID.SteamID, AvatarSize.Large, (image, _, _, _) =>
+			SteamManager.Friends.GetAvatar(entry.User.SteamID, AvatarSize.Large, (image, _, _, _) =>
 			{
 				avatarImage = image;
 				avatar.texture = image.Texture;

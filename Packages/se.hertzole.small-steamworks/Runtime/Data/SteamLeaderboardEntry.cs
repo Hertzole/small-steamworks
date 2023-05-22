@@ -8,7 +8,7 @@ namespace Hertzole.SmallSteamworks
 {
 	public readonly struct SteamLeaderboardEntry : IEquatable<SteamLeaderboardEntry>
 	{
-		public SteamUser UserID { get; }
+		public SteamUser User { get; }
 		public int Score { get; }
 		public int GlobalRank { get; }
 		public SteamUGCHandle? UGC { get; }
@@ -18,7 +18,7 @@ namespace Hertzole.SmallSteamworks
 #if !DISABLESTEAMWORKS
 		internal SteamLeaderboardEntry(SteamID userID, int score, int globalRank, UGCHandle_t ugcHandle)
 		{
-			UserID = SteamUserHelpers.GetSteamUser(userID);
+			User = SteamUserHelpers.GetSteamUser(userID);
 			Score = score;
 			GlobalRank = globalRank;
 			if (ugcHandle != UGCHandle_t.Invalid)
@@ -35,7 +35,7 @@ namespace Hertzole.SmallSteamworks
 #endif
 		public bool Equals(SteamLeaderboardEntry other)
 		{
-			return UserID.Equals(other.UserID) && Score == other.Score && GlobalRank == other.GlobalRank && Nullable.Equals(UGC, other.UGC) && IsValid == other.IsValid;
+			return User.Equals(other.User) && Score == other.Score && GlobalRank == other.GlobalRank && Nullable.Equals(UGC, other.UGC) && IsValid == other.IsValid;
 		}
 
 		public override bool Equals(object obj)
@@ -47,7 +47,7 @@ namespace Hertzole.SmallSteamworks
 		{
 			unchecked
 			{
-				int hashCode = UserID.GetHashCode();
+				int hashCode = User.GetHashCode();
 				hashCode = (hashCode * 397) ^ Score;
 				hashCode = (hashCode * 397) ^ GlobalRank;
 				hashCode = (hashCode * 397) ^ UGC.GetHashCode();
