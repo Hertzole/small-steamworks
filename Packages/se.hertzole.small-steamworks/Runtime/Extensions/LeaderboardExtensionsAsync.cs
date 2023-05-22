@@ -6,6 +6,42 @@ namespace Hertzole.SmallSteamworks
 {
 	public static partial class SteamExtensions
 	{
+		public static Task<FindLeaderboardResponse> FindLeaderboardAsync(this ISteamLeaderboards leaderboards, in string leaderboardName, CancellationToken cancellationToken = default)
+		{
+			TaskCompletionSource<FindLeaderboardResponse> tcs = new TaskCompletionSource<FindLeaderboardResponse>();
+
+			leaderboards.FindLeaderboard(leaderboardName, (success, steamLeaderboard) =>
+			{
+				if (cancellationToken.IsCancellationRequested)
+				{
+					tcs.SetCanceled();
+					return;
+				}
+
+				tcs.SetResult(new FindLeaderboardResponse(success, steamLeaderboard));
+			});
+
+			return tcs.Task;
+		}
+		
+		public static Task<FindLeaderboardResponse> FindOrCreateLeaderboardAsync(this ISteamLeaderboards leaderboards, in string leaderboardName, in LeaderboardSortMethod sortMethod, in LeaderboardDisplayType displayType, CancellationToken cancellationToken = default)
+		{
+			TaskCompletionSource<FindLeaderboardResponse> tcs = new TaskCompletionSource<FindLeaderboardResponse>();
+
+			leaderboards.FindOrCreateLeaderboard(leaderboardName, sortMethod, displayType, (success, steamLeaderboard) =>
+			{
+				if (cancellationToken.IsCancellationRequested)
+				{
+					tcs.SetCanceled();
+					return;
+				}
+
+				tcs.SetResult(new FindLeaderboardResponse(success, steamLeaderboard));
+			});
+
+			return tcs.Task;
+		}
+
 		public static Task<UploadScoreResponse> UploadScoreAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in LeaderboardUploadScoreMethod uploadScoreMethod, in int score, in int[]? scoreDetails = null, CancellationToken cancellationToken = default)
 		{
 			TaskCompletionSource<UploadScoreResponse> tcs = new TaskCompletionSource<UploadScoreResponse>();
@@ -52,7 +88,7 @@ namespace Hertzole.SmallSteamworks
 			return SteamManager.Leaderboards.AttachLeaderboardUGCAsync(leaderboard, ugcHandle, cancellationToken);
 		}
 
-		public static Task<GetScoresResponse> GetScoresAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in int count, in int offset = 1, CancellationToken cancellationToken = default)
+		public static Task<GetScoresResponse> GetScoresAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in int count, in int offset = 0, CancellationToken cancellationToken = default)
 		{
 			TaskCompletionSource<GetScoresResponse> tcs = new TaskCompletionSource<GetScoresResponse>();
 
@@ -70,7 +106,7 @@ namespace Hertzole.SmallSteamworks
 			return tcs.Task;
 		}
 
-		public static Task<GetScoresResponse> GetScoresAsync(this in SteamLeaderboard leaderboard, in int count, in int offset = 1, CancellationToken cancellationToken = default)
+		public static Task<GetScoresResponse> GetScoresAsync(this in SteamLeaderboard leaderboard, in int count, in int offset = 0, CancellationToken cancellationToken = default)
 		{
 			return SteamManager.Leaderboards.GetScoresAsync(leaderboard, count, offset, cancellationToken);
 		}

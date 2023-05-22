@@ -89,7 +89,7 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="count">How many entries to request.</param>
 		/// <param name="offset"></param>
 		/// <param name="callback">Called when the scores have been retrieved.</param>
-		void GetScores(in SteamLeaderboard leaderboard, in int count, in int offset = 1, GetScoresCallback? callback = null);
+		void GetScores(in SteamLeaderboard leaderboard, in int count, in int offset = 0, GetScoresCallback? callback = null);
 
 		/// <summary>
 		///     <para>Fetches all the leaderboard entries for friends of the current user.</para>
