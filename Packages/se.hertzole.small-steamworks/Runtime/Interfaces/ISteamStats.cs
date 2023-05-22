@@ -38,6 +38,6 @@ namespace Hertzole.SmallSteamworks
 
 		double[] GetGlobalStatHistoryFloat(in string statName, in int maxDays = 60);
 		
-		bool UpdateAvgRateStat(in string statName, in float countThisSession, in double sessionLength);
+		bool UpdateAvgRateStat(in string statName, in float countThisSession, in double sessionLength, bool shouldStore = true);
 	}
 }
