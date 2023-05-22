@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using Object = UnityEngine.Object;
 #if !DISABLESTEAMWORKS
+using Hertzole.SmallSteamworks.Helpers;
 using Steamworks;
 #endif
 
@@ -11,6 +11,10 @@ namespace Hertzole.SmallSteamworks
 	{
 		private readonly int handle;
 		private readonly uint id;
+
+#if !DISABLESTEAMWORKS
+		private static readonly SteamLogger<SteamImage> logger = new SteamLogger<SteamImage>();
+#endif
 
 		public Texture2D Texture
 		{
@@ -29,7 +33,7 @@ namespace Hertzole.SmallSteamworks
 			get
 			{
 #if !DISABLESTEAMWORKS
-				return handle != 0;
+				return handle != 0 && !SteamImageCache.IsDisposed(id);
 #else
 				return false;
 #endif
@@ -39,7 +43,7 @@ namespace Hertzole.SmallSteamworks
 		internal SteamImage(int handle)
 		{
 			this.handle = handle;
-			
+
 #if !DISABLESTEAMWORKS
 			id = SteamImageCache.GetNextId();
 #else
@@ -75,6 +79,8 @@ namespace Hertzole.SmallSteamworks
 		public void Dispose()
 		{
 #if !DISABLESTEAMWORKS
+			logger.Log("Disposing image " + id + " (" + handle + ")");
+
 			SteamImageCache.DisposeTexture(id);
 #endif
 		}

@@ -133,6 +133,8 @@ namespace Hertzole.SmallSteamworks
 					leaderboards.Dispose();
 					storage.Dispose();
 					friends.Dispose();
+					
+					SteamImageCache.DisposeAll();
 
 					SteamAPI.Shutdown();
 				}
