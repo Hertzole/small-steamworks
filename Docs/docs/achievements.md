@@ -123,6 +123,10 @@ Debug.Log(achievement.UnlockTime);
 
 Getting an achievement icon is an asynchronous operation. That means you have to either get it using a callback or an `async` method call. You can get the icon as a `Texture2D` from a Steam image.
 
+:::danger
+`SteamImage` is a disposable type and must be disposed of when you are done with it. You can do that by calling `Dispose()` on the image. If you don't dispose of it, you will get a memory leak! See [Disposing Images](images#disposing-images).
+:::
+
 Using a callback:
 
 ```cs
