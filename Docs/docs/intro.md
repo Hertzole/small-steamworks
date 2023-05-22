@@ -64,7 +64,7 @@ Features can be ✅ Completed when they are fully implemented, 🚧 In Progress 
 | Remote Storage      | 🚧 In Progress |
 | Screenshots         | ❌ Not Started |
 | User                | ❌ Not Started |
-| User Stats          | 🚧 In Progress |
+| User Stats          | ✅ Completed   |
 | Utils               | ❌ Not Started |
 | Video               | ❌ Not Started |
 | Workshop            | ❌ Not Started |
