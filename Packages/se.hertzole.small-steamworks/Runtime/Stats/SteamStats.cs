@@ -344,7 +344,7 @@ namespace Hertzole.SmallSteamworks
 
 		public bool UpdateAvgRateStat(in string statName, in float countThisSession, in double sessionLength)
 		{
-			return SteamUserStats.UpdateAvgRateStat(statName, countThisSession, countThisSession);
+			return SteamUserStats.UpdateAvgRateStat(statName, countThisSession, sessionLength);
 		}
 
 		public void Dispose()
