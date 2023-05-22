@@ -83,7 +83,9 @@ If you don't care about the time, you can discard it like this:
 bool isUnlocked = SteamManager.Achievements.IsAchievementUnlocked("API_NAME", out _);
 ```
 
-Check if an achievement is unlocked for a specific user:
+### Get Unlock Status for Other Users
+
+You can also check if an achievement is unlocked for another user.
 
 :::caution
 You must request the user stats for the user before you can get the unlock status for a user. That is an asynchronous operation, so you must use a callback or an `async` method call. See [Request User Stats](stats#request-user-stats).
