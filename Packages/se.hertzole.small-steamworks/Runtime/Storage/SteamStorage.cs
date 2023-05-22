@@ -15,11 +15,11 @@ namespace Hertzole.SmallSteamworks
 		private SteamCallback<RemoteStorageFileShareResult_t>? onFileShareResultCallResult;
 		private SteamCallback<RemoteStorageDownloadUGCResult_t>? onDownloadUGCResultCallResult;
 
-		public bool WriteFileSynchronous(string fileName, byte[] data)
+		public FileWrittenResponse WriteFileSynchronous(string fileName, byte[] data)
 		{
 			logger.Log($"Writing file synchronously: {fileName} with size: {data.Length}");
 			bool success = SteamRemoteStorage.FileWrite(fileName, data, data.Length);
-			return success;
+			return new FileWrittenResponse(success);
 		}
 
 		public void WriteFile(string fileName, byte[] data, FileWrittenCallback? callback = null)
@@ -129,6 +129,7 @@ namespace Hertzole.SmallSteamworks
 
 		public SteamWriteBatch WriteBatch()
 		{
+			SteamRemoteStorage.BeginFileWriteBatch();
 			return new SteamWriteBatch();
 		}
 
@@ -204,7 +205,7 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public byte[] ReadUGCFile(SteamUGCHandle ugcHandle, out int fileSize)
+		public byte[] ReadSharedFile(SteamUGCHandle ugcHandle, out int fileSize)
 		{
 			logger.Log($"Reading UGC: {ugcHandle}");
 

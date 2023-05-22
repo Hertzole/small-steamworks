@@ -5,7 +5,7 @@ namespace Hertzole.SmallSteamworks
 {
 	public interface ISteamStorage : IDisposable
 	{
-		bool WriteFileSynchronous(string fileName, byte[] data);
+		FileWrittenResponse WriteFileSynchronous(string fileName, byte[] data);
 
 		void WriteFile(string fileName, byte[] data, FileWrittenCallback? callback = null);
 
@@ -35,6 +35,6 @@ namespace Hertzole.SmallSteamworks
 
 		void DownloadSharedFileToLocation(SteamUGCHandle ugcHandle, string location, uint priority = 0, UGCDownloadedCallback? callback = null);
 		
-		byte[] ReadUGCFile(SteamUGCHandle ugcHandle, out int fileSize);
+		byte[] ReadSharedFile(SteamUGCHandle ugcHandle, out int fileSize);
 	}
 }
