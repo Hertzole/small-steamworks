@@ -1,13 +1,16 @@
 ﻿#if !DISABLESTEAMWORKS
+using System;
 using System.Collections.Generic;
 using Steamworks;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Hertzole.SmallSteamworks
 {
 	internal static class SteamImageCache
 	{
 		private static readonly Dictionary<uint, Texture2D> cache = new Dictionary<uint, Texture2D>();
+		private static readonly HashSet<uint> disposedImages = new HashSet<uint>();
 
 		private static uint nextId;
 
@@ -15,17 +18,7 @@ namespace Hertzole.SmallSteamworks
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 		private static void ResetStatics()
 		{
-			foreach (Texture2D value in cache.Values)
-			{
-				if (value != null)
-				{
-					Object.Destroy(value);
-				}
-			}
-
-			cache.Clear();
-
-			nextId = 0;
+			DisposeAll();
 		}
 #endif
 
@@ -33,11 +26,23 @@ namespace Hertzole.SmallSteamworks
 		{
 			uint result = nextId;
 			nextId++;
+			
+			if(nextId == uint.MaxValue)
+			{
+				nextId = 0;
+				disposedImages.Clear();
+			}
+			
 			return result;
 		}
 
 		public static Texture2D GetTexture(uint id, int handle)
 		{
+			if (IsDisposed(id))
+			{
+				throw new ObjectDisposedException(nameof(id), "The image has been disposed.");
+			}
+			
 			if (cache.TryGetValue(id, out Texture2D texture))
 			{
 				return texture;
@@ -55,6 +60,29 @@ namespace Hertzole.SmallSteamworks
 				Object.Destroy(texture);
 				cache.Remove(id);
 			}
+
+			disposedImages.Add(id);
+		}
+		
+		public static bool IsDisposed(uint id)
+		{
+			return disposedImages.Contains(id);
+		}
+		
+		public static void DisposeAll()
+		{
+			foreach (Texture2D value in cache.Values)
+			{
+				if (value != null)
+				{
+					Object.Destroy(value);
+				}
+			}
+
+			cache.Clear();
+			disposedImages.Clear();
+
+			nextId = 0;
 		}
 
 		private static Texture2D CreateTexture(int handle)

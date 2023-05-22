@@ -31,7 +31,7 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 		private bool isHidden;
 		private DateTime unlockTime;
 
-		private SteamImage? iconImage;
+		private SteamImage iconImage;
 
 		private void Awake()
 		{
@@ -71,10 +71,9 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 
 		private void OnDestroy()
 		{
-			if (iconImage != null)
+			if (iconImage.IsValid)
 			{
-				iconImage.Value.Dispose();
-				iconImage = null;
+				iconImage.Dispose();
 			}
 		}
 
@@ -120,10 +119,9 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 			unlockLabel.text = isUnlocked ? "Unlocked" : "Locked";
 			buttonLabel.text = isUnlocked ? "Lock" : "Unlock";
 
-			if (iconImage != null)
+			if (iconImage.IsValid)
 			{
-				iconImage.Value.Dispose();
-				iconImage = null;
+				iconImage.Dispose();
 			}
 			
 			SteamManager.Achievements.GetAchievementIcon(achievementApiName, image =>

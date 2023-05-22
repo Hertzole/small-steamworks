@@ -16,23 +16,21 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 		[SerializeField]
 		private TMP_Text scoreLabel = default;
 
-		private SteamImage? avatarImage;
+		private SteamImage avatarImage;
 
 		private void OnDestroy()
 		{
-			if (avatarImage != null)
+			if (avatarImage.IsValid)
 			{
-				avatarImage.Value.Dispose();
-				avatarImage = null;
+				avatarImage.Dispose();
 			}
 		}
 
 		public void SetEntry(SteamLeaderboardEntry entry)
 		{
-			if (avatarImage != null)
+			if (avatarImage.IsValid)
 			{
-				avatarImage.Value.Dispose();
-				avatarImage = null;
+				avatarImage.Dispose();
 			}
 
 			rankLabel.text = $"#{entry.GlobalRank}";
