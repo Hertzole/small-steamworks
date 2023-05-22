@@ -14,7 +14,7 @@ namespace Hertzole.SmallSteamworks
 			SteamManager.Leaderboards.AttachLeaderboardUGC(leaderboard, ugcHandle, callback);
 		}
 
-		public static void GetScores(this in SteamLeaderboard leaderboard, in int count, in int offset = 1, GetScoresCallback? callback = null)
+		public static void GetScores(this in SteamLeaderboard leaderboard, in int count, in int offset = 0, GetScoresCallback? callback = null)
 		{
 			SteamManager.Leaderboards.GetScores(leaderboard, count, offset, callback);
 		}
@@ -24,7 +24,7 @@ namespace Hertzole.SmallSteamworks
 			SteamManager.Leaderboards.GetScoresFromFriends(leaderboard, callback);
 		}
 
-		public static void GetScoresAroundUser(this in SteamLeaderboard leaderboard, in int rangeStart, in int rangeEnd, GetScoresCallback? callback = null)
+		public static void GetScoresAroundUser(this in SteamLeaderboard leaderboard, in int rangeStart = 10, in int rangeEnd = 10, GetScoresCallback? callback = null)
 		{
 			SteamManager.Leaderboards.GetScoresAroundUser(leaderboard, rangeStart, rangeEnd, callback);
 		}
