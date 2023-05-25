@@ -207,9 +207,9 @@ namespace Hertzole.SmallSteamworks
 
 		public byte[] ReadSharedFile(SteamUGCHandle ugcHandle, out int fileSize)
 		{
-			logger.Log($"Reading UGC: {ugcHandle}");
+			logger.Log(ugcHandle.ToString());
 
-			bool gotDetails = SteamRemoteStorage.GetUGCDetails(ugcHandle, out AppId_t appId, out string? name, out int sizeInBytes, out CSteamID owner);
+			bool gotDetails = SteamRemoteStorage.GetUGCDetails(ugcHandle, out _, out _, out int sizeInBytes, out _);
 			if (!gotDetails)
 			{
 				logger.LogError("Failed to get UGC details.");

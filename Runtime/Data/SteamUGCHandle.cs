@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 #if !DISABLESTEAMWORKS
 using Steamworks;
 #endif
@@ -37,6 +38,11 @@ namespace Hertzole.SmallSteamworks
 		public static bool operator !=(SteamUGCHandle left, SteamUGCHandle right)
 		{
 			return !left.Equals(right);
+		}
+
+		public override string ToString()
+		{
+			return handle.ToString(CultureInfo.InvariantCulture);
 		}
 
 #if !DISABLESTEAMWORKS

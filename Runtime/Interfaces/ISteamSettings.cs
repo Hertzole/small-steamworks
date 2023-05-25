@@ -5,5 +5,7 @@
 		AppId AppId { get; set; }
 		
 		bool RestartAppIfNecessary { get; set; }
+		
+		bool FetchCurrentStatsOnBoot { get; set; }
 	}
 }
