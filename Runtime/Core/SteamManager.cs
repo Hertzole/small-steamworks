@@ -30,7 +30,7 @@ namespace Hertzole.SmallSteamworks
 		public const bool IsInitialized = false;
 #endif
 
-		public static ISteamSettings Settings { get { return new SteamSettings(); } }
+		public static ISteamSettings Settings { get { return SteamSettings.Instance; } }
 
 		/// <summary>
 		///     Interface for interacting with Steam achievements.
