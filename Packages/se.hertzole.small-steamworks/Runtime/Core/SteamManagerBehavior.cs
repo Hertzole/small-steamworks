@@ -101,7 +101,7 @@ namespace Hertzole.SmallSteamworks
 				}
 
 				achievements = new SteamAchievements();
-				stats = new SteamStats();
+				stats = new SteamStats(settings);
 				leaderboards = new SteamLeaderboards();
 				storage = new SteamStorage();
 				friends = new SteamFriends();

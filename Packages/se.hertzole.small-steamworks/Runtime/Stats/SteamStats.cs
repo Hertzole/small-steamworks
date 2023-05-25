@@ -25,7 +25,7 @@ namespace Hertzole.SmallSteamworks
 		public bool HasCurrentStats { get; private set; }
 		public bool IsLoadingCurrentStats { get; private set; }
 
-		public SteamStats()
+		public SteamStats(ISteamSettings settings)
 		{
 			logger = new SteamLogger<SteamStats>();
 
@@ -34,7 +34,10 @@ namespace Hertzole.SmallSteamworks
 			globalStatsReceivedCallResult = new SteamCallback<GlobalStatsReceived_t>(CallbackType.CallResult);
 			userStatsUnloadedCallback = new SteamCallback<UserStatsUnloaded_t>(CallbackType.Callback, OnUserStatsUnloaded);
 
-			RequestCurrentStats();
+			if (settings.FetchCurrentStatsOnBoot)
+			{
+				RequestCurrentStats();
+			}
 		}
 
 		public void RequestCurrentStats(UserStatsReceivedCallback? callback = null)
