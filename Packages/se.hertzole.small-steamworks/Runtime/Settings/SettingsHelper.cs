@@ -10,7 +10,7 @@ namespace Hertzole.SmallSteamworks
 	internal static class SettingsHelper
 	{
 		private const string ROOT_FOLDER = "ProjectSettings/Packages/" + PACKAGE_NAME;
-		private const string PACKAGE_NAME = "se.hertzole.small-steamworks";
+		public const string PACKAGE_NAME = "se.hertzole.small-steamworks";
 		public const string SETTING_PATH = ROOT_FOLDER + "/SteamSettings.asset";
 
 		public static void Save(SteamSettings settings)
