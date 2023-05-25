@@ -16,7 +16,7 @@ namespace Hertzole.SmallSteamworks
 	public struct AppId : IEquatable<AppId>, IComparable<AppId>
 	{
 		[SerializeField]
-		private uint value;
+		internal uint value;
 
 		/// <summary>
 		///     Returns an invalid AppId.

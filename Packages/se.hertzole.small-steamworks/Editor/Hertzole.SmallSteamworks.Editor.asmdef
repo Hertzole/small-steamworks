@@ -1,0 +1,19 @@
+{
+    "name": "Hertzole.SmallSteamworks.Editor",
+    "rootNamespace": "Hertzole.SmallSteamworks.Editor",
+    "references": [
+        "GUID:68bd7fdb68ef2684e982e8a9825b18a5",
+        "GUID:68217db4ed38e504d8700fdcddb1a743"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
