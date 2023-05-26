@@ -56,8 +56,6 @@ jobs:
           FrameworkPathOverride: /opt/unity/Editor/Data/MonoBleedingEdge/
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ls
-          ls Coverage
           ./dotnet-sonarscanner begin \
            /o:"hertzole" \
            /k:"small-steamworks" \
