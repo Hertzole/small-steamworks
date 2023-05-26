@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Hertzole.SmallSteamworks.Helpers;
 using UnityEditor;
 using UnityEditor.Build;
@@ -14,6 +13,8 @@ namespace Hertzole.SmallSteamworks.Editor
 
 		private SteamSettings settingsInstance;
 
+		private static readonly SteamLogger<SteamSettingsBuildProcessor> logger = new SteamLogger<SteamSettingsBuildProcessor>();
+
 		public int callbackOrder
 		{
 			get { return -1_000_000; }
@@ -21,14 +22,14 @@ namespace Hertzole.SmallSteamworks.Editor
 
 		private const string STEAM_SETTINGS_PATH = "Assets/" + SettingsHelper.PACKAGE_NAME + "_SteamSettings.asset";
 
-		private static readonly SteamLogger<SteamSettingsBuildProcessor> logger = new SteamLogger<SteamSettingsBuildProcessor>();
-
 		public void OnPreprocessBuild(BuildReport report)
 		{
+			Application.logMessageReceivedThreaded += OnGetLog;
+
 			removeFromPreloadedAssets = false;
 
 			SteamSettings oldInstance = AssetDatabase.LoadAssetAtPath<SteamSettings>(STEAM_SETTINGS_PATH);
-			
+
 			if (oldInstance != null)
 			{
 				logger.Log("Found old instance, removing it");
@@ -39,7 +40,7 @@ namespace Hertzole.SmallSteamworks.Editor
 
 			AssetDatabase.CreateAsset(SteamSettings.Instance, STEAM_SETTINGS_PATH);
 			AssetDatabase.ImportAsset(STEAM_SETTINGS_PATH);
-			
+
 			logger.Log("Created new instance");
 
 			settingsInstance = AssetDatabase.LoadAssetAtPath<SteamSettings>(STEAM_SETTINGS_PATH);
@@ -50,7 +51,7 @@ namespace Hertzole.SmallSteamworks.Editor
 			if (!preloadedAssets.Contains(settingsInstance))
 			{
 				logger.Log("Adding to preloaded assets");
-				
+
 				ArrayUtility.Add(ref preloadedAssets, settingsInstance);
 				PlayerSettings.SetPreloadedAssets(preloadedAssets);
 
@@ -66,6 +67,13 @@ namespace Hertzole.SmallSteamworks.Editor
 		}
 
 		public void OnPostprocessBuild(BuildReport report)
+		{
+			Application.logMessageReceivedThreaded -= OnGetLog;
+
+			RemoveInstance();
+		}
+
+		private void RemoveInstance()
 		{
 			if (removeFromPreloadedAssets)
 			{
@@ -96,6 +104,20 @@ namespace Hertzole.SmallSteamworks.Editor
 			}
 
 			settingsInstance = null;
+		}
+
+		private void OnBuildError()
+		{
+			RemoveInstance();
+		}
+
+		private void OnGetLog(string condition, string stacktrace, LogType type)
+		{
+			if (type == LogType.Error || type == LogType.Exception)
+			{
+				Application.logMessageReceivedThreaded -= OnGetLog;
+				OnBuildError();
+			}
 		}
 
 		private static bool IsPlayerSettingsDirty()
