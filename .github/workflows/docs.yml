@@ -35,6 +35,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'Docs/package-lock.json'
       - run: |
+          cd Docs
           npm ci
           npm run build
       - name: Upload artifact
