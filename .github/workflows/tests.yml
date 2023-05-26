@@ -4,7 +4,7 @@ on:
     branches: # Only run jobs if files changed on this branch
       - master
     paths: # Only run jobs if files changed at these paths
-      - '.github/workflows/**'
+      - '.github/workflows/tests.yml'
       - 'Assets/**'
       - 'Packages/**'
 
@@ -61,6 +61,6 @@ jobs:
            /k:"small-steamworks" \
            /d:sonar.host.url=https://sonarcloud.io \
            /d:sonar.verbose=false \
-           /d:sonar.login=$SONAR_TOKEN \
+           /d:sonar.login=$SONAR_TOKEN
           dotnet build small-steamworks.sln
           ./dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
