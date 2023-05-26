@@ -19,7 +19,7 @@ namespace Hertzole.SmallSteamworks
 			onPersonaStateChangedCallback = new SteamCallback<PersonaStateChange_t>(CallbackType.Callback, OnPersonaStateChanged);
 		}
 
-		public SteamUser Me { get { return new SteamUser(Steamworks.SteamUser.GetSteamID(), Steamworks.SteamFriends.GetPersonaName(), true, Steamworks.SteamFriends.GetPersonaState() == EPersonaState.k_EPersonaStateOnline, Steamworks.SteamFriends.GetFriendSteamLevel(Steamworks.SteamUser.GetSteamID())); } }
+		public SteamUser Me { get { return SteamUserHelpers.GetSteamUser(Steamworks.SteamUser.GetSteamID()); } }
 
 		public string GetMyDisplayName()
 		{
