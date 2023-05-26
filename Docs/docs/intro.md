@@ -10,7 +10,7 @@ Small Steamworks is a Unity package based on [Steamworks.NET](https://github.com
 
 ## Installation
 
-TODO
+See the [installation](installation) page for more information.
 
 ## Features
 
