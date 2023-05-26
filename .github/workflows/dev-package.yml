@@ -7,8 +7,6 @@ on:
       - 'Assets/**'
       - 'Packages/**'
       - 'README.md'
-    paths-ignore:
-      - '*.md'
 
 jobs:
   package:
