@@ -27,7 +27,7 @@ jobs:
       - uses: actions/configure-pages@v1
         id: pages
       - run: |
-          Docs
+          cd Docs
           ls
       - uses: actions/setup-node@v3
         with:
