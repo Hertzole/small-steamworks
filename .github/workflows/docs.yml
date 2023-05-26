@@ -26,15 +26,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/configure-pages@v1
         id: pages
-      - run: |
-          cd Docs
-          ls
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
           cache-dependency-path: 'Docs/package-lock.json'
-      - run: |
+      - name: Run build
+        run: |
           cd Docs
           npm ci
           npm run build
