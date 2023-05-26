@@ -33,12 +33,14 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-      - run: npm ci
-      - run: npm run build
+          cache-dependency-path: 'Docs/package-lock.json'
+      - run: |
+          npm ci
+          npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./build
+          path: Docs/build
 
   deploy:
     runs-on: ubuntu-latest
