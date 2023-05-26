@@ -31,7 +31,7 @@ namespace Hertzole.SmallSteamworks
 		{
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
 
-			friends.GetAvatar(Steamworks.SteamUser.GetSteamID(), size, (image, id, width, height) =>
+			friends.GetAvatar(Steamworks.SteamUser.GetSteamID(), size, (image, userId, width, height) =>
 			{
 				if (cancellationToken.IsCancellationRequested)
 				{
@@ -39,7 +39,28 @@ namespace Hertzole.SmallSteamworks
 					return;
 				}
 
-				tcs.SetResult(new AvatarRetrievedResponse(image, id, width, height));
+				tcs.SetResult(new AvatarRetrievedResponse(image, userId, width, height));
+			});
+
+			return tcs.Task;
+		}
+
+		public static Task<AvatarRetrievedResponse> GetAvatarAsync(this ISteamFriends friends,
+			SteamID id,
+			AvatarSize size,
+			CancellationToken cancellationToken = default)
+		{
+			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
+
+			friends.GetAvatar(id, size, (image, userId, width, height) =>
+			{
+				if (cancellationToken.IsCancellationRequested)
+				{
+					tcs.SetCanceled();
+					return;
+				}
+
+				tcs.SetResult(new AvatarRetrievedResponse(image, userId, width, height));
 			});
 
 			return tcs.Task;
