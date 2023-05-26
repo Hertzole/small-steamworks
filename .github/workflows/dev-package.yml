@@ -2,6 +2,11 @@ name: Development Package
 
 on:
   push:
+    paths:
+      - '.github/workflows/dev-package.yml'
+      - 'Assets/**'
+      - 'Packages/**'
+      - 'README.md'
     paths-ignore:
       - '*.md'
 
