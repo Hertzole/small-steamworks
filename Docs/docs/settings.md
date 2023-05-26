@@ -3,7 +3,7 @@ sidebar_position: 10
 title: Steam Settings
 ---
 
-![Steam Settings](/img/steam_settings.png)
+![Steam Settings](/img/steam_settings.webp)
 
 Steam settings are located in the project settings window under Hertzole/Small Steamworks. Here you'll be able to modify the settings for the Steamworks API.
 
