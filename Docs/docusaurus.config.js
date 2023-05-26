@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Small Steamworks',
   tagline: 'Steamworks made easy',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
 
   // Set the production url of your site here
   url: 'https://hertzole.se',
@@ -18,11 +18,11 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Hertzole', // Usually your GitHub org/user name.
+  projectName: 'small-steamworks', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -52,7 +52,6 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
       navbar: {
         title: 'Small Steamworks',
         items: [
