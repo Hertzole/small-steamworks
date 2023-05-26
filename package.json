@@ -14,5 +14,12 @@
   ],
   "author": {
     "name": "Hertzole"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Complete Sample",
+      "description": "A completed example scene with all the features of the package.",
+      "path": "Samples~/Complete Sample"
+    }
+  ]
 }
