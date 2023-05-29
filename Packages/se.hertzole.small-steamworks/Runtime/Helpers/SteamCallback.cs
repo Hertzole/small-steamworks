@@ -94,7 +94,7 @@ namespace Hertzole.SmallSteamworks.Helpers
 			callResult?.Dispose();
 		}
 
-		private class CallbackRegistration
+		private sealed class CallbackRegistration
 		{
 			public Action<T>? callback;
 			public Predicate<T>? predicate;

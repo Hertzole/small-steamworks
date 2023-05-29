@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Hertzole.SmallSteamworks.Helpers;
 
 namespace Hertzole.SmallSteamworks
 {
@@ -10,6 +11,8 @@ namespace Hertzole.SmallSteamworks
 			byte[] data,
 			CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(storage, nameof(storage));
+			
 			TaskCompletionSource<FileWrittenResponse> tcs = new TaskCompletionSource<FileWrittenResponse>();
 
 			storage.WriteFile(fileName, data, response =>
@@ -28,6 +31,8 @@ namespace Hertzole.SmallSteamworks
 
 		public static Task<FileReadResponse> ReadFileAsync(this ISteamStorage storage, string fileName, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(storage, nameof(storage));
+
 			TaskCompletionSource<FileReadResponse> tcs = new TaskCompletionSource<FileReadResponse>();
 
 			storage.ReadFile(fileName, (success, data) =>
@@ -46,6 +51,8 @@ namespace Hertzole.SmallSteamworks
 
 		public static Task<FileSharedResponse> ShareFileAsync(this ISteamStorage storage, string fileName, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(storage, nameof(storage));
+			
 			TaskCompletionSource<FileSharedResponse> tcs = new TaskCompletionSource<FileSharedResponse>();
 
 			storage.ShareFile(fileName, (success, ugcHandle, name) =>
@@ -67,6 +74,8 @@ namespace Hertzole.SmallSteamworks
 			uint priority = 0,
 			CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(storage, nameof(storage));
+
 			TaskCompletionSource<UGCDownloadedResponse> tcs = new TaskCompletionSource<UGCDownloadedResponse>();
 
 			storage.DownloadSharedFile(ugcHandle, priority, (success, handle, appId, sizeInBytes, name, ownerId) =>
@@ -89,6 +98,8 @@ namespace Hertzole.SmallSteamworks
 			uint priority = 0,
 			CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(storage, nameof(storage));
+			
 			TaskCompletionSource<UGCDownloadedResponse> tcs = new TaskCompletionSource<UGCDownloadedResponse>();
 
 			storage.DownloadSharedFileToLocation(ugcHandle, location, priority, (success, handle, appId, sizeInBytes, name, ownerId) =>

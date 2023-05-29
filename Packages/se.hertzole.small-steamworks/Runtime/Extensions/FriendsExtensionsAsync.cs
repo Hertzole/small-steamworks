@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System.Threading;
 using System.Threading.Tasks;
+using Hertzole.SmallSteamworks.Helpers;
 
 namespace Hertzole.SmallSteamworks
 {
@@ -11,6 +12,8 @@ namespace Hertzole.SmallSteamworks
 			bool requireNameOnly = true,
 			CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(friends, nameof(friends));
+
 			TaskCompletionSource<UserInformationRetrievedResponse> tcs = new TaskCompletionSource<UserInformationRetrievedResponse>();
 
 			friends.RequestUserInformation(id, requireNameOnly, user =>
@@ -29,6 +32,8 @@ namespace Hertzole.SmallSteamworks
 
 		public static Task<AvatarRetrievedResponse> GetMyAvatarAsync(this ISteamFriends friends, AvatarSize size, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(friends, nameof(friends));
+
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
 
 			friends.GetAvatar(Steamworks.SteamUser.GetSteamID(), size, (image, userId, width, height) =>
@@ -50,6 +55,8 @@ namespace Hertzole.SmallSteamworks
 			AvatarSize size,
 			CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(friends, nameof(friends));
+
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
 
 			friends.GetAvatar(id, size, (image, userId, width, height) =>

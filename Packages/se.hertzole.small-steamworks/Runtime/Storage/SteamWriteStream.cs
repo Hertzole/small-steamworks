@@ -5,8 +5,43 @@ using Steamworks;
 
 namespace Hertzole.SmallSteamworks
 {
-	public struct SteamWriteStream : IDisposable
+	public struct SteamWriteStream : IDisposable, IEquatable<SteamWriteStream>
 	{
+		public bool Equals(SteamWriteStream other)
+		{
+#if !DISABLESTEAMWORKS
+			return isCanceled == other.isCanceled && handle.Equals(other.handle);
+#else
+			return false;
+#endif
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is SteamWriteStream other && Equals(other);
+		}
+
+		public override int GetHashCode()
+		{
+#if !DISABLESTEAMWORKS
+			unchecked
+			{
+				return (isCanceled.GetHashCode() * 397) ^ handle.GetHashCode();
+			}
+#else
+			return 0;
+#endif
+		}
+
+		public static bool operator ==(SteamWriteStream left, SteamWriteStream right)
+		{
+			return left.Equals(right);
+		}
+
+		public static bool operator !=(SteamWriteStream left, SteamWriteStream right)
+		{
+			return !left.Equals(right);
+		}
 #if !DISABLESTEAMWORKS
 		private bool isCanceled;
 		private readonly UGCFileWriteStreamHandle_t handle;

@@ -2,7 +2,6 @@
 using UnityEngine;
 #if !DISABLESTEAMWORKS
 using Hertzole.SmallSteamworks.Helpers;
-using Steamworks;
 #endif
 
 namespace Hertzole.SmallSteamworks
@@ -79,7 +78,7 @@ namespace Hertzole.SmallSteamworks
 		public void Dispose()
 		{
 #if !DISABLESTEAMWORKS
-			logger.Log("Disposing image " + id + " (" + handle + ")");
+			logger.Log($"Disposing image {id} ({handle})");
 
 			SteamImageCache.DisposeTexture(id);
 #endif

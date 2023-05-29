@@ -21,7 +21,10 @@ namespace Hertzole.SmallSteamworks
 		/// <summary>
 		///     Returns an invalid AppId.
 		/// </summary>
-		public static AppId Invalid { get { return new AppId(0x0); } }
+		public static AppId Invalid
+		{
+			get { return new AppId(0x0); }
+		}
 
 		public AppId(uint value)
 		{
@@ -53,17 +56,15 @@ namespace Hertzole.SmallSteamworks
 			return !left.Equals(right);
 		}
 
-#if !DISABLESTEAMWORKS
-		public static implicit operator AppId_t(AppId appId)
+		public static bool operator >(AppId left, AppId right)
 		{
-			return new AppId_t(appId.value);
+			return left.value > right.value;
 		}
-		
-		public static implicit operator AppId(AppId_t appId)
+
+		public static bool operator <(AppId left, AppId right)
 		{
-			return new AppId(appId.m_AppId);
+			return left.value < right.value;
 		}
-#endif
 
 		public int CompareTo(AppId other)
 		{
@@ -74,5 +75,17 @@ namespace Hertzole.SmallSteamworks
 		{
 			return value == other.value;
 		}
+
+#if !DISABLESTEAMWORKS
+		public static implicit operator AppId_t(AppId appId)
+		{
+			return new AppId_t(appId.value);
+		}
+
+		public static implicit operator AppId(AppId_t appId)
+		{
+			return new AppId(appId.m_AppId);
+		}
+#endif
 	}
 }

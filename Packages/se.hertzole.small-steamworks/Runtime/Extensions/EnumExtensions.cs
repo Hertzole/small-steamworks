@@ -19,19 +19,6 @@ namespace Hertzole.SmallSteamworks
 			}
 		}
 
-		public static LeaderboardSortMethod FromSteam(this ELeaderboardSortMethod sortMethod)
-		{
-			switch (sortMethod)
-			{
-				case ELeaderboardSortMethod.k_ELeaderboardSortMethodAscending:
-					return LeaderboardSortMethod.Ascending;
-				case ELeaderboardSortMethod.k_ELeaderboardSortMethodDescending:
-					return LeaderboardSortMethod.Descending;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(sortMethod), sortMethod, "The sort method is invalid.");
-			}
-		}
-
 		public static ELeaderboardUploadScoreMethod ToSteam(this LeaderboardUploadScoreMethod uploadScoreMethod)
 		{
 			switch (uploadScoreMethod)
@@ -42,19 +29,6 @@ namespace Hertzole.SmallSteamworks
 					return ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodForceUpdate;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(uploadScoreMethod), uploadScoreMethod, null);
-			}
-		}
-
-		public static LeaderboardUploadScoreMethod FromSteam(this ELeaderboardUploadScoreMethod uploadScoreMethod)
-		{
-			switch (uploadScoreMethod)
-			{
-				case ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodKeepBest:
-					return LeaderboardUploadScoreMethod.KeepBest;
-				case ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodForceUpdate:
-					return LeaderboardUploadScoreMethod.ForceUpdate;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(uploadScoreMethod), uploadScoreMethod, "The upload score method is invalid.");
 			}
 		}
 
@@ -70,6 +44,32 @@ namespace Hertzole.SmallSteamworks
 					return ELeaderboardDisplayType.k_ELeaderboardDisplayTypeTimeMilliSeconds;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(displayType), displayType, null);
+			}
+		}
+
+		public static LeaderboardSortMethod FromSteam(this ELeaderboardSortMethod sortMethod)
+		{
+			switch (sortMethod)
+			{
+				case ELeaderboardSortMethod.k_ELeaderboardSortMethodAscending:
+					return LeaderboardSortMethod.Ascending;
+				case ELeaderboardSortMethod.k_ELeaderboardSortMethodDescending:
+					return LeaderboardSortMethod.Descending;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(sortMethod), sortMethod, "The sort method is invalid.");
+			}
+		}
+
+		public static LeaderboardUploadScoreMethod FromSteam(this ELeaderboardUploadScoreMethod uploadScoreMethod)
+		{
+			switch (uploadScoreMethod)
+			{
+				case ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodKeepBest:
+					return LeaderboardUploadScoreMethod.KeepBest;
+				case ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodForceUpdate:
+					return LeaderboardUploadScoreMethod.ForceUpdate;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(uploadScoreMethod), uploadScoreMethod, "The upload score method is invalid.");
 			}
 		}
 

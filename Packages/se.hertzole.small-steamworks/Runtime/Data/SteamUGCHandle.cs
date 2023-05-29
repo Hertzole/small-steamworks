@@ -9,10 +9,20 @@ namespace Hertzole.SmallSteamworks
 	public readonly struct SteamUGCHandle : IEquatable<SteamUGCHandle>
 	{
 		internal readonly ulong handle;
+		
+		public static SteamUGCHandle Invalid { get; } = new SteamUGCHandle(0xffffffffffffffff);
 
 		internal SteamUGCHandle(ulong handle)
 		{
 			this.handle = handle;
+		}
+
+		public bool IsValid
+		{
+			get
+			{
+				return handle != Invalid.handle;
+			}
 		}
 
 		public bool Equals(SteamUGCHandle other)
