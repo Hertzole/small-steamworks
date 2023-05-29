@@ -273,7 +273,7 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 				score = 0;
 			}
 			
-			SteamManager.Leaderboards.SubmitScore(currentLeaderboard.Value, uploadScoreMethods[uploadScoreDropdown.value], score, null,
+			SteamManager.Leaderboards.UploadScore(currentLeaderboard.Value, uploadScoreMethods[uploadScoreDropdown.value], score, null,
 				(success, leaderboard, submittedScore, changed, rank, previousRank) =>
 				{
 					if (!success)

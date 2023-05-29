@@ -24,7 +24,8 @@ namespace Hertzole.SmallSteamworks
 
 		public void FindLeaderboard(in string leaderboardName, FindLeaderboardCallback? callback = null)
 		{
-			logger.Log($"{nameof(leaderboardName)}: {leaderboardName}, name byte count: {Encoding.UTF8.GetByteCount(leaderboardName).ToString(CultureInfo.InvariantCulture)}");
+			logger.Log(
+				$"{nameof(leaderboardName)}: {leaderboardName}, name byte count: {Encoding.UTF8.GetByteCount(leaderboardName).ToString(CultureInfo.InvariantCulture)}");
 
 			ThrowIfLeaderboardNameIsInvalid(leaderboardName);
 
@@ -48,9 +49,13 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public void FindOrCreateLeaderboard(in string leaderboardName, in LeaderboardSortMethod sortMethod, in LeaderboardDisplayType displayType, FindLeaderboardCallback? callback = null)
+		public void FindOrCreateLeaderboard(in string leaderboardName,
+			in LeaderboardSortMethod sortMethod,
+			in LeaderboardDisplayType displayType,
+			FindLeaderboardCallback? callback = null)
 		{
-			logger.Log($"{nameof(leaderboardName)}: {leaderboardName}, name byte count: {Encoding.UTF8.GetByteCount(leaderboardName).ToString(CultureInfo.InvariantCulture)}, {nameof(sortMethod)}: {sortMethod}, {nameof(displayType)}: {displayType}");
+			logger.Log(
+				$"{nameof(leaderboardName)}: {leaderboardName}, name byte count: {Encoding.UTF8.GetByteCount(leaderboardName).ToString(CultureInfo.InvariantCulture)}, {nameof(sortMethod)}: {sortMethod}, {nameof(displayType)}: {displayType}");
 
 			ThrowIfLeaderboardNameIsInvalid(leaderboardName);
 
@@ -66,7 +71,8 @@ namespace Hertzole.SmallSteamworks
 					return;
 				}
 
-				logger.Log($"Leaderboard callback :: Found or created Leaderboard: {t.m_bLeaderboardFound == 1}, Leaderboard: {t.m_hSteamLeaderboard.m_SteamLeaderboard}");
+				logger.Log(
+					$"Leaderboard callback :: Found or created Leaderboard: {t.m_bLeaderboardFound == 1}, Leaderboard: {t.m_hSteamLeaderboard.m_SteamLeaderboard}");
 
 				SteamLeaderboard leaderboard = new SteamLeaderboard(t.m_hSteamLeaderboard.m_SteamLeaderboard);
 
@@ -74,9 +80,14 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public void SubmitScore(in SteamLeaderboard leaderboard, in LeaderboardUploadScoreMethod uploadScoreMethod, in int score, in int[]? scoreDetails = null, UploadScoreCallback? callback = null)
+		public void UploadScore(in SteamLeaderboard leaderboard,
+			in LeaderboardUploadScoreMethod uploadScoreMethod,
+			in int score,
+			in int[]? scoreDetails = null,
+			UploadScoreCallback? callback = null)
 		{
-			logger.Log($"{nameof(leaderboard)}: {leaderboard}, {nameof(uploadScoreMethod)}: {uploadScoreMethod}, {nameof(score)}: {score}, {nameof(scoreDetails)}: {scoreDetails?.Length ?? 0}");
+			logger.Log(
+				$"{nameof(leaderboard)}: {leaderboard}, {nameof(uploadScoreMethod)}: {uploadScoreMethod}, {nameof(score)}: {score}, {nameof(scoreDetails)}: {scoreDetails?.Length ?? 0}");
 
 			ThrowIfLeaderboardIsInvalid(leaderboard);
 
@@ -87,7 +98,9 @@ namespace Hertzole.SmallSteamworks
 
 			leaderboardScoreUploadedCallResult ??= new SteamCallback<LeaderboardScoreUploaded_t>(CallbackType.CallResult);
 
+			SteamUserStats.UploadLeaderboardScore()
 			SteamAPICall_t call = SteamUserStats.UploadLeaderboardScore(leaderboard, uploadScoreMethod.ToSteam(), score, scoreDetails, scoreDetails?.Length ?? 0);
+
 			leaderboardScoreUploadedCallResult.RegisterOnce(call, (t, failure) =>
 			{
 				if (failure)
@@ -97,9 +110,11 @@ namespace Hertzole.SmallSteamworks
 					return;
 				}
 
-				logger.Log($"Leaderboard callback :: {nameof(t.m_bSuccess)}: {t.m_bSuccess}, {nameof(t.m_nScore)}: {t.m_nScore}, {nameof(t.m_bScoreChanged)}: {t.m_nScore}, {nameof(t.m_nGlobalRankNew)}: {t.m_nGlobalRankNew}, {nameof(t.m_nGlobalRankPrevious)}: {t.m_nGlobalRankPrevious}");
+				logger.Log(
+					$"Leaderboard callback :: {nameof(t.m_bSuccess)}: {t.m_bSuccess}, {nameof(t.m_nScore)}: {t.m_nScore}, {nameof(t.m_bScoreChanged)}: {t.m_nScore}, {nameof(t.m_nGlobalRankNew)}: {t.m_nGlobalRankNew}, {nameof(t.m_nGlobalRankPrevious)}: {t.m_nGlobalRankPrevious}");
 
-				callback?.Invoke(t.m_bSuccess == 1, new SteamLeaderboard(t.m_hSteamLeaderboard.m_SteamLeaderboard), t.m_nScore, t.m_bScoreChanged == 1, t.m_nGlobalRankNew, t.m_nGlobalRankPrevious);
+				callback?.Invoke(t.m_bSuccess == 1, new SteamLeaderboard(t.m_hSteamLeaderboard.m_SteamLeaderboard), t.m_nScore, t.m_bScoreChanged == 1,
+					t.m_nGlobalRankNew, t.m_nGlobalRankPrevious);
 			});
 		}
 
@@ -120,7 +135,9 @@ namespace Hertzole.SmallSteamworks
 					return;
 				}
 
-				logger.Log($"Leaderboard callback :: {nameof(t.m_eResult)}: {t.m_eResult}, {nameof(t.m_hSteamLeaderboard)}: {t.m_hSteamLeaderboard.m_SteamLeaderboard}");
+				logger.Log(
+					$"Leaderboard callback :: {nameof(t.m_eResult)}: {t.m_eResult}, {nameof(t.m_hSteamLeaderboard)}: {t.m_hSteamLeaderboard.m_SteamLeaderboard}");
+
 				callback?.Invoke(t.m_eResult == EResult.k_EResultOK, t.m_hSteamLeaderboard);
 			});
 		}
@@ -129,7 +146,7 @@ namespace Hertzole.SmallSteamworks
 		{
 			ThrowIfLeaderboardIsInvalid(leaderboard);
 
-			GetScoresInternal(leaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, offset + 1, (offset + 1) + count - 1, callback);
+			GetScoresInternal(leaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, offset + 1, offset + 1 + count - 1, callback);
 		}
 
 		public void GetScoresFromFriends(in SteamLeaderboard leaderboard, GetScoresCallback? callback = null)
@@ -146,9 +163,14 @@ namespace Hertzole.SmallSteamworks
 			GetScoresInternal(leaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobalAroundUser, -rangeStart, rangeEnd, callback);
 		}
 
-		private void GetScoresInternal(in SteamLeaderboard leaderboard, in ELeaderboardDataRequest dataRequest, in int rangeStart, in int rangeEnd, GetScoresCallback? callback = null)
+		private void GetScoresInternal(in SteamLeaderboard leaderboard,
+			in ELeaderboardDataRequest dataRequest,
+			in int rangeStart,
+			in int rangeEnd,
+			GetScoresCallback? callback = null)
 		{
-			logger.Log($"{nameof(leaderboard)}: {leaderboard}, {nameof(dataRequest)}: {dataRequest}, {nameof(rangeStart)}: {rangeStart}, {nameof(rangeEnd)}: {rangeEnd}");
+			logger.Log(
+				$"{nameof(leaderboard)}: {leaderboard}, {nameof(dataRequest)}: {dataRequest}, {nameof(rangeStart)}: {rangeStart}, {nameof(rangeEnd)}: {rangeEnd}");
 
 			leaderboardScoresDownloadedCallResult ??= new SteamCallback<LeaderboardScoresDownloaded_t>(CallbackType.CallResult);
 

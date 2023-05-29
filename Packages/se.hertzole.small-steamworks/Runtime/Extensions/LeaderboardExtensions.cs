@@ -6,7 +6,7 @@ namespace Hertzole.SmallSteamworks
 	{
 		public static void UploadScore(this in SteamLeaderboard leaderboard, in LeaderboardUploadScoreMethod uploadScoreMethod, in int score, in int[]? scoreDetails = null, UploadScoreCallback? callback = null)
 		{
-			SteamManager.Leaderboards.SubmitScore(leaderboard, uploadScoreMethod, score, scoreDetails, callback);
+			SteamManager.Leaderboards.UploadScore(leaderboard, uploadScoreMethod, score, scoreDetails, callback);
 		}
 
 		public static void AttachUGC(this in SteamLeaderboard leaderboard, in SteamUGCHandle ugcHandle, AttachLeaderboardUGCCallback? callback = null)

@@ -53,7 +53,7 @@ namespace Hertzole.SmallSteamworks
 			
 			TaskCompletionSource<UploadScoreResponse> tcs = new TaskCompletionSource<UploadScoreResponse>();
 
-			leaderboards.SubmitScore(leaderboard, uploadScoreMethod, score, scoreDetails, (success, steamLeaderboard, score, scoreChanged, newRank, previousRank) =>
+			leaderboards.UploadScore(leaderboard, uploadScoreMethod, score, scoreDetails, (success, steamLeaderboard, score, scoreChanged, newRank, previousRank) =>
 			{
 				if (cancellationToken.IsCancellationRequested)
 				{
