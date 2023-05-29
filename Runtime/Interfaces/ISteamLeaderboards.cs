@@ -60,7 +60,7 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="score">The score to upload.</param>
 		/// <param name="scoreDetails">A optional array containing the details surrounding the unlocking of this score.</param>
 		/// <param name="callback">Called when the score has been uploaded.</param>
-		void SubmitScore(in SteamLeaderboard leaderboard, in LeaderboardUploadScoreMethod uploadScoreMethod, in int score, in int[]? scoreDetails = null, UploadScoreCallback? callback = null);
+		void UploadScore(in SteamLeaderboard leaderboard, in LeaderboardUploadScoreMethod uploadScoreMethod, in int score, in int[]? scoreDetails = null, UploadScoreCallback? callback = null);
 
 		/// <summary>
 		///     <para>Attaches a piece of user generated content to the current user's entry on a leaderboard.</para>
