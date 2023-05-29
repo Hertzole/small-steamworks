@@ -3,6 +3,10 @@ sidebar_position: 3
 title: Installation
 ---
 
+## Install Steamworks.NET
+
+Small Steamworks requires [Steamworks.NET](https://github.com/rlabrecque/Steamworks.NET) to work. See their [installation guide](https://steamworks.github.io/installation/) for more information.
+
 ## Open UPM (Recommended)
 
 The package can be installed via [OpenUPM](https://openupm.com/packages/se.hertzole.small-steamworks/).
