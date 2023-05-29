@@ -61,9 +61,9 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 		public sealed class Sample
 		{
 			[SerializeField]
-			private string name;
+			private string name = default;
 			[SerializeField]
-			private BaseSample target;
+			private BaseSample target = default;
 
 			public string Name
 			{

@@ -36,11 +36,6 @@ namespace Hertzole.SmallSteamworks
 			return value.ToString(CultureInfo.InvariantCulture);
 		}
 
-		public override bool Equals(object obj)
-		{
-			return obj is AppId other && Equals(other);
-		}
-
 		public override int GetHashCode()
 		{
 			return (int) value;
@@ -65,10 +60,25 @@ namespace Hertzole.SmallSteamworks
 		{
 			return left.value < right.value;
 		}
+		
+		public static bool operator >=(AppId left, AppId right)
+		{
+			return left.value >= right.value;
+		}
+		
+		public static bool operator <=(AppId left, AppId right)
+		{
+			return left.value <= right.value;
+		}
 
 		public int CompareTo(AppId other)
 		{
 			return value.CompareTo(other.value);
+		}
+		
+		public override bool Equals(object obj)
+		{
+			return obj is AppId other && Equals(other);
 		}
 
 		public bool Equals(AppId other)
