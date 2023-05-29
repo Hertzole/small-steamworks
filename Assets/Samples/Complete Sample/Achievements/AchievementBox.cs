@@ -1,37 +1,36 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Hertzole.SmallSteamworks.CompleteSample
 {
 	public class AchievementBox : MonoBehaviour
 	{
-		[SerializeField] 
+		[SerializeField]
 		private RawImage icon = default;
-		[SerializeField] 
+		[SerializeField]
 		private TMP_Text displayNameLabel = default;
-		[SerializeField] 
+		[SerializeField]
 		private TMP_Text descriptionLabel = default;
-		[SerializeField] 
+		[SerializeField]
 		private TMP_Text unlockTimeLabel = default;
 		[SerializeField]
 		private TMP_Text unlockLabel = default;
-		[SerializeField] 
+		[SerializeField]
 		private Button toggleLockButton = default;
-		[SerializeField] 
+		[SerializeField]
 		private TMP_Text buttonLabel = default;
 
-		private string achievementApiName;
-		private string displayName;
-		private string description;
-		
 		private bool isUnlocked;
 		private bool isHidden;
 		private DateTime unlockTime;
 
 		private SteamImage iconImage;
+
+		private string achievementApiName;
+		private string displayName;
+		private string description;
 
 		private void Awake()
 		{
@@ -57,10 +56,10 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 				isUnlocked = SteamManager.Achievements.IsAchievementUnlocked(achievementApiName, out unlockTime);
 				UpdateVisuals();
 			}
-			
+
 			SteamManager.Achievements.OnAchievementUnlocked += OnAchievementUnlocked;
 		}
-		
+
 		private void OnDisable()
 		{
 			if (SteamManager.IsInitialized)
@@ -114,7 +113,7 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 				displayNameLabel.text = displayName;
 				descriptionLabel.text = description;
 			}
-			
+
 			unlockTimeLabel.text = isUnlocked ? $"{unlockTime:yyyy-MM-dd HH:mm:ss}" : "Not unlocked yet.";
 			unlockLabel.text = isUnlocked ? "Unlocked" : "Locked";
 			buttonLabel.text = isUnlocked ? "Lock" : "Unlock";
@@ -123,7 +122,7 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 			{
 				iconImage.Dispose();
 			}
-			
+
 			SteamManager.Achievements.GetAchievementIcon(achievementApiName, image =>
 			{
 				iconImage = image;
