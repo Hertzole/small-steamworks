@@ -81,7 +81,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/github.com/hertzole/small-steamworks',
+                href: 'https://github.com/hertzole/small-steamworks',
               },
             ],
           },
