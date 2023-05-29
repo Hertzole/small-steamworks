@@ -40,6 +40,36 @@ namespace Hertzole.SmallSteamworks
 			return !left.Equals(right);
 		}
 
+		public static bool operator ==(ulong left, SteamID right)
+		{
+			return right.Equals(left);
+		}
+
+		public static bool operator !=(ulong left, SteamID right)
+		{
+			return !right.Equals(left);
+		}
+
+		public static bool operator ==(SteamID left, ulong right)
+		{
+			return left.Equals(right);
+		}
+
+		public static bool operator !=(SteamID left, ulong right)
+		{
+			return !left.Equals(right);
+		}
+
+		public static bool operator >(SteamID left, SteamID right)
+		{
+			return left.CompareTo(right) > 0;
+		}
+
+		public static bool operator <(SteamID left, SteamID right)
+		{
+			return left.CompareTo(right) < 0;
+		}
+
 		public override string ToString()
 		{
 			return value.ToString(CultureInfo.InvariantCulture);
@@ -50,16 +80,16 @@ namespace Hertzole.SmallSteamworks
 			return value.CompareTo(other.value);
 		}
 
-		public bool Equals(SteamID other)
-		{
-			return value == other.value;
-		}
-		
 		public int CompareTo(ulong other)
 		{
 			return value.CompareTo(other);
 		}
-		
+
+		public bool Equals(SteamID other)
+		{
+			return value == other.value;
+		}
+
 		public bool Equals(ulong other)
 		{
 			return value == other;
@@ -85,36 +115,16 @@ namespace Hertzole.SmallSteamworks
 		{
 			return !left.Equals(right);
 		}
-		
+
 		public static bool operator ==(CSteamID left, SteamID right)
 		{
 			return right.Equals(left);
 		}
-		
+
 		public static bool operator !=(CSteamID left, SteamID right)
 		{
 			return !right.Equals(left);
 		}
 #endif
-		
-		public static bool operator ==(ulong left, SteamID right)
-		{
-			return right.Equals(left);
-		}
-		
-		public static bool operator !=(ulong left, SteamID right)
-		{
-			return !right.Equals(left);
-		}
-		
-		public static bool operator ==(SteamID left, ulong right)
-		{
-			return left.Equals(right);
-		}
-		
-		public static bool operator !=(SteamID left, ulong right)
-		{
-			return !left.Equals(right);
-		}
 	}
 }

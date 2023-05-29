@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System.Threading;
 using System.Threading.Tasks;
+using Hertzole.SmallSteamworks.Helpers;
 
 namespace Hertzole.SmallSteamworks
 {
@@ -8,6 +9,8 @@ namespace Hertzole.SmallSteamworks
 	{
 		public static Task<FindLeaderboardResponse> FindLeaderboardAsync(this ISteamLeaderboards leaderboards, in string leaderboardName, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(leaderboards, nameof(leaderboards));
+
 			TaskCompletionSource<FindLeaderboardResponse> tcs = new TaskCompletionSource<FindLeaderboardResponse>();
 
 			leaderboards.FindLeaderboard(leaderboardName, (success, steamLeaderboard) =>
@@ -26,6 +29,8 @@ namespace Hertzole.SmallSteamworks
 		
 		public static Task<FindLeaderboardResponse> FindOrCreateLeaderboardAsync(this ISteamLeaderboards leaderboards, in string leaderboardName, in LeaderboardSortMethod sortMethod, in LeaderboardDisplayType displayType, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(leaderboards, nameof(leaderboards));
+			
 			TaskCompletionSource<FindLeaderboardResponse> tcs = new TaskCompletionSource<FindLeaderboardResponse>();
 
 			leaderboards.FindOrCreateLeaderboard(leaderboardName, sortMethod, displayType, (success, steamLeaderboard) =>
@@ -44,6 +49,8 @@ namespace Hertzole.SmallSteamworks
 
 		public static Task<UploadScoreResponse> UploadScoreAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in LeaderboardUploadScoreMethod uploadScoreMethod, in int score, in int[]? scoreDetails = null, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(leaderboards, nameof(leaderboards));
+			
 			TaskCompletionSource<UploadScoreResponse> tcs = new TaskCompletionSource<UploadScoreResponse>();
 
 			leaderboards.SubmitScore(leaderboard, uploadScoreMethod, score, scoreDetails, (success, steamLeaderboard, score, scoreChanged, newRank, previousRank) =>
@@ -67,6 +74,8 @@ namespace Hertzole.SmallSteamworks
 
 		public static Task<AttachLeaderboardUGCResponse> AttachLeaderboardUGCAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in SteamUGCHandle ugcHandle, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(leaderboards, nameof(leaderboards));
+			
 			TaskCompletionSource<AttachLeaderboardUGCResponse> tcs = new TaskCompletionSource<AttachLeaderboardUGCResponse>();
 
 			leaderboards.AttachLeaderboardUGC(leaderboard, ugcHandle, (success, steamLeaderboard) =>
@@ -90,6 +99,8 @@ namespace Hertzole.SmallSteamworks
 
 		public static Task<GetScoresResponse> GetScoresAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in int count, in int offset = 0, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(leaderboards, nameof(leaderboards));
+			
 			TaskCompletionSource<GetScoresResponse> tcs = new TaskCompletionSource<GetScoresResponse>();
 
 			leaderboards.GetScores(leaderboard, count, offset, (success, steamLeaderboard, entries) =>
@@ -113,6 +124,8 @@ namespace Hertzole.SmallSteamworks
 
 		public static Task<GetScoresResponse> GetScoresFromFriendsAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(leaderboards, nameof(leaderboards));
+			
 			TaskCompletionSource<GetScoresResponse> tcs = new TaskCompletionSource<GetScoresResponse>();
 
 			leaderboards.GetScoresFromFriends(leaderboard, (success, steamLeaderboard, entries) =>
@@ -136,6 +149,8 @@ namespace Hertzole.SmallSteamworks
 
 		public static Task<GetScoresResponse> GetScoresAroundUserAsync(this ISteamLeaderboards leaderboards, in SteamLeaderboard leaderboard, in int rangeStart = 10, in int rangeEnd = 10, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(leaderboards, nameof(leaderboards));
+			
 			TaskCompletionSource<GetScoresResponse> tcs = new TaskCompletionSource<GetScoresResponse>();
 
 			leaderboards.GetScoresAroundUser(leaderboard, rangeStart, rangeEnd, (success, steamLeaderboard, entries) =>

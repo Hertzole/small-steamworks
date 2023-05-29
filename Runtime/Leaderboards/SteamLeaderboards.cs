@@ -139,7 +139,7 @@ namespace Hertzole.SmallSteamworks
 			GetScoresInternal(leaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestFriends, 0, 0, callback);
 		}
 
-		public void GetScoresAroundUser(in SteamLeaderboard leaderboard, in int rangeStart, in int rangeEnd, GetScoresCallback? callback = null)
+		public void GetScoresAroundUser(in SteamLeaderboard leaderboard, in int rangeStart = 10, in int rangeEnd = 10, GetScoresCallback? callback = null)
 		{
 			ThrowIfLeaderboardIsInvalid(leaderboard);
 
@@ -216,7 +216,13 @@ namespace Hertzole.SmallSteamworks
 			}
 		}
 
-		private static void ThrowIfUGCHandleIsInvalid(in SteamUGCHandle ugcHandle) { }
+		private static void ThrowIfUGCHandleIsInvalid(in SteamUGCHandle ugcHandle)
+		{
+			if (!ugcHandle.IsValid)
+			{
+				throw new InvalidSteamUGCException();
+			}
+		}
 	}
 }
 #endif

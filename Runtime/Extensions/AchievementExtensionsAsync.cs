@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Hertzole.SmallSteamworks.Helpers;
 
 namespace Hertzole.SmallSteamworks
 {
@@ -21,10 +22,12 @@ namespace Hertzole.SmallSteamworks
 		/// </returns>
 		public static async Task<SteamImage?> GetAchievementIconAsync(this ISteamAchievements achievements, string achievementName, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(achievements, nameof(achievements));
+			
 			bool hasCurrentStats = false;
 			bool currentStatsSuccess = false;
 
-			SteamManager.Stats.RequestCurrentStats((success, id) =>
+			SteamManager.Stats.RequestCurrentStats((success, _) =>
 			{
 				currentStatsSuccess = success;
 				hasCurrentStats = true;
@@ -69,10 +72,12 @@ namespace Hertzole.SmallSteamworks
 		/// <returns>A global achievements stats response with the result whether the call was successful or not.</returns>
 		public static async Task<GlobalAchievementStatsReceivedResponse> RequestGlobalAchievementStatsAsync(this ISteamAchievements achievements, CancellationToken cancellationToken = default)
 		{
+			ThrowHelper.ThrowIfNull(achievements, nameof(achievements));
+			
 			bool hasCurrentStats = false;
 			bool currentStatsSuccess = false;
 
-			SteamManager.Stats.RequestCurrentStats((success, id) =>
+			SteamManager.Stats.RequestCurrentStats((success, _) =>
 			{
 				currentStatsSuccess = success;
 				hasCurrentStats = true;
