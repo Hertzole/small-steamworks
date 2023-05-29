@@ -26,9 +26,12 @@ jobs:
           mv "Assets/Samples" /tmp/example
         fi
         mv README.md /tmp/README.md
+        mv LICENSE.md /tmp/LICENSE.md
         git checkout package
         mv /tmp/README.md README.md
+        mv /tmp/LICENSE.md LICENSE.md
         git add README.md
+        git add LICENSE.md
         if [[ -d "/tmp/example" ]]; then
           mkdir "Samples~"
           mv /tmp/example/* "Samples~/"

@@ -24,6 +24,7 @@ jobs:
           mv "Assets/Samples" /tmp/example
         fi
         mv README.md /tmp/README.md
+        mv LICENSE.md /tmp/LICENSE.md
         git checkout dev-package
         if [[ -d "/tmp/example" ]]; then
           mkdir "Samples~"
@@ -31,7 +32,9 @@ jobs:
           git add "Samples~"
         fi
         mv /tmp/README.md README.md
+        mv /tmp/LICENSE.md LICENSE.md
         git add README.md
+        git add LICENSE.md
         if [[ -d "Tests" ]]; then
           rm -rf Tests
           rm -f Tests.meta
