@@ -20,11 +20,6 @@ namespace Hertzole.SmallSteamworks
 			this.value = value;
 		}
 
-		public override bool Equals(object obj)
-		{
-			return obj is SteamID other && Equals(other);
-		}
-
 		public override int GetHashCode()
 		{
 			return value.GetHashCode();
@@ -69,6 +64,16 @@ namespace Hertzole.SmallSteamworks
 		{
 			return left.CompareTo(right) < 0;
 		}
+		
+		public static bool operator >=(SteamID left, SteamID right)
+		{
+			return left.CompareTo(right) >= 0;
+		}
+		
+		public static bool operator <=(SteamID left, SteamID right)
+		{
+			return left.CompareTo(right) <= 0;
+		}
 
 		public override string ToString()
 		{
@@ -83,6 +88,11 @@ namespace Hertzole.SmallSteamworks
 		public int CompareTo(ulong other)
 		{
 			return value.CompareTo(other);
+		}
+		
+		public override bool Equals(object obj)
+		{
+			return obj is SteamID other && Equals(other);
 		}
 
 		public bool Equals(SteamID other)
