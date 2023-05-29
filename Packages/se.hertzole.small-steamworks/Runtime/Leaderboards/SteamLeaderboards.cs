@@ -98,9 +98,7 @@ namespace Hertzole.SmallSteamworks
 
 			leaderboardScoreUploadedCallResult ??= new SteamCallback<LeaderboardScoreUploaded_t>(CallbackType.CallResult);
 
-			SteamUserStats.UploadLeaderboardScore()
 			SteamAPICall_t call = SteamUserStats.UploadLeaderboardScore(leaderboard, uploadScoreMethod.ToSteam(), score, scoreDetails, scoreDetails?.Length ?? 0);
-
 			leaderboardScoreUploadedCallResult.RegisterOnce(call, (t, failure) =>
 			{
 				if (failure)
