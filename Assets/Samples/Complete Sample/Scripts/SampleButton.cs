@@ -21,8 +21,13 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 
 		public void SetSample(SampleMenu.Sample sample)
 		{
-			targetSample = sample.target;
-			label.text = sample.name;
+			if (sample == null)
+			{
+				return;
+			}
+
+			targetSample = sample.Target;
+			label.text = sample.Name;
 		}
 	}
 }

@@ -23,8 +23,8 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 
 			foreach (Sample sample in samples)
 			{
-				sample.target.HideSample();
-				sample.target.gameObject.SetActive(false);
+				sample.Target.HideSample();
+				sample.Target.gameObject.SetActive(false);
 
 				SampleButton newButton = Instantiate(sampleButtonPrefab, sampleButtonsContainer);
 				newButton.SetSample(sample);
@@ -36,18 +36,18 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 		{
 			myCanvas.enabled = newSample == null;
 			myRaycaster.enabled = newSample == null;
-			
+
 			foreach (Sample sample in samples)
 			{
-				if(sample.target == newSample)
+				if (sample.Target == newSample)
 				{
-					sample.target.gameObject.SetActive(true);
-					sample.target.ShowSample();
+					sample.Target.gameObject.SetActive(true);
+					sample.Target.ShowSample();
 				}
 				else
 				{
-					sample.target.HideSample();
-					sample.target.gameObject.SetActive(false);
+					sample.Target.HideSample();
+					sample.Target.gameObject.SetActive(false);
 				}
 			}
 		}
@@ -58,10 +58,21 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 		}
 
 		[Serializable]
-		public class Sample
+		public sealed class Sample
 		{
-			public string name;
-			public BaseSample target;
+			[SerializeField]
+			private string name;
+			[SerializeField]
+			private BaseSample target;
+
+			public string Name
+			{
+				get { return name; }
+			}
+			public BaseSample Target
+			{
+				get { return target; }
+			}
 		}
 	}
 }
