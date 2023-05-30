@@ -8,25 +8,26 @@ on:
       - 'Assets/**'
       - 'Packages/**'
 
-env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-
 jobs:
   sonarscan:
     name: SonarScan
     runs-on: ubuntu-latest
-    container: unityci/editor:ubuntu-2021.3.10f1-base-1.0.1
+    container: unityci/editor:ubuntu-2021.3.26f1-base-1.1.2
     steps:
+      - name: Install Node
+        run: |
+          curl -sL https://deb.nodesource.com/setup_14.x | bash -
+          apt-get install -y nodejs
       - name: Activate Unity
         continue-on-error: true
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          LICENSE_BASE64: ${{ secrets.UNITY_LICENSE }}
         run: |
-          echo "$UNITY_LICENSE" | tr -d '\r' > License.ulf
+          echo $LICENSE_BASE64 | base64 --decode > License.ulf
           unity-editor -nographics -logFile /dev/stdout -manualLicenseFile License.ulf -quit 
 
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Cache library
         uses: actions/cache@v3.0.11
@@ -37,10 +38,9 @@ jobs:
             LibraryFolder
 
       - name: Install .NET
-        uses: actions/setup-dotnet@v2.1.0
+        uses: actions/setup-dotnet@v3.2.0
         with:
-          dotnet-version: |
-            6.0.x
+          dotnet-version: 6.x
 
       - name: Install scanner
         run: |
