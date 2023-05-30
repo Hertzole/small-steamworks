@@ -58,10 +58,10 @@ namespace Hertzole.SmallSteamworks
 
 				ISteamSettings settings = Settings;
 
-				logger.Log($"Setting Steam App Id to {settings.AppId.ToString()}");
+				logger.Log($"Setting Steam App Id to {settings.AppID.ToString()}");
 
-				Environment.SetEnvironmentVariable("SteamAppId", settings.AppId.ToString());
-				Environment.SetEnvironmentVariable("SteamGameId", settings.AppId.ToString());
+				Environment.SetEnvironmentVariable("SteamAppId", settings.AppID.ToString());
+				Environment.SetEnvironmentVariable("SteamGameId", settings.AppID.ToString());
 
 				if (settings.RestartAppIfNecessary)
 				{
@@ -71,7 +71,7 @@ namespace Hertzole.SmallSteamworks
 					{
 						// If Steam is not running or the game wasn't started through Steam, SteamAPI.RestartAppIfNecessary starts the
 						// Steam client and also launches this game again if the User owns it. This can act as a rudimentary form of DRM.
-						if (SteamAPI.RestartAppIfNecessary(settings.AppId))
+						if (SteamAPI.RestartAppIfNecessary(settings.AppID))
 						{
 							Application.Quit();
 							return;

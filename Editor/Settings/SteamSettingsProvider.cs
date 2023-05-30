@@ -49,7 +49,7 @@ namespace Hertzole.SmallSteamworks.Editor
 		private void CreateGeneralSettings(VisualElement root)
 		{
 			LongField appIdField = CreateField<LongField, long>("App ID");
-			appIdField.SetValueWithoutNotify(settings.AppId.value);
+			appIdField.SetValueWithoutNotify(settings.AppID.value);
 
 			Toggle restartAppToggle = CreateField<Toggle, bool>("Restart App If Necessary");
 			restartAppToggle.SetValueWithoutNotify(settings.RestartAppIfNecessary);
@@ -65,7 +65,7 @@ namespace Hertzole.SmallSteamworks.Editor
 					args.field.SetValueWithoutNotify(uint.MaxValue);
 				}
 
-				args.settings.AppId = new AppId((uint) args.field.value);
+				args.settings.AppID = new AppID((uint) args.field.value);
 			}, (appIdField, settings));
 
 			restartAppToggle.RegisterCallback<ChangeEvent<bool>, ISteamSettings>((evt, args) => { args.RestartAppIfNecessary = evt.newValue; }, settings);

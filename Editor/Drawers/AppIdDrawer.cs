@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace Hertzole.SmallSteamworks.Editor
 {
-	[CustomPropertyDrawer(typeof(AppId))]
+	[CustomPropertyDrawer(typeof(AppID))]
 	public sealed class AppIdDrawer : PropertyDrawer
 	{
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

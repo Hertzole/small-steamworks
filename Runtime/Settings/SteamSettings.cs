@@ -1,28 +1,26 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Hertzole.SmallSteamworks
 {
 	public sealed class SteamSettings : ScriptableObject, ISteamSettings
 	{
 		[SerializeField]
-		private AppId appId = new AppId(480);
+		private AppID appID = new AppID(480);
 		[SerializeField]
 		private bool restartAppIfNecessary = true;
-		[FormerlySerializedAs("fetchCurrentStatsAutomatically")]
 		[SerializeField]
 		private bool fetchCurrentStatsOnBoot = true;
 
-		public AppId AppId
+		public AppID AppID
 		{
-			get { return appId; }
+			get { return appID; }
 			set
 			{
-				if (appId != value)
+				if (appID != value)
 				{
-					appId = value;
+					appID = value;
 					EditorSave();
 				}
 			}
