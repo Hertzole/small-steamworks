@@ -2,7 +2,7 @@
 {
 	public interface ISteamSettings
 	{
-		AppId AppId { get; set; }
+		AppID AppID { get; set; }
 		
 		bool RestartAppIfNecessary { get; set; }
 		

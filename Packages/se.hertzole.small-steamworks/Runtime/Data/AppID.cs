@@ -13,7 +13,7 @@ namespace Hertzole.SmallSteamworks
 	/// </summary>
 	[Serializable]
 	[StructLayout(LayoutKind.Auto)]
-	public struct AppId : IEquatable<AppId>, IComparable<AppId>
+	public struct AppID : IEquatable<AppID>, IComparable<AppID>
 	{
 		[SerializeField]
 		internal uint value;
@@ -21,12 +21,12 @@ namespace Hertzole.SmallSteamworks
 		/// <summary>
 		///     Returns an invalid AppId.
 		/// </summary>
-		public static AppId Invalid
+		public static AppID Invalid
 		{
-			get { return new AppId(0x0); }
+			get { return new AppID(0x0); }
 		}
 
-		public AppId(uint value)
+		public AppID(uint value)
 		{
 			this.value = value;
 		}
@@ -41,60 +41,60 @@ namespace Hertzole.SmallSteamworks
 			return (int) value;
 		}
 
-		public static bool operator ==(AppId left, AppId right)
+		public static bool operator ==(AppID left, AppID right)
 		{
 			return left.Equals(right);
 		}
 
-		public static bool operator !=(AppId left, AppId right)
+		public static bool operator !=(AppID left, AppID right)
 		{
 			return !left.Equals(right);
 		}
 
-		public static bool operator >(AppId left, AppId right)
+		public static bool operator >(AppID left, AppID right)
 		{
 			return left.value > right.value;
 		}
 
-		public static bool operator <(AppId left, AppId right)
+		public static bool operator <(AppID left, AppID right)
 		{
 			return left.value < right.value;
 		}
 		
-		public static bool operator >=(AppId left, AppId right)
+		public static bool operator >=(AppID left, AppID right)
 		{
 			return left.value >= right.value;
 		}
 		
-		public static bool operator <=(AppId left, AppId right)
+		public static bool operator <=(AppID left, AppID right)
 		{
 			return left.value <= right.value;
 		}
 
-		public int CompareTo(AppId other)
+		public int CompareTo(AppID other)
 		{
 			return value.CompareTo(other.value);
 		}
 		
 		public override bool Equals(object obj)
 		{
-			return obj is AppId other && Equals(other);
+			return obj is AppID other && Equals(other);
 		}
 
-		public bool Equals(AppId other)
+		public bool Equals(AppID other)
 		{
 			return value == other.value;
 		}
 
 #if !DISABLESTEAMWORKS
-		public static implicit operator AppId_t(AppId appId)
+		public static implicit operator AppId_t(AppID appId)
 		{
 			return new AppId_t(appId.value);
 		}
 
-		public static implicit operator AppId(AppId_t appId)
+		public static implicit operator AppID(AppId_t appId)
 		{
-			return new AppId(appId.m_AppId);
+			return new AppID(appId.m_AppId);
 		}
 #endif
 	}

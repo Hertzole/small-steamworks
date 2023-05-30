@@ -2,18 +2,18 @@
 
 namespace Hertzole.SmallSteamworks
 {
-	public delegate void UGCDownloadedCallback(bool success, SteamUGCHandle ugcHandle, AppId appId, int sizeInBytes, string fileName, SteamID ownerId);
+	public delegate void UGCDownloadedCallback(bool success, SteamUGCHandle ugcHandle, AppID appId, int sizeInBytes, string fileName, SteamID ownerId);
 
 	public readonly struct UGCDownloadedResponse : IEquatable<UGCDownloadedResponse>
 	{
 		public bool Success { get; }
 		public SteamUGCHandle UgcHandle { get; }
-		public AppId AppId { get; }
+		public AppID AppId { get; }
 		public int SizeInBytes { get; }
 		public string FileName { get; }
 		public SteamID OwnerId { get; }
 
-		public UGCDownloadedResponse(bool success, SteamUGCHandle ugcHandle, AppId appId, int sizeInBytes, string fileName, SteamID ownerId)
+		public UGCDownloadedResponse(bool success, SteamUGCHandle ugcHandle, AppID appId, int sizeInBytes, string fileName, SteamID ownerId)
 		{
 			Success = success;
 			UgcHandle = ugcHandle;
