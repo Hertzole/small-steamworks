@@ -47,13 +47,13 @@ if (response.Success)
 You can get the current user's name.
 
 ```cs
-string myName = SteamManager.Friends.GetMyDisplayName();
+string myName = SteamManager.Friends.GetCurrentUserDisplayName();
 ```
 
 or
 
 ```cs
-string myName = SteamManager.Friends.Me.Name;
+string myName = SteamManager.Friends.CurrentUser.Name;
 ```
 
 ### Get a User's Name
