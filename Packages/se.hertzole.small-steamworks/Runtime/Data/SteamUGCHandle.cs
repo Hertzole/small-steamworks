@@ -6,23 +6,26 @@ using Steamworks;
 
 namespace Hertzole.SmallSteamworks
 {
+	/// <summary>
+	///     A handle to a UGC file.
+	/// </summary>
 	public readonly struct SteamUGCHandle : IEquatable<SteamUGCHandle>
 	{
 		internal readonly ulong handle;
-		
+
 		public static SteamUGCHandle Invalid { get; } = new SteamUGCHandle(0xffffffffffffffff);
+
+		/// <summary>
+		///     Whether the handle is valid. If it's invalid, it can't be used to open a file.
+		/// </summary>
+		public bool IsValid
+		{
+			get { return handle != Invalid.handle; }
+		}
 
 		internal SteamUGCHandle(ulong handle)
 		{
 			this.handle = handle;
-		}
-
-		public bool IsValid
-		{
-			get
-			{
-				return handle != Invalid.handle;
-			}
 		}
 
 		public bool Equals(SteamUGCHandle other)

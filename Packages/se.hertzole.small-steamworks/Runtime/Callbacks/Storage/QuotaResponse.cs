@@ -1,13 +1,24 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace Hertzole.SmallSteamworks
 {
-	[StructLayout(LayoutKind.Sequential, Pack = 8)]
 	public readonly struct QuotaResponse : IEquatable<QuotaResponse>
 	{
+		/// <summary>
+		///     The total number of bytes available for the user.
+		/// </summary>
 		public ulong TotalBytes { get; }
+		/// <summary>
+		///     The amount of bytes available for the user.
+		/// </summary>
 		public ulong AvailableBytes { get; }
+		/// <summary>
+		///     The amount of bytes used by the user.
+		/// </summary>
+		public ulong BytesUsed
+		{
+			get { return TotalBytes - AvailableBytes; }
+		}
 
 		internal QuotaResponse(ulong totalBytes, ulong availableBytes)
 		{

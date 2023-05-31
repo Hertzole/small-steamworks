@@ -6,6 +6,9 @@ namespace Hertzole.SmallSteamworks
 
 	public readonly struct FileWrittenResponse : IEquatable<FileWrittenResponse>
 	{
+		/// <summary>
+		///     Whether the file was written successfully.
+		/// </summary>
 		public bool Success { get; }
 
 		internal FileWrittenResponse(bool success)

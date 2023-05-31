@@ -6,7 +6,13 @@ namespace Hertzole.SmallSteamworks
 
 	public readonly struct FileReadResponse : IEquatable<FileReadResponse>
 	{
+		/// <summary>
+		///     Whether the file was read successfully.
+		/// </summary>
 		public bool Success { get; }
+		/// <summary>
+		///     The data that was read from the file.
+		/// </summary>
 		public byte[] Data { get; }
 
 		internal FileReadResponse(bool success, byte[] data)
