@@ -19,9 +19,9 @@ namespace Hertzole.SmallSteamworks
 			onPersonaStateChangedCallback = new SteamCallback<PersonaStateChange_t>(CallbackType.Callback, OnPersonaStateChanged);
 		}
 
-		public SteamUser Me { get { return SteamUserHelpers.GetSteamUser(Steamworks.SteamUser.GetSteamID()); } }
+		public SteamUser CurrentUser { get { return SteamUserHelpers.GetSteamUser(Steamworks.SteamUser.GetSteamID()); } }
 
-		public string GetMyDisplayName()
+		public string GetCurrentUserDisplayName()
 		{
 			return Steamworks.SteamFriends.GetPersonaName();
 		}
