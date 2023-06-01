@@ -23,7 +23,7 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 		{
 			if (isMe)
 			{
-				SetUser(SteamManager.Friends.Me);
+				SetUser(SteamManager.Friends.CurrentUser);
 			}
 		}
 
