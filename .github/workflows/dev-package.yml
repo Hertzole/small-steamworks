@@ -25,6 +25,7 @@ jobs:
         fi
         mv README.md /tmp/README.md
         mv LICENSE.md /tmp/LICENSE.md
+        mv CHANGELOG.md /tmp/CHANGELOG.md
         git checkout dev-package
         if [[ -d "/tmp/example" ]]; then
           mkdir "Samples~"
@@ -33,8 +34,10 @@ jobs:
         fi
         mv /tmp/README.md README.md
         mv /tmp/LICENSE.md LICENSE.md
+        mv /tmp/CHANGELOG.md CHANGELOG.md
         git add README.md
         git add LICENSE.md
+        git add CHANGELOG.md
         if [[ -d "Tests" ]]; then
           rm -rf Tests
           rm -f Tests.meta
