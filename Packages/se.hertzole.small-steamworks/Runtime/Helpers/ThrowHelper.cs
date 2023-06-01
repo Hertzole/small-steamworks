@@ -22,5 +22,26 @@ namespace Hertzole.SmallSteamworks.Helpers
 			}
 #endif
 		}
+
+		[Conditional("DEBUG")]
+		public static void ThrowIfNullOrEmpty<T>(
+#if NETSTANDARD2_1
+			[NotNull]
+#endif
+			T[]? array,
+			string name)
+		{
+#if DEBUG
+			if (array == null)
+			{
+				throw new ArgumentNullException(name, $"{name} is null.");
+			}
+
+			if (array.Length == 0)
+			{
+				throw new ArgumentException($"{name} is empty.", name);
+			}
+#endif
+		}
 	}
 }

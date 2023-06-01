@@ -2,23 +2,23 @@
 
 namespace Hertzole.SmallSteamworks
 {
-	public delegate void FileWrittenCallback(bool success);
+	public delegate void FileWrittenCallback(FileWrittenResult result);
 
 	public readonly struct FileWrittenResponse : IEquatable<FileWrittenResponse>
 	{
 		/// <summary>
-		///     Whether the file was written successfully.
+		///     The result of the file write.
 		/// </summary>
-		public bool Success { get; }
+		public FileWrittenResult Result { get; }
 
-		internal FileWrittenResponse(bool success)
+		internal FileWrittenResponse(FileWrittenResult result)
 		{
-			Success = success;
+			Result = result;
 		}
 
 		public bool Equals(FileWrittenResponse other)
 		{
-			return Success == other.Success;
+			return Result == other.Result;
 		}
 
 		public override bool Equals(object obj)
@@ -28,7 +28,7 @@ namespace Hertzole.SmallSteamworks
 
 		public override int GetHashCode()
 		{
-			return Success.GetHashCode();
+			return (int) Result;
 		}
 
 		public static bool operator ==(FileWrittenResponse left, FileWrittenResponse right)

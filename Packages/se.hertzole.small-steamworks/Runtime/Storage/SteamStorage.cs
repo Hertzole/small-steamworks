@@ -17,29 +17,51 @@ namespace Hertzole.SmallSteamworks
 
 		public FileWrittenResponse WriteFileSynchronous(string fileName, byte[] data)
 		{
+			ThrowHelper.ThrowIfNullOrEmpty(data, nameof(data));
+			
+			if (data.Length > Constants.k_unMaxCloudFileChunkSize)
+			{
+				throw new FileSizeException("File size is too big.");
+			}
+			
 			logger.Log($"Writing file synchronously: {fileName} with size: {data.Length}");
 			bool success = SteamRemoteStorage.FileWrite(fileName, data, data.Length);
-			return new FileWrittenResponse(success);
+			return new FileWrittenResponse(success ? FileWrittenResult.Success : FileWrittenResult.QuotaExceeded);
 		}
 
 		public void WriteFile(string fileName, byte[] data, FileWrittenCallback? callback = null)
 		{
+			ThrowHelper.ThrowIfNullOrEmpty(data, nameof(data));
+			
+			if (data.Length > Constants.k_unMaxCloudFileChunkSize)
+			{
+				throw new FileSizeException("File size is too big.");
+			}
+
 			onFileWriteAsyncCompleteCallResult ??= new SteamCallback<RemoteStorageFileWriteAsyncComplete_t>(CallbackType.CallResult);
 
-			logger.Log($"Writing file: {fileName} with size: {data.Length}");
+			logger.Log($"Writing file: {fileName} with size: {data.Length} bytes ({data.Length / 1024}kb, {data.Length / 1024 / 1024}mb)");
 
 			SteamAPICall_t call = SteamRemoteStorage.FileWriteAsync(fileName, data, (uint) data.Length);
+
+			if (call == SteamAPICall_t.Invalid)
+			{
+				logger.LogWarning("Failed to write file.");
+				callback?.Invoke(FileWrittenResult.QuotaExceeded);
+				return;
+			}
+			
 			onFileWriteAsyncCompleteCallResult.RegisterOnce(call, (t, failure) =>
 			{
 				if (failure)
 				{
 					logger.LogError("Call result failed when writing file.");
-					callback?.Invoke(false);
+					callback?.Invoke(FileWrittenResult.Failed);
 					return;
 				}
 
 				logger.Log($"File written: {t.m_eResult}");
-				callback?.Invoke(t.m_eResult == EResult.k_EResultOK);
+				callback?.Invoke(t.m_eResult == EResult.k_EResultOK ? FileWrittenResult.Success : FileWrittenResult.Failed);
 			});
 		}
 
@@ -228,6 +250,11 @@ namespace Hertzole.SmallSteamworks
 
 			fileSize = sizeInBytes;
 			return data;
+		}
+
+		public SteamFiles GetAllFiles()
+		{
+			return new SteamFiles();
 		}
 
 		public void Dispose()
