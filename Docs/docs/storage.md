@@ -25,7 +25,7 @@ This method will block the main thread until the file is written. This is not re
 string fileName = "my_file.txt";
 byte[] data = Encoding.UTF8.GetBytes("Hello, world!");
 FileWrittenResponse response = SteamManager.Storage.WriteFileSynchronous(fileName, data);
-if (response.Success)
+if (response.Result == FileWrittenResult.Success)
 {
     // The file was written successfully.
 }
@@ -38,9 +38,9 @@ Using a callback:
 ```cs
 string fileName = "my_file.txt";
 byte[] data = Encoding.UTF8.GetBytes("Hello, world!");
-SteamManager.Storage.WriteFile(fileName, data, success =>
+SteamManager.Storage.WriteFile(result =>
 {
-    if (success)
+    if (result == FileWrittenResult.Success)
     {
         // The file was written successfully.
     }    
@@ -53,7 +53,7 @@ Using async:
 string fileName = "my_file.txt";
 byte[] data = Encoding.UTF8.GetBytes("Hello, world!");
 FileWrittenResponse response = await SteamManager.Storage.WriteFileAsync(fileName, data);
-if (response.Success)
+if (response.Result == FileWrittenResult.Success)
 {
     // The file was written successfully.
 }
