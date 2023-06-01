@@ -19,22 +19,27 @@ namespace Hertzole.SmallSteamworks
 		///     The timestamp of the file when it was last updated. This is a Unix timestamp.
 		/// </summary>
 		public DateTime Timestamp { get; }
+		/// <summary>
+		///     Is the file persisted? This is only true if the file is stored in the Steam Cloud.
+		/// </summary>
+		public bool IsPersisted { get; }
 
-		internal SteamFile(string name, int size, long timestamp)
+		internal SteamFile(string name, int size, long timestamp, bool isPersisted)
 		{
 			Name = name;
 			Size = size;
 			Timestamp = DateTime.UnixEpoch.AddSeconds(timestamp);
+			IsPersisted = isPersisted;
 		}
 
 		public override string ToString()
 		{
-			return $"{nameof(Name)}: {Name}, {nameof(Size)}: {Size}, {nameof(Timestamp)}: {Timestamp}";
+			return $"{nameof(Name)}: {Name}, {nameof(Size)}: {Size}, {nameof(Timestamp)}: {Timestamp}, {nameof(IsPersisted)}: {IsPersisted}";
 		}
 
 		public bool Equals(SteamFile other)
 		{
-			return Name == other.Name && Size == other.Size;
+			return Name == other.Name && Size == other.Size && Timestamp.Equals(other.Timestamp) && IsPersisted == other.IsPersisted;
 		}
 
 		public override bool Equals(object obj)
@@ -46,7 +51,11 @@ namespace Hertzole.SmallSteamworks
 		{
 			unchecked
 			{
-				return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ Size;
+				int hashCode = Name != null ? Name.GetHashCode() : 0;
+				hashCode = (hashCode * 397) ^ Size;
+				hashCode = (hashCode * 397) ^ Timestamp.GetHashCode();
+				hashCode = (hashCode * 397) ^ IsPersisted.GetHashCode();
+				return hashCode;
 			}
 		}
 

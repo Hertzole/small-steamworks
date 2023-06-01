@@ -65,7 +65,10 @@ namespace Hertzole.SmallSteamworks
 
 				string name = SteamRemoteStorage.GetFileNameAndSize(index, out int size);
 				long timestamp = SteamRemoteStorage.GetFileTimestamp(name);
-				current = new SteamFile(name, size, timestamp);
+				bool isPersisted = SteamRemoteStorage.IsCloudEnabledForAccount() && SteamRemoteStorage.IsCloudEnabledForApp() &&
+				                   SteamRemoteStorage.FilePersisted(name);
+
+				current = new SteamFile(name, size, timestamp, isPersisted);
 				index++;
 
 				return true;
