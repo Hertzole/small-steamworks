@@ -78,17 +78,17 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 			isUploading = true;
 			ValidateButton();
 
-			SteamManager.Storage.WriteFile(fileNameField.text.Trim(), Encoding.UTF8.GetBytes(contentField.text.Trim()), success =>
+			SteamManager.Storage.WriteFile(fileNameField.text.Trim(), Encoding.UTF8.GetBytes(contentField.text.Trim()), result =>
 			{
 				isUploading = false;
 				ValidateButton();
 
-				if (success == FileWrittenResult.QuotaExceeded)
+				if (result == FileWrittenResult.QuotaExceeded)
 				{
 					Debug.LogWarning("Quota exceeded!");
 				}
 
-				if (success != FileWrittenResult.Success)
+				if (result != FileWrittenResult.Success)
 				{
 					isUploading = false;
 					ValidateButton();
