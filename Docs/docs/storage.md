@@ -147,6 +147,24 @@ if (response.Success)
 }
 ```
 
+## Get All Files
+
+You can enumerate all the files that are available locally that have been synchronized with the Steam Cloud.
+
+:::info
+You must use a `foreach` loop to enumerate the files. You cannot use a `for` loop.
+:::
+
+```cs
+foreach (SteamFile file in SteamManager.Storage.GetAllFiles())
+{
+    string fileName = file.Name; // The name of the file.
+    int fileSize = file.Size; // The size of the file in bytes.
+    bool persisted = file.IsPersisted; // Whether the file is persisted in the cloud.
+    DateTime timestamp = file.Timestamp; // The timestamp of the last update.
+}
+```
+
 ## File Exists
 
 You can check if a file exists in the cloud.
