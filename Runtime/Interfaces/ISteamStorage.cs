@@ -155,5 +155,21 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="fileSize">The file size.</param>
 		/// <returns>A byte array with the contents of the file.</returns>
 		byte[] ReadSharedFile(SteamUGCHandle ugcHandle, out int fileSize);
+
+		/// <summary>
+		///     Gets all the available local files.
+		/// </summary>
+		/// <remarks>
+		///     You should use a <c>foreach</c> loop to iterate over the files.
+		/// </remarks>
+		/// <example>
+		///     <code> foreach (SteamFile file in SteamManager.Storage.GetAllFiles())
+		///  {
+		/// 		// Do something with the file...
+		///  }
+		///  </code>
+		/// </example>
+		/// <returns>File iterator</returns>
+		SteamFiles GetAllFiles();
 	}
 }
