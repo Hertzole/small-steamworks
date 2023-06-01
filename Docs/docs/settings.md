@@ -1,6 +1,6 @@
 ---
 sidebar_position: 10
-title: Steam Settings
+title: ⚙ Steam Settings
 ---
 
 ![Steam Settings](/img/steam_settings.webp)

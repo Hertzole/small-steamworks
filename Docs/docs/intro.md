@@ -1,10 +1,8 @@
 ---
 sidebar_position: 0
 slug: /
-title: Introduction
+title: ❗ Introduction
 ---
-
-# Introduction
 
 Small Steamworks is a Unity package based on [Steamworks.NET](https://github.com/rlabrecque/Steamworks.NET). It is designed to wrap Steamworks.NET in a easy-to-use callback and async wrapper. It aims to make the Steamworks API easier to use by doing a lot of the heavy lifting for you with only a few methods and properties.
 

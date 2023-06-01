@@ -1,9 +1,7 @@
 ---
 sidebar_position: 5
-title: Getting Started
+title: 🛠 Getting Started
 ---
-
-# Getting Started
 
 After [installing the package](installation), you can start using the Steamworks API. The package is designed to be as easy to use as possible as it does a lot of the heavy lifting for you.
 

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 15
-title: Images
+title: 🖼 Images
 ---
 
 Images are used all over Steam. They are used for avatars, achievements, leaderboards, and more. 

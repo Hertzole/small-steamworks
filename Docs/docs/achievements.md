@@ -1,9 +1,7 @@
 ---
 sidebar_position: 20
-title: Achievements
+title: 🏆 Achievements
 ---
-
-# Achievements
 
 Achievements are a great way to encourage and reward your players with milestones within your game. They can be used to track progress, unlock content, or just to show off.
 

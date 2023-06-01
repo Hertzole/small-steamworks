@@ -1,6 +1,6 @@
 ---
 sidebar_position: 60
-title: Storage
+title: 🗃 Storage
 ---
 
 :::caution Unfinished API

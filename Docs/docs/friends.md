@@ -1,6 +1,6 @@
 ---
 sidebar_position: 30
-title: Friends
+title: 👥 Friends
 ---
 
 :::caution Unfinished API
