@@ -17,6 +17,11 @@ namespace Hertzole.SmallSteamworks
 	{
 		[SerializeField]
 		internal uint value;
+		
+		internal uint Value
+		{
+			get { return value; }
+		}
 
 		/// <summary>
 		///     Returns an invalid AppId.
@@ -38,7 +43,7 @@ namespace Hertzole.SmallSteamworks
 
 		public override int GetHashCode()
 		{
-			return (int) value;
+			return (int) Value;
 		}
 
 		public static bool operator ==(AppID left, AppID right)

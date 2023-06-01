@@ -10,7 +10,7 @@ namespace Hertzole.SmallSteamworks
 		public bool Equals(SteamWriteStream other)
 		{
 #if !DISABLESTEAMWORKS
-			return isCanceled == other.isCanceled && handle.Equals(other.handle);
+			return handle.Equals(other.handle);
 #else
 			return false;
 #endif
@@ -24,10 +24,7 @@ namespace Hertzole.SmallSteamworks
 		public override int GetHashCode()
 		{
 #if !DISABLESTEAMWORKS
-			unchecked
-			{
-				return (isCanceled.GetHashCode() * 397) ^ handle.GetHashCode();
-			}
+			return handle.GetHashCode();
 #else
 			return 0;
 #endif
