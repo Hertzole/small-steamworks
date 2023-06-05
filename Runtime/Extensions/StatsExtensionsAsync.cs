@@ -1,4 +1,8 @@
-﻿using System.Threading;
+﻿#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
+#define DISABLESTEAMWORKS
+#endif
+
+using System.Threading;
 using System.Threading.Tasks;
 using Hertzole.SmallSteamworks.Helpers;
 

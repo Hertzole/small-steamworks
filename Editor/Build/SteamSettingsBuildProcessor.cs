@@ -1,29 +1,42 @@
-﻿using System.Linq;
-using Hertzole.SmallSteamworks.Helpers;
-using UnityEditor;
+﻿#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
+// The reason we don't use DISABLESTEAMWORKS here is because sometimes in CI, DISABLESTEAMWORKS may not be removed if it was present and should be removed.
+// We only disable the inclusion of the build if it's on a platform that doesn't support Steamworks.
+#define DISABLE_BUILD 
+#endif
+
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
+#if !DISABLE_BUILD
+using System.Linq;
+using Hertzole.SmallSteamworks.Helpers;
+using UnityEditor;
 using UnityEngine;
+#endif
 
 namespace Hertzole.SmallSteamworks.Editor
 {
 	internal sealed class SteamSettingsBuildProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
 	{
+#if !DISABLE_BUILD
 		private bool removeFromPreloadedAssets;
 
 		private SteamSettings settingsInstance;
 
+		private const string STEAM_SETTINGS_PATH = "Assets/" + SettingsHelper.PACKAGE_NAME + "_SteamSettings.asset";
+#endif
+
+#if !DISABLESTEAMWORKS && !DISABLE_BUILD
 		private static readonly SteamLogger<SteamSettingsBuildProcessor> logger = new SteamLogger<SteamSettingsBuildProcessor>();
+#endif
 
 		public int callbackOrder
 		{
 			get { return -1_000_000; }
 		}
 
-		private const string STEAM_SETTINGS_PATH = "Assets/" + SettingsHelper.PACKAGE_NAME + "_SteamSettings.asset";
-
 		public void OnPreprocessBuild(BuildReport report)
 		{
+#if !DISABLE_BUILD
 			Application.logMessageReceivedThreaded += OnGetLog;
 
 			removeFromPreloadedAssets = false;
@@ -64,15 +77,19 @@ namespace Hertzole.SmallSteamworks.Editor
 			}
 
 			EditorBuildSettings.AddConfigObject(SettingsHelper.PACKAGE_NAME, settingsInstance, true);
+#endif
 		}
 
 		public void OnPostprocessBuild(BuildReport report)
 		{
+#if !DISABLE_BUILD
 			Application.logMessageReceivedThreaded -= OnGetLog;
 
 			RemoveInstance();
+#endif
 		}
 
+#if !DISABLE_BUILD
 		private void RemoveInstance()
 		{
 			if (removeFromPreloadedAssets)
@@ -139,5 +156,6 @@ namespace Hertzole.SmallSteamworks.Editor
 				EditorUtility.ClearDirty(settings[0]);
 			}
 		}
+#endif
 	}
 }

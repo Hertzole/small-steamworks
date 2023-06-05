@@ -1,4 +1,8 @@
-﻿#if UNITY_EDITOR
+﻿#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
+#define DISABLESTEAMWORKS
+#endif
+
+#if UNITY_EDITOR
 using System;
 using System.IO;
 using UnityEditorInternal;

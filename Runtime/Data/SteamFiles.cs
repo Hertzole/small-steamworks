@@ -1,8 +1,12 @@
-﻿using System;
+﻿#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
+#define DISABLESTEAMWORKS
+#endif
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Pool;
 #if !DISABLESTEAMWORKS
+using UnityEngine.Pool;
 using Steamworks;
 #endif
 
@@ -13,7 +17,9 @@ namespace Hertzole.SmallSteamworks
 	/// </summary>
 	public readonly struct SteamFiles : IEnumerable<SteamFile>
 	{
+#if !DISABLESTEAMWORKS
 		private static readonly ObjectPool<Enumerator> enumeratorPool = new ObjectPool<Enumerator>(() => new Enumerator());
+#endif
 
 		public IEnumerator<SteamFile> GetEnumerator()
 		{
@@ -38,6 +44,7 @@ namespace Hertzole.SmallSteamworks
 			return GetEnumerator();
 		}
 
+#if !DISABLESTEAMWORKS
 		private sealed class Enumerator : IEnumerator<SteamFile>
 		{
 			private int index;
@@ -63,7 +70,6 @@ namespace Hertzole.SmallSteamworks
 
 			public bool MoveNext()
 			{
-#if !DISABLESTEAMWORKS
 				if (index >= count)
 				{
 					enumeratorPool.Release(this);
@@ -79,9 +85,6 @@ namespace Hertzole.SmallSteamworks
 				index++;
 
 				return true;
-#else
-				return false;
-#endif
 			}
 
 			public void Reset()
@@ -92,5 +95,6 @@ namespace Hertzole.SmallSteamworks
 
 			public void Dispose() { }
 		}
+#endif
 	}
 }
