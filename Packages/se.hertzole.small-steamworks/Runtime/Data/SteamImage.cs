@@ -1,4 +1,8 @@
-﻿using System;
+﻿#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
+#define DISABLESTEAMWORKS
+#endif
+
+using System;
 using UnityEngine;
 #if !DISABLESTEAMWORKS
 using Hertzole.SmallSteamworks.Helpers;
@@ -9,9 +13,9 @@ namespace Hertzole.SmallSteamworks
 	public readonly struct SteamImage : IEquatable<SteamImage>, IDisposable
 	{
 		private readonly int handle;
+#if !DISABLESTEAMWORKS
 		private readonly uint id;
 
-#if !DISABLESTEAMWORKS
 		private static readonly SteamLogger<SteamImage> logger = new SteamLogger<SteamImage>();
 #endif
 
@@ -45,8 +49,8 @@ namespace Hertzole.SmallSteamworks
 
 #if !DISABLESTEAMWORKS
 			id = SteamImageCache.GetNextId();
-#else
 			id = 0;
+#else
 #endif
 		}
 
