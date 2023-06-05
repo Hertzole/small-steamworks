@@ -49,8 +49,6 @@ namespace Hertzole.SmallSteamworks
 
 #if !DISABLESTEAMWORKS
 			id = SteamImageCache.GetNextId();
-			id = 0;
-#else
 #endif
 		}
 

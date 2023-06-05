@@ -93,7 +93,7 @@ namespace Hertzole.SmallSteamworks
 			// Avatar is already loaded if it isn't -1.
 			if (handle != -1)
 			{
-				logger.Log($"Avatar is already loaded for {id}");
+				logger.Log($"Avatar is already loaded for {id} with handle {handle}");
 				bool gotSize = SteamUtils.GetImageSize(handle, out uint width, out uint height);
 				if (gotSize)
 				{
