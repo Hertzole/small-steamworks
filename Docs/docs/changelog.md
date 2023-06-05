@@ -3,7 +3,7 @@ sidebar_position: 7
 title: 🆕 Changelog
 ---
 
-## 0.1.1 - [2023-06-05]
+## 0.1.2 - [2023-06-05]
 
 ### Fixed
 - Fixed SteamFiles and FriendsExtensions throwing compiler errors with `DISABLESTEAMWORKS` applied
