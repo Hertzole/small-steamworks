@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Steamworks;
 using UnityEngine.Pool;
+#if !DISABLESTEAMWORKS
+using Steamworks;
+#endif
 
 namespace Hertzole.SmallSteamworks
 {
@@ -15,6 +17,7 @@ namespace Hertzole.SmallSteamworks
 
 		public IEnumerator<SteamFile> GetEnumerator()
 		{
+#if !DISABLESTEAMWORKS
 			int count = SteamRemoteStorage.GetFileCount();
 			if (count == 0)
 			{
@@ -25,6 +28,9 @@ namespace Hertzole.SmallSteamworks
 			enumerator.StartNew(count);
 
 			return enumerator;
+#else
+			return ((IEnumerable<SteamFile>) Array.Empty<SteamFile>()).GetEnumerator();
+#endif
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()
@@ -57,6 +63,7 @@ namespace Hertzole.SmallSteamworks
 
 			public bool MoveNext()
 			{
+#if !DISABLESTEAMWORKS
 				if (index >= count)
 				{
 					enumeratorPool.Release(this);
@@ -72,6 +79,9 @@ namespace Hertzole.SmallSteamworks
 				index++;
 
 				return true;
+#else
+				return false;
+#endif
 			}
 
 			public void Reset()
