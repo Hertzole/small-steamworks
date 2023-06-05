@@ -12,6 +12,7 @@ namespace Hertzole.SmallSteamworks
 			bool requireNameOnly = true,
 			CancellationToken cancellationToken = default)
 		{
+#if !DISABLESTEAMWORKS
 			ThrowHelper.ThrowIfNull(friends, nameof(friends));
 
 			TaskCompletionSource<UserInformationRetrievedResponse> tcs = new TaskCompletionSource<UserInformationRetrievedResponse>();
@@ -28,10 +29,14 @@ namespace Hertzole.SmallSteamworks
 			});
 
 			return tcs.Task;
+#else
+			return Task.FromResult(new UserInformationRetrievedResponse(default));
+#endif
 		}
 
 		public static Task<AvatarRetrievedResponse> GetMyAvatarAsync(this ISteamFriends friends, AvatarSize size, CancellationToken cancellationToken = default)
 		{
+#if !DISABLESTEAMWORKS
 			ThrowHelper.ThrowIfNull(friends, nameof(friends));
 
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
@@ -48,6 +53,9 @@ namespace Hertzole.SmallSteamworks
 			});
 
 			return tcs.Task;
+#else
+			return Task.FromResult(new AvatarRetrievedResponse(default, SteamID.Invalid, 0, 0));
+#endif
 		}
 
 		public static Task<AvatarRetrievedResponse> GetAvatarAsync(this ISteamFriends friends,
@@ -55,6 +63,7 @@ namespace Hertzole.SmallSteamworks
 			AvatarSize size,
 			CancellationToken cancellationToken = default)
 		{
+			#if !DISABLESTEAMWORKS
 			ThrowHelper.ThrowIfNull(friends, nameof(friends));
 
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
@@ -71,6 +80,9 @@ namespace Hertzole.SmallSteamworks
 			});
 
 			return tcs.Task;
+#else
+			return Task.FromResult(new AvatarRetrievedResponse(default, SteamID.Invalid, 0, 0));
+#endif
 		}
 	}
 }
