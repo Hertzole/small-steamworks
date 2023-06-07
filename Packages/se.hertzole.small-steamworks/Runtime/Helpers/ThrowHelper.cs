@@ -5,7 +5,9 @@
 #nullable enable
 using System;
 using System.Diagnostics;
+#if NETSTANDARD2_1 || NETSTANDARD2_1_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
+#endif
 
 namespace Hertzole.SmallSteamworks.Helpers
 {
@@ -13,7 +15,7 @@ namespace Hertzole.SmallSteamworks.Helpers
 	{
 		[Conditional("DEBUG")]
 		public static void ThrowIfNull(
-#if NETSTANDARD2_1
+#if NETSTANDARD2_1 || NETSTANDARD2_1_OR_GREATER
 			[NotNull]
 #endif
 			object? obj,
@@ -29,7 +31,7 @@ namespace Hertzole.SmallSteamworks.Helpers
 
 		[Conditional("DEBUG")]
 		public static void ThrowIfNullOrEmpty<T>(
-#if NETSTANDARD2_1
+#if NETSTANDARD2_1 || NETSTANDARD2_1_OR_GREATER
 			[NotNull]
 #endif
 			T[]? array,

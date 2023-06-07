@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce6f9be28ea4f52aa97118037d1e19c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appId:
+  appID:
     value: 480
-  restartAppIfNecessary: 1
+  restartAppIfNecessary: 0
   fetchCurrentStatsOnBoot: 1

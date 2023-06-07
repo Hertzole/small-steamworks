@@ -20,6 +20,7 @@ namespace Hertzole.SmallSteamworks
 			internal bool isInitialized;
 
 			internal ISteamAchievements achievements;
+			internal ISteamApps apps;
 			internal ISteamFriends friends;
 			internal ISteamLeaderboards leaderboards;
 			internal ISteamStats stats;
@@ -105,6 +106,7 @@ namespace Hertzole.SmallSteamworks
 				}
 
 				achievements = new SteamAchievements();
+				apps = new SteamApps();
 				stats = new SteamStats(settings);
 				leaderboards = new SteamLeaderboards();
 				storage = new SteamStorage();
@@ -133,6 +135,7 @@ namespace Hertzole.SmallSteamworks
 					isInitialized = false;
 
 					achievements.Dispose();
+					apps.Dispose();
 					stats.Dispose();
 					leaderboards.Dispose();
 					storage.Dispose();
