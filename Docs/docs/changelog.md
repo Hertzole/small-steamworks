@@ -3,6 +3,12 @@ sidebar_position: 7
 title: 🆕 Changelog
 ---
 
+## 0.2.0 - [Unreleased]
+
+### Added
+
+- Added support for SteamApps (`SteamManager.Apps`)
+
 ## 0.1.2 - [2023-06-05]
 
 ### Fixed
