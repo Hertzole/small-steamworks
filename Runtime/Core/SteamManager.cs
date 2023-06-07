@@ -33,7 +33,10 @@ namespace Hertzole.SmallSteamworks
 		public const bool IsInitialized = false;
 #endif
 
-		public static ISteamSettings Settings { get { return SteamSettings.Instance; } }
+		public static ISteamSettings Settings
+		{
+			get { return SteamSettings.Instance; }
+		}
 
 		/// <summary>
 		///     Interface for interacting with Steam achievements.
@@ -44,6 +47,21 @@ namespace Hertzole.SmallSteamworks
 			{
 #if !DISABLESTEAMWORKS
 				return SteamManagerBehavior.instance.achievements;
+#else
+				throw new SteamworksDisabledException();
+#endif
+			}
+		}
+
+		/// <summary>
+		///     Interface for interacting with Steam apps.
+		/// </summary>
+		public static ISteamApps Apps
+		{
+			get
+			{
+#if !DISABLESTEAMWORKS
+				return SteamManagerBehavior.instance.apps;
 #else
 				throw new SteamworksDisabledException();
 #endif
