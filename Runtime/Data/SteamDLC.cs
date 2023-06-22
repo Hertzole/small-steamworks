@@ -18,7 +18,7 @@ namespace Hertzole.SmallSteamworks
 		/// <summary>
 		///     Returns <c>true</c> if the DLC is currently available on the Steam store; otherwise, <c>false</c>.
 		/// </summary>
-		public bool IsAvailableOnSteamStore { get; }
+		public bool IsAvailableInStore { get; }
 		/// <summary>
 		///     Returns <c>true</c> if the DLC is currently installed; otherwise, <c>false</c>.
 		/// </summary>
@@ -28,10 +28,10 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		public string Name { get; }
 
-		internal SteamDLC(AppID appID, bool isAvailableOnSteamStore, bool isInstalled, string name)
+		internal SteamDLC(AppID appID, bool isAvailableInStore, bool isInstalled, string name)
 		{
 			AppID = appID;
-			IsAvailableOnSteamStore = isAvailableOnSteamStore;
+			IsAvailableInStore = isAvailableInStore;
 			IsInstalled = isInstalled;
 			Name = name;
 		}
@@ -43,7 +43,7 @@ namespace Hertzole.SmallSteamworks
 
 		public bool Equals(SteamDLC other)
 		{
-			return AppID.Equals(other.AppID) && IsAvailableOnSteamStore == other.IsAvailableOnSteamStore && IsInstalled == other.IsInstalled &&
+			return AppID.Equals(other.AppID) && IsAvailableInStore == other.IsAvailableInStore && IsInstalled == other.IsInstalled &&
 			       Name == other.Name;
 		}
 
@@ -52,7 +52,7 @@ namespace Hertzole.SmallSteamworks
 			unchecked
 			{
 				int hashCode = AppID.GetHashCode();
-				hashCode = (hashCode * 397) ^ IsAvailableOnSteamStore.GetHashCode();
+				hashCode = (hashCode * 397) ^ IsAvailableInStore.GetHashCode();
 				hashCode = (hashCode * 397) ^ IsInstalled.GetHashCode();
 				hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
 				return hashCode;
@@ -72,7 +72,7 @@ namespace Hertzole.SmallSteamworks
 		public override string ToString()
 		{
 			return
-				$"{nameof(AppID)}: {AppID}, {nameof(IsAvailableOnSteamStore)}: {IsAvailableOnSteamStore}, {nameof(IsInstalled)}: {IsInstalled}, {nameof(Name)}: {Name}";
+				$"{nameof(AppID)}: {AppID}, {nameof(IsAvailableInStore)}: {IsAvailableInStore}, {nameof(IsInstalled)}: {IsInstalled}, {nameof(Name)}: {Name}";
 		}
 	}
 }
