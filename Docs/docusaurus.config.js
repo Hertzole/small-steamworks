@@ -68,21 +68,33 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Links',
             items: [
               {
-                label: 'Documentation',
-                to: '/',
+                label: 'GitHub Repository',
+                href: 'https://github.com/hertzole/small-steamworks',
               },
+              {
+                label: 'Steamworks.NET',
+                href: 'https://github.com/rlabrecque/Steamworks.NET',
+              },
+              {
+                label: 'Steamworks Documentation',
+                href: 'https://partner.steamgames.com/doc/home'
+              }
             ],
           },
           {
             title: 'More',
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/hertzole/small-steamworks',
+                label: 'hertzole.se',
+                href: 'https://hertzole.se',
               },
+              {
+                label: 'Hertzole GitHub',
+                href: 'https://github.com/hertzole',
+              }
             ],
           },
         ],
