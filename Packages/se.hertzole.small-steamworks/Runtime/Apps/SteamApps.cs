@@ -186,7 +186,7 @@ namespace Hertzole.SmallSteamworks
 			return GetInstalledDepotsInternal(appId);
 		}
 
-		public string? GetLaunchQueryParam(string key)
+		public string? GetLaunchQueryParameter(string key)
 		{
 			string? result = Steamworks.SteamApps.GetLaunchQueryParam(key);
 			return string.IsNullOrWhiteSpace(result) ? null : result;

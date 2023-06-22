@@ -54,8 +54,8 @@ namespace Hertzole.SmallSteamworks
 		bool IsVACBanned { get; }
 
 		/// <summary>
-		///     <para>Gets the buildid of this app, may change at any time based on backend updates to the game.</para>
-		///     <para>The current Build Id of this App. Defaults to 0 if you're not running a build downloaded from steam.</para>
+		///     Gets the build id of this app. This may change at any time based on backend updates to the game. Defaults to 0 if
+		///     you're not running a build downloaded from steam.
 		/// </summary>
 		int AppBuildId { get; }
 
@@ -112,7 +112,7 @@ namespace Hertzole.SmallSteamworks
 		event Action<AppID>? OnInstalledDLC;
 
 		/// <summary>
-		///     Sent every minute when a appID is owned via a timed trial.
+		///     Sent every minute when the app is owned via a timed trial.
 		/// </summary>
 		event TimeTrialStatusCallback? OnTimeTrialChanged;
 
@@ -127,7 +127,7 @@ namespace Hertzole.SmallSteamworks
 		///     <para>Gets the time of purchase of the specified app in Unix epoch format (time since Jan 1st, 1970).</para>
 		///     <para>This is useful for rewarding users based on their initial purchase date.</para>
 		/// </summary>
-		/// <param name="appid">	The App ID to get the purchase time for.</param>
+		/// <param name="appid">The App ID to get the purchase time for.</param>
 		/// <returns>The date time in Unix epoch format when the specified app was purchased.</returns>
 		DateTime GetAppPurchaseTime(AppID appid);
 
@@ -199,13 +199,13 @@ namespace Hertzole.SmallSteamworks
 		///     </para>
 		///     <para>
 		///         Parameter names starting with the character '@' are reserved for internal use and will always return an empty
-		///         string. Parameter names starting with an underscore '_' are reserved for steam features -- they can be queried
-		///         by the game, but it is advised that you not param names beginning with an underscore for your own features.
+		///         string. Parameter names starting with an underscore '_' are reserved for Steam features -- they can be queried
+		///         by the game, but it is advised that you begin param names beginning with an underscore for your own features.
 		///     </para>
 		/// </summary>
 		/// <param name="key">The launch key to test for. Ex: param1</param>
 		/// <returns>The value associated with the key provided. Returns <c>null</c> if the specified key does not exist.</returns>
-		string? GetLaunchQueryParam(string key);
+		string? GetLaunchQueryParameter(string key);
 
 		/// <summary>
 		///     Asynchronously retrieves metadata details about a specific file in the depot manifest.

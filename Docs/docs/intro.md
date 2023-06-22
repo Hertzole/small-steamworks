@@ -17,6 +17,9 @@ Small Steamworks is currently in development. The features listed below are alre
 ### [Achievements](achievements)
 Achievements are fully implemented and working. Use achievements to track the progress of your users.
 
+### [Apps](apps)
+Apps are fully implemented and working. Use apps to get information about your game, other games, and DLC.
+
 ### [Friends](friends)
 Friends have the important parts already, but not all functions are implemented. Use friends to get information about other Steam users in game.
 
@@ -37,32 +40,32 @@ If a feature is missing, you can still use it by using Steamworks.NET directly.
 
 Features can be ✅ Completed when they are fully implemented, 🚧 In Progress when they are only partially implemented, or ❌ Not Started for when they are completely abscent from the package.
 
-| Feature             | Satus         |
-| ------------------- | ------------- |
-| Achievements        | ✅ Completed   |
-| Apps                | ❌ Not Started |
-| App Ticket          | ❌ Not Started |
-| Client              | ❌ Not Started |
-| Friends             | 🚧 In Progress |
-| Game Coordinator    | ❌ Not Started |
-| Game Server         | ❌ Not Started |
-| Game Server Stats   | ❌ Not Started |
-| HTML Surface        | ❌ Not Started |
-| HTTP                | ❌ Not Started |
-| Input               | ❌ Not Started |
-| Inventory           | ❌ Not Started |
-| Leaderboards        | ✅ Completed   |
-| Matchmaking         | ❌ Not Started |
-| Matchmaking Servers | ❌ Not Started |
-| Music               | ❌ Not Started |
-| Networking          | ❌ Not Started |
-| Networking Sockets  | ❌ Not Started |
-| Networking Utils    | ❌ Not Started |
-| Remote Play         | ❌ Not Started |
-| Remote Storage      | 🚧 In Progress |
-| Screenshots         | ❌ Not Started |
-| User                | ❌ Not Started |
-| User Stats          | ✅ Completed   |
-| Utils               | ❌ Not Started |
-| Video               | ❌ Not Started |
-| Workshop            | ❌ Not Started |
+| Feature                      | Satus         |
+| ---------------------------- | ------------- |
+| [Achievements](achievements) | ✅ Completed   |
+| [Apps](apps)                 | ✅ Completed   |
+| App Ticket                   | ❌ Not Started |
+| Client                       | ❌ Not Started |
+| [Friends](friends)           | 🚧 In Progress |
+| Game Coordinator             | ❌ Not Started |
+| Game Server                  | ❌ Not Started |
+| Game Server Stats            | ❌ Not Started |
+| HTML Surface                 | ❌ Not Started |
+| HTTP                         | ❌ Not Started |
+| Input                        | ❌ Not Started |
+| Inventory                    | ❌ Not Started |
+| [Leaderboards](leaderboards) | ✅ Completed   |
+| Matchmaking                  | ❌ Not Started |
+| Matchmaking Servers          | ❌ Not Started |
+| Music                        | ❌ Not Started |
+| Networking                   | ❌ Not Started |
+| Networking Sockets           | ❌ Not Started |
+| Networking Utils             | ❌ Not Started |
+| Remote Play                  | ❌ Not Started |
+| [Remote Storage](storage)    | 🚧 In Progress |
+| Screenshots                  | ❌ Not Started |
+| User                         | ❌ Not Started |
+| [User Stats](stats)          | ✅ Completed   |
+| Utils                        | ❌ Not Started |
+| Video                        | ❌ Not Started |
+| Workshop                     | ❌ Not Started |
