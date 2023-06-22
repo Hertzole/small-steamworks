@@ -223,7 +223,7 @@ foreach (SteamDLC dlc in SteamManager.Apps.GetAllDLC())
 {
     Console.WriteLine($"Name: {dlc.Name}");
     Console.WriteLine($"App ID: {dlc.AppID}");
-    Console.WriteLine($"Available: {dlc.IsAvailableOnSteamStore}");
+    Console.WriteLine($"Available: {dlc.IsAvailableInStore}");
     Console.WriteLine($"Installed: {dlc.IsInstalled}");
 }
 ```
