@@ -48,6 +48,9 @@ namespace Hertzole.SmallSteamworks
 		public event AchievementUnlockCallback? OnAchievementUnlocked;
 
 		/// <inheritdoc />
+		public event AchievementProgressCallback? OnAchievementProgress;
+
+		/// <inheritdoc />
 		public void ResetAchievement(in string achievementName, in bool shouldStore = true)
 		{
 			ThrowIfCurrentStatsNotAvailable();
@@ -300,6 +303,10 @@ namespace Hertzole.SmallSteamworks
 			if (param.m_nCurProgress == 0 && param.m_nMaxProgress == 0)
 			{
 				OnAchievementUnlocked?.Invoke(param.m_rgchAchievementName, DateTime.UtcNow);
+			}
+			else
+			{
+				OnAchievementProgress?.Invoke(param.m_rgchAchievementName, param.m_nCurProgress, param.m_nMaxProgress);
 			}
 		}
 
