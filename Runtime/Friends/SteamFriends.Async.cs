@@ -2,26 +2,23 @@
 #define DISABLESTEAMWORKS
 #endif
 
+#if !DISABLESTEAMWORKS
 #nullable enable
+
 using System.Threading;
 using System.Threading.Tasks;
-using Hertzole.SmallSteamworks.Helpers;
 
 namespace Hertzole.SmallSteamworks
 {
-	public static partial class SteamExtensions
+	internal partial class SteamFriends
 	{
-		public static Task<UserInformationRetrievedResponse> RequestUserInformationAsync(this ISteamFriends friends,
-			SteamID id,
+		public Task<UserInformationRetrievedResponse> RequestUserInformationAsync(SteamID id,
 			bool requireNameOnly = true,
 			CancellationToken cancellationToken = default)
 		{
-#if !DISABLESTEAMWORKS
-			ThrowHelper.ThrowIfNull(friends, nameof(friends));
-
 			TaskCompletionSource<UserInformationRetrievedResponse> tcs = new TaskCompletionSource<UserInformationRetrievedResponse>();
 
-			friends.RequestUserInformation(id, requireNameOnly, user =>
+			RequestUserInformation(id, requireNameOnly, user =>
 			{
 				if (cancellationToken.IsCancellationRequested)
 				{
@@ -33,19 +30,13 @@ namespace Hertzole.SmallSteamworks
 			});
 
 			return tcs.Task;
-#else
-			return Task.FromResult(new UserInformationRetrievedResponse(default));
-#endif
 		}
 
-		public static Task<AvatarRetrievedResponse> GetMyAvatarAsync(this ISteamFriends friends, AvatarSize size, CancellationToken cancellationToken = default)
+		public Task<AvatarRetrievedResponse> GetCurrentUserAvatarAsync(AvatarSize size, CancellationToken cancellationToken = default)
 		{
-#if !DISABLESTEAMWORKS
-			ThrowHelper.ThrowIfNull(friends, nameof(friends));
-
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
 
-			friends.GetAvatar(Steamworks.SteamUser.GetSteamID(), size, (image, userId, width, height) =>
+			GetAvatar(Steamworks.SteamUser.GetSteamID(), size, (image, userId, width, height) =>
 			{
 				if (cancellationToken.IsCancellationRequested)
 				{
@@ -57,22 +48,13 @@ namespace Hertzole.SmallSteamworks
 			});
 
 			return tcs.Task;
-#else
-			return Task.FromResult(new AvatarRetrievedResponse(default, SteamID.Invalid, 0, 0));
-#endif
 		}
 
-		public static Task<AvatarRetrievedResponse> GetAvatarAsync(this ISteamFriends friends,
-			SteamID id,
-			AvatarSize size,
-			CancellationToken cancellationToken = default)
+		public Task<AvatarRetrievedResponse> GetAvatarAsync(SteamID id, AvatarSize size, CancellationToken cancellationToken = default)
 		{
-			#if !DISABLESTEAMWORKS
-			ThrowHelper.ThrowIfNull(friends, nameof(friends));
-
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
 
-			friends.GetAvatar(id, size, (image, userId, width, height) =>
+			GetAvatar(id, size, (image, userId, width, height) =>
 			{
 				if (cancellationToken.IsCancellationRequested)
 				{
@@ -84,9 +66,7 @@ namespace Hertzole.SmallSteamworks
 			});
 
 			return tcs.Task;
-#else
-			return Task.FromResult(new AvatarRetrievedResponse(default, SteamID.Invalid, 0, 0));
-#endif
 		}
 	}
 }
+#endif
