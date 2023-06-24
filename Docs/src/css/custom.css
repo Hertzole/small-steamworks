@@ -28,3 +28,16 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+.dsla-search-wrapper {
+  width: 300px;
+}
+
+.aa-DetachedSearchButtonIcon {
+  color: var(--ifm-heading-color) !important;
+}
+
+.aa-DetachedSearchButton {
+  color: var(--ifm-heading-color) !important;
+  border-color: var(--ifm-toc-border-color) !important;
+}
