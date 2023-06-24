@@ -29,6 +29,10 @@ namespace Hertzole.SmallSteamworks
 		///     Called when an achievement is unlocked.
 		/// </summary>
 		event AchievementUnlockCallback? OnAchievementUnlocked;
+		/// <summary>
+		///     Called when an achievement's progress is updated using <see cref="IndicateAchievementProgress" />.
+		/// </summary>
+		event AchievementProgressCallback? OnAchievementProgress;
 
 		/// <summary>
 		///     <para>Resets the unlock status of an achievement.</para>
