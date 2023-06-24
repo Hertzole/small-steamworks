@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Hertzole.SmallSteamworks
 {
-	public interface ISteamFriends : IDisposable
+	public partial interface ISteamFriends : IDisposable
 	{
 		/// <summary>
 		///     The current user.
@@ -40,6 +40,13 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="callback">The callback when the information has been retrieved.</param>
 		void RequestUserInformation(SteamID id, bool requireNameOnly = true, UserInformationRetrievedCallback? callback = null);
 
+		/// <summary>
+		///     Asynchronously gets the avatar of the current user.
+		/// </summary>
+		/// <param name="size">The size of the avatar.</param>
+		/// <param name="callback">The callback when the avatar has been retrieved.</param>
+		void GetCurrentUserAvatar(AvatarSize size, AvatarRetrievedCallback? callback = null);
+		
 		/// <summary>
 		///     Asynchronously gets the avatar of the specified user.
 		/// </summary>

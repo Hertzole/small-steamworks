@@ -11,7 +11,7 @@ using Steamworks;
 
 namespace Hertzole.SmallSteamworks
 {
-	internal sealed class SteamFriends : ISteamFriends
+	internal sealed partial class SteamFriends : ISteamFriends
 	{
 		private readonly SteamLogger<SteamFriends> logger = new SteamLogger<SteamFriends>();
 
@@ -58,6 +58,11 @@ namespace Hertzole.SmallSteamworks
 		private void OnPersonaStateChanged(PersonaStateChange_t obj)
 		{
 			logger.Log($"{obj.m_ulSteamID} has changed state with {obj.m_nChangeFlags}.");
+		}
+
+		public void GetCurrentUserAvatar(AvatarSize size, AvatarRetrievedCallback? callback = null)
+		{
+			GetAvatar(Steamworks.SteamUser.GetSteamID(), size, callback);
 		}
 
 		public void GetAvatar(SteamID id, AvatarSize size, AvatarRetrievedCallback? callback = null)
