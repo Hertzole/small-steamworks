@@ -23,7 +23,7 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="fileName">The name of the file to write to.</param>
 		/// <param name="data">The bytes to write to the file.</param>
 		/// <returns>Returns a response with if the write was successful or not.</returns>
-		FileWrittenResponse WriteFileSynchronous(string fileName, byte[] data);
+		FileWrittenResponse WriteFileSynchronous(in string fileName, in byte[] data);
 
 		/// <summary>
 		///     <para>
@@ -34,7 +34,7 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="fileName">The name of the file to write to.</param>
 		/// <param name="data">The bytes to write to the file.</param>
 		/// <param name="callback">The callback when the file writing has completed.</param>
-		void WriteFile(string fileName, byte[] data, FileWrittenCallback? callback = null);
+		void WriteFile(in string fileName, in byte[] data, FileWrittenCallback? callback = null);
 
 		/// <summary>
 		///     <para>Opens a binary file, reads the contents of the file into a byte array, and then closes the file.</para>
@@ -46,21 +46,21 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		/// <param name="fileName">The name of the file to read from.</param>
 		/// <returns>Returns a response with if the read was successful and the data of the file.</returns>
-		FileReadResponse ReadFileSynchronous(string fileName);
+		FileReadResponse ReadFileSynchronous(in string fileName);
 
 		/// <summary>
 		///     Opens a binary file, reads the contents of the file asynchronously into a byte array, and then closes the file.
 		/// </summary>
 		/// <param name="fileName">The name of the file to read from.</param>
 		/// <param name="callback">The callback when the file reading has completed.</param>
-		void ReadFile(string fileName, FileReadCallback? callback = null);
+		void ReadFile(in string fileName, FileReadCallback? callback = null);
 
 		/// <summary>
 		///     Check whether the specified file exists.
 		/// </summary>
 		/// <param name="fileName">The name of the file.</param>
 		/// <returns>True if the file exists; otherwise false.</returns>
-		bool FileExists(string fileName);
+		bool FileExists(in string fileName);
 
 		/// <summary>
 		///     Check whether the specified file is persisted in the Steam Cloud.
@@ -70,28 +70,28 @@ namespace Hertzole.SmallSteamworks
 		///     True if the file exists and is persisted in the Steam cloud; false if <see cref="ForgetFile" /> was called on
 		///     it and is only available locally.
 		/// </returns>
-		bool FilePersisted(string fileName);
+		bool FilePersisted(in string fileName);
 
 		/// <summary>
 		///     Deletes the file from remote storage, but leaves it on the local disk and remains accessible from the API.
 		/// </summary>
 		/// <param name="fileName">The name of the file that will be forgotten.</param>
 		/// <returns>True if the file exists and has been successfully forgotten; otherwise, false.</returns>
-		bool ForgetFile(string fileName);
+		bool ForgetFile(in string fileName);
 
 		/// <summary>
 		///     Deletes a file from the local disk, and propagates that delete to the cloud.
 		/// </summary>
 		/// <param name="fileName">	The name of the file that will be deleted.</param>
 		/// <returns>True if the file exists and has been successfully deleted; otherwise, false if the file did not exist.</returns>
-		bool DeleteFile(string fileName);
+		bool DeleteFile(in string fileName);
 
 		/// <summary>
 		///     Gets the specified files size in bytes.
 		/// </summary>
 		/// <param name="fileName">	The name of the file.</param>
 		/// <returns>The size of the file in bytes. Returns 0 if the file does not exist.</returns>
-		int GetFileSize(string fileName);
+		int GetFileSize(in string fileName);
 
 		/// <summary>
 		///     Gets the number of bytes available, and used on the users Steam Cloud storage.
@@ -124,7 +124,7 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		/// <param name="fileName">The name of the file to write to.</param>
 		/// <returns>A stream that should be used within a using statement.</returns>
-		SteamWriteStream WriteStream(string fileName);
+		SteamWriteStream WriteStream(in string fileName);
 
 		/// <summary>
 		///     Shares a file publicly that can be accessed by the community. You can use the file to, for example, to attach to a
@@ -132,7 +132,7 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		/// <param name="fileName">The name of the file to share.</param>
 		/// <param name="callback">The callback when the share process has completed.</param>
-		void ShareFile(string fileName, FileSharedCallback? callback = null);
+		void ShareFile(in string fileName, FileSharedCallback? callback = null);
 
 		/// <summary>
 		///     Downloads a shared file from the Steam Cloud.
@@ -140,7 +140,7 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="ugcHandle">The handle to download from.</param>
 		/// <param name="priority">The priority of the file. 0 is the highest priority.</param>
 		/// <param name="callback">The callback when the download has completed.</param>
-		void DownloadSharedFile(SteamUGCHandle ugcHandle, uint priority = 0, UGCDownloadedCallback? callback = null);
+		void DownloadSharedFile(SteamUGCHandle ugcHandle, in uint priority = 0, UGCDownloadedCallback? callback = null);
 
 		/// <summary>
 		///     Downloads a shared file from the Steam Cloud to a specific location.
@@ -149,7 +149,7 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="location">The location to put the file.</param>
 		/// <param name="priority">The priority of the file. 0 is the highest priority.</param>
 		/// <param name="callback">The callback when the download has completed.</param>
-		void DownloadSharedFileToLocation(SteamUGCHandle ugcHandle, string location, uint priority = 0, UGCDownloadedCallback? callback = null);
+		void DownloadSharedFileToLocation(SteamUGCHandle ugcHandle, in string location, in uint priority = 0, UGCDownloadedCallback? callback = null);
 
 		/// <summary>
 		///     Reads a downloaded shared file. You must have downloaded the file first using <see cref="DownloadSharedFile" /> or
@@ -158,7 +158,7 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="ugcHandle">The handle to read from.</param>
 		/// <param name="fileSize">The file size.</param>
 		/// <returns>A byte array with the contents of the file.</returns>
-		byte[] ReadSharedFile(SteamUGCHandle ugcHandle, out int fileSize);
+		byte[] ReadSharedFile(in SteamUGCHandle ugcHandle, out int fileSize);
 
 		/// <summary>
 		///     Gets all the available local files.

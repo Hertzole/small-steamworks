@@ -1,10 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
+﻿#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
 #define DISABLESTEAMWORKS
 #endif
-
 #nullable enable
+
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Hertzole.SmallSteamworks
 {
@@ -16,6 +16,6 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="fileName">	The absolute path and name to the file.</param>
 		/// <param name="cancellationToken">Optional cancellation token for stopping the task.</param>
 		/// <returns>A file details response.</returns>
-		Task<FileDetailsResponse> GetFileDetailsAsync(string fileName, CancellationToken cancellationToken = default);
+		Task<FileDetailsResponse> GetFileDetailsAsync(in string fileName, CancellationToken cancellationToken = default);
 	}
 }

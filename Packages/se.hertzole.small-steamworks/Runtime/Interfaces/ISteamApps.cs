@@ -121,7 +121,7 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		/// <param name="appId">The App ID to check.</param>
 		/// <returns><c>true</c> if the active user is subscribed to the specified App ID; otherwise <c>false</c>.</returns>
-		bool IsSubscribedToApp(AppID appId);
+		bool IsSubscribedToApp(in AppID appId);
 
 		/// <summary>
 		///     <para>Gets the time of purchase of the specified app in Unix epoch format (time since Jan 1st, 1970).</para>
@@ -129,7 +129,7 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		/// <param name="appid">The App ID to get the purchase time for.</param>
 		/// <returns>The date time in Unix epoch format when the specified app was purchased.</returns>
-		DateTime GetAppPurchaseTime(AppID appid);
+		DateTime GetAppPurchaseTime(in AppID appid);
 
 		/// <summary>
 		///     Gets the install folder for the specified app.
@@ -139,7 +139,7 @@ namespace Hertzole.SmallSteamworks
 		///     </remarks>
 		/// </summary>
 		/// <param name="appId">The App ID to get the install directory for.</param>
-		string GetAppInstallDirectory(AppID appId);
+		string GetAppInstallDirectory(in AppID appId);
 
 		/// <summary>
 		///     <para>Allows you to force verify game content on next launch.</para>
@@ -149,7 +149,7 @@ namespace Hertzole.SmallSteamworks
 		///     </para>
 		/// </summary>
 		/// <param name="missingFilesOnly">If true, only scan for missing files and don't verify the checksum of each file.</param>
-		void MarkContentCorrupt(bool missingFilesOnly);
+		void MarkContentCorrupt(in bool missingFilesOnly);
 
 		/// <summary>
 		///     Gets all the optional DLC for the current app.
@@ -162,19 +162,19 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		/// <param name="dlcId">The App ID of the DLC to check.</param>
 		/// <returns><c>true</c> if the user owns the DLC and it's currently installed; otherwise <c>false</c>.</returns>
-		bool IsDLCInstalled(AppID dlcId);
+		bool IsDLCInstalled(in AppID dlcId);
 
 		/// <summary>
 		///     Allows you to install an optional DLC.
 		/// </summary>
 		/// <param name="dlcId">The DLC you want to install.</param>
-		void InstallDLC(AppID dlcId);
+		void InstallDLC(in AppID dlcId);
 
 		/// <summary>
 		///     Allows you to uninstall an optional DLC.
 		/// </summary>
 		/// <param name="dlcId">The DLC you want to uninstall.</param>
-		void UninstallDLC(AppID dlcId);
+		void UninstallDLC(in AppID dlcId);
 
 		/// <summary>
 		///     Tries to get the download progress for a DLC.
@@ -183,14 +183,14 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="bytesDownloaded">The number of bytes that have been downloaded.</param>
 		/// <param name="bytesTotal">The number of bytes that needs to be downloaded.</param>
 		/// <returns><c>true</c> if the specified DLC and is currently being downloaded; otherwise <c>false</c>.</returns>
-		bool TryGetDLCDownloadProgress(AppID dlcId, out ulong bytesDownloaded, out ulong bytesTotal);
+		bool TryGetDLCDownloadProgress(in AppID dlcId, out ulong bytesDownloaded, out ulong bytesTotal);
 
 		/// <summary>
 		///     Gets a list of all the installed depots for the specified app.
 		/// </summary>
 		/// <param name="appId">The App to list the depots for.</param>
 		/// <returns>A list of all installed app depots.</returns>
-		IReadOnlyList<DepotID> GetInstalledDepots(AppID appId);
+		IReadOnlyList<DepotID> GetInstalledDepots(in AppID appId);
 
 		/// <summary>
 		///     <para>
@@ -205,13 +205,13 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		/// <param name="key">The launch key to test for. Ex: param1</param>
 		/// <returns>The value associated with the key provided. Returns <c>null</c> if the specified key does not exist.</returns>
-		string? GetLaunchQueryParameter(string key);
+		string? GetLaunchQueryParameter(in string key);
 
 		/// <summary>
 		///     Asynchronously retrieves metadata details about a specific file in the depot manifest.
 		/// </summary>
 		/// <param name="fileName">	The absolute path and name to the file.</param>
 		/// <param name="callback">Optional callback when the file details have been retrieved.</param>
-		void GetFileDetails(string fileName, FileDetailsCallback? callback = null);
+		void GetFileDetails(in string fileName, FileDetailsCallback? callback = null);
 	}
 }

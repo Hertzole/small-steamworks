@@ -19,24 +19,24 @@ namespace Hertzole.SmallSteamworks
 		private SteamCallback<RemoteStorageFileShareResult_t>? onFileShareResultCallResult;
 		private SteamCallback<RemoteStorageDownloadUGCResult_t>? onDownloadUGCResultCallResult;
 
-		public FileWrittenResponse WriteFileSynchronous(string fileName, byte[] data)
+		public FileWrittenResponse WriteFileSynchronous(in string fileName, in byte[] data)
 		{
 			ThrowHelper.ThrowIfNullOrEmpty(data, nameof(data));
-			
+
 			if (data.Length > Constants.k_unMaxCloudFileChunkSize)
 			{
 				throw new FileSizeException("File size is too big.");
 			}
-			
+
 			logger.Log($"Writing file synchronously: {fileName} with size: {data.Length}");
 			bool success = SteamRemoteStorage.FileWrite(fileName, data, data.Length);
 			return new FileWrittenResponse(success ? FileWrittenResult.Success : FileWrittenResult.QuotaExceeded);
 		}
 
-		public void WriteFile(string fileName, byte[] data, FileWrittenCallback? callback = null)
+		public void WriteFile(in string fileName, in byte[] data, FileWrittenCallback? callback = null)
 		{
 			ThrowHelper.ThrowIfNullOrEmpty(data, nameof(data));
-			
+
 			if (data.Length > Constants.k_unMaxCloudFileChunkSize)
 			{
 				throw new FileSizeException("File size is too big.");
@@ -54,7 +54,7 @@ namespace Hertzole.SmallSteamworks
 				callback?.Invoke(FileWrittenResult.QuotaExceeded);
 				return;
 			}
-			
+
 			onFileWriteAsyncCompleteCallResult.RegisterOnce(call, (t, failure) =>
 			{
 				if (failure)
@@ -69,7 +69,7 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public FileReadResponse ReadFileSynchronous(string fileName)
+		public FileReadResponse ReadFileSynchronous(in string fileName)
 		{
 			logger.Log($"Reading file synchronously: {fileName}");
 
@@ -91,7 +91,7 @@ namespace Hertzole.SmallSteamworks
 			return new FileReadResponse(true, data);
 		}
 
-		public void ReadFile(string fileName, FileReadCallback? callback = null)
+		public void ReadFile(in string fileName, FileReadCallback? callback = null)
 		{
 			logger.Log($"Reading file: {fileName}");
 
@@ -122,27 +122,27 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public bool FileExists(string fileName)
+		public bool FileExists(in string fileName)
 		{
 			return SteamRemoteStorage.FileExists(fileName);
 		}
 
-		public bool FilePersisted(string fileName)
+		public bool FilePersisted(in string fileName)
 		{
 			return SteamRemoteStorage.FilePersisted(fileName);
 		}
 
-		public bool ForgetFile(string fileName)
+		public bool ForgetFile(in string fileName)
 		{
 			return SteamRemoteStorage.FileForget(fileName);
 		}
 
-		public bool DeleteFile(string fileName)
+		public bool DeleteFile(in string fileName)
 		{
 			return SteamRemoteStorage.FileDelete(fileName);
 		}
 
-		public int GetFileSize(string fileName)
+		public int GetFileSize(in string fileName)
 		{
 			return SteamRemoteStorage.GetFileSize(fileName);
 		}
@@ -159,13 +159,13 @@ namespace Hertzole.SmallSteamworks
 			return new SteamWriteBatch();
 		}
 
-		public SteamWriteStream WriteStream(string fileName)
+		public SteamWriteStream WriteStream(in string fileName)
 		{
 			UGCFileWriteStreamHandle_t handle = SteamRemoteStorage.FileWriteStreamOpen(fileName);
 			return new SteamWriteStream(handle);
 		}
 
-		public void ShareFile(string fileName, FileSharedCallback? callback = null)
+		public void ShareFile(in string fileName, FileSharedCallback? callback = null)
 		{
 			logger.Log($"Sharing file: {fileName}");
 
@@ -187,7 +187,7 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public void DownloadSharedFile(SteamUGCHandle ugcHandle, uint priority = 0, UGCDownloadedCallback? callback = null)
+		public void DownloadSharedFile(SteamUGCHandle ugcHandle, in uint priority = 0, UGCDownloadedCallback? callback = null)
 		{
 			logger.Log($"Downloading UGC: {ugcHandle}");
 
@@ -209,7 +209,7 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public void DownloadSharedFileToLocation(SteamUGCHandle ugcHandle, string location, uint priority = 0, UGCDownloadedCallback? callback = null)
+		public void DownloadSharedFileToLocation(SteamUGCHandle ugcHandle, in string location, in uint priority = 0, UGCDownloadedCallback? callback = null)
 		{
 			logger.Log($"Downloading UGC to location: {ugcHandle}, {location}");
 
@@ -231,7 +231,7 @@ namespace Hertzole.SmallSteamworks
 			});
 		}
 
-		public byte[] ReadSharedFile(SteamUGCHandle ugcHandle, out int fileSize)
+		public byte[] ReadSharedFile(in SteamUGCHandle ugcHandle, out int fileSize)
 		{
 			logger.Log(ugcHandle.ToString());
 
