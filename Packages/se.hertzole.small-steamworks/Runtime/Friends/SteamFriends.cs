@@ -43,11 +43,14 @@ namespace Hertzole.SmallSteamworks
 			logger.Log($"{id} needs to be fetched: {needsToBeFetched}");
 			if (needsToBeFetched)
 			{
+				// Create new values here to avoid a closure allocation in the lambda.
+				SteamID steamId = id;
+				
 				onPersonaStateChangedCallback.RegisterOnce(t =>
 				{
 					logger.Log($"Persona state changed callback received for user {t.m_ulSteamID} with {t.m_nChangeFlags}.");
 					callback?.Invoke(SteamUserHelpers.GetSteamUser(new SteamID(t.m_ulSteamID)));
-				}, t => t.m_ulSteamID == id);
+				}, t => t.m_ulSteamID == steamId);
 			}
 			else
 			{
@@ -113,12 +116,15 @@ namespace Hertzole.SmallSteamworks
 				return;
 			}
 
+			// Create new values here to avoid a closure allocation in the lambda.
+			SteamID currentId = id;
+
 			// Avatar is not loaded yet. Wait for callback.
 			onAvatarLoadedCallback.RegisterOnce(t =>
 			{
 				logger.Log($"Avatar loaded callback received :: {nameof(t.m_iImage)}: {t.m_iImage}, {nameof(t.m_steamID)}: {t.m_steamID}, {nameof(t.m_iWide)}: {t.m_iWide}, {nameof(t.m_iTall)}: {t.m_iTall}");
-				callback?.Invoke(new SteamImage(t.m_iImage), id, t.m_iWide, t.m_iTall);
-			}, t => t.m_steamID == id);
+				callback?.Invoke(new SteamImage(t.m_iImage), t.m_steamID, t.m_iWide, t.m_iTall);
+			}, t => t.m_steamID == currentId);
 		}
 
 		public IEnumerable<SteamUser> GetFriends()
