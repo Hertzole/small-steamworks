@@ -30,12 +30,12 @@ namespace Hertzole.SmallSteamworks
 			return Steamworks.SteamFriends.GetPersonaName();
 		}
 
-		public string GetUserDisplayName(SteamID id)
+		public string GetUserDisplayName(in SteamID id)
 		{
 			return Steamworks.SteamFriends.GetFriendPersonaName(id);
 		}
 
-		public void RequestUserInformation(SteamID id, bool requireNameOnly = true, UserInformationRetrievedCallback? callback = null)
+		public void RequestUserInformation(in SteamID id, in bool requireNameOnly = true, UserInformationRetrievedCallback? callback = null)
 		{
 			logger.Log($"Requesting user information for {id} with name only: {requireNameOnly}");
 
@@ -63,12 +63,12 @@ namespace Hertzole.SmallSteamworks
 			logger.Log($"{obj.m_ulSteamID} has changed state with {obj.m_nChangeFlags}.");
 		}
 
-		public void GetCurrentUserAvatar(AvatarSize size, AvatarRetrievedCallback? callback = null)
+		public void GetCurrentUserAvatar(in AvatarSize size, AvatarRetrievedCallback? callback = null)
 		{
 			GetAvatar(Steamworks.SteamUser.GetSteamID(), size, callback);
 		}
 
-		public void GetAvatar(SteamID id, AvatarSize size, AvatarRetrievedCallback? callback = null)
+		public void GetAvatar(in SteamID id, in AvatarSize size, AvatarRetrievedCallback? callback = null)
 		{
 			logger.Log($"Getting avatar for {id} with size {size}");
 
