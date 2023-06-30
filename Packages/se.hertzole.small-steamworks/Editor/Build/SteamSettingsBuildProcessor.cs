@@ -1,16 +1,21 @@
 ﻿#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
 // The reason we don't use DISABLESTEAMWORKS here is because sometimes in CI, DISABLESTEAMWORKS may not be removed if it was present and should be removed.
 // We only disable the inclusion of the build if it's on a platform that doesn't support Steamworks.
-#define DISABLE_BUILD 
+#define DISABLE_BUILD
 #endif
 
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 #if !DISABLE_BUILD
 using System.Linq;
-using Hertzole.SmallSteamworks.Helpers;
 using UnityEditor;
 using UnityEngine;
+#endif
+
+#if !DISABLESTEAMWORKS
+using Hertzole.SmallSteamworks.Helpers;
 #endif
 
 namespace Hertzole.SmallSteamworks.Editor
@@ -45,7 +50,7 @@ namespace Hertzole.SmallSteamworks.Editor
 
 			if (oldInstance != null)
 			{
-				logger.Log("Found old instance, removing it");
+				Log("Found old instance, removing it");
 				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(oldInstance));
 			}
 
@@ -54,7 +59,7 @@ namespace Hertzole.SmallSteamworks.Editor
 			AssetDatabase.CreateAsset(SteamSettings.Instance, STEAM_SETTINGS_PATH);
 			AssetDatabase.ImportAsset(STEAM_SETTINGS_PATH);
 
-			logger.Log("Created new instance");
+			Log("Created new instance");
 
 			settingsInstance = AssetDatabase.LoadAssetAtPath<SteamSettings>(STEAM_SETTINGS_PATH);
 
@@ -63,7 +68,7 @@ namespace Hertzole.SmallSteamworks.Editor
 
 			if (!preloadedAssets.Contains(settingsInstance))
 			{
-				logger.Log("Adding to preloaded assets");
+				Log("Adding to preloaded assets");
 
 				ArrayUtility.Add(ref preloadedAssets, settingsInstance);
 				PlayerSettings.SetPreloadedAssets(preloadedAssets);
@@ -89,12 +94,20 @@ namespace Hertzole.SmallSteamworks.Editor
 #endif
 		}
 
+		[Conditional("STEAMWORKS_DEBUG")]
+		private static void Log(string message, [CallerMemberName] string methodName = "")
+		{
+#if !DISABLESTEAMWORKS
+            logger.Log(message, methodName);
+#endif
+		}
+
 #if !DISABLE_BUILD
 		private void RemoveInstance()
 		{
 			if (removeFromPreloadedAssets)
 			{
-				logger.Log("Removing from preloaded assets");
+				Log("Removing from preloaded assets");
 
 				bool wasDirty = IsPlayerSettingsDirty();
 
@@ -110,13 +123,13 @@ namespace Hertzole.SmallSteamworks.Editor
 
 			if (EditorBuildSettings.TryGetConfigObject<SteamSettings>(SettingsHelper.PACKAGE_NAME, out _))
 			{
-				logger.Log("Removing from build settings");
+				Log("Removing from build settings");
 				EditorBuildSettings.RemoveConfigObject(SettingsHelper.PACKAGE_NAME);
 			}
 
 			if (settingsInstance != null)
 			{
-				logger.Log("Removing asset");
+				Log("Removing asset");
 				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(settingsInstance));
 			}
 
