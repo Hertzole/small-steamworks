@@ -86,7 +86,11 @@ namespace Hertzole.SmallSteamworks
 #if !UNITY_EDITOR
 		private void OnEnable()
 		{
+#if DISABLESTEAMWORKS
+			Destroy(this);
+#else
 			instance = this;
+#endif
 		}
 #endif
 
