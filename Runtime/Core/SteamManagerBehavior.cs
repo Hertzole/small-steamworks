@@ -141,7 +141,7 @@ namespace Hertzole.SmallSteamworks
 					storage.Dispose();
 					friends.Dispose();
 					
-					SteamImageCache.DisposeAll();
+					SteamImageCache.CleanUp();
 
 					SteamAPI.Shutdown();
 				}
