@@ -18,8 +18,8 @@ namespace Hertzole.SmallSteamworks.Helpers
 #if NETSTANDARD2_1 || NETSTANDARD2_1_OR_GREATER
 			[NotNull]
 #endif
-			object? obj,
-			string name)
+			in object? obj,
+			in string name)
 		{
 #if DEBUG
 			if (obj == null)
@@ -34,8 +34,8 @@ namespace Hertzole.SmallSteamworks.Helpers
 #if NETSTANDARD2_1 || NETSTANDARD2_1_OR_GREATER
 			[NotNull]
 #endif
-			T[]? array,
-			string name)
+			in T[]? array,
+			in string name)
 		{
 #if DEBUG
 			if (array == null)

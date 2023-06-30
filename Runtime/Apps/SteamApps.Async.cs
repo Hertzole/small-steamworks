@@ -11,7 +11,7 @@ namespace Hertzole.SmallSteamworks
 {
 	internal partial class SteamApps
 	{
-		public Task<FileDetailsResponse> GetFileDetailsAsync(string fileName, CancellationToken cancellationToken = default)
+		public Task<FileDetailsResponse> GetFileDetailsAsync(in string fileName, CancellationToken cancellationToken = default)
 		{
 			TaskCompletionSource<FileDetailsResponse> tcs = new TaskCompletionSource<FileDetailsResponse>();
 

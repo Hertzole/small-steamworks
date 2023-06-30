@@ -27,7 +27,7 @@ namespace Hertzole.SmallSteamworks.Helpers
 
 		private List<CallbackRegistration>? registrations;
 
-		public SteamCallback(CallbackType type, Predicate<T>? globalPredicate = null)
+		public SteamCallback(in CallbackType type, in Predicate<T>? globalPredicate = null)
 		{
 			this.globalPredicate = globalPredicate;
 
@@ -44,12 +44,12 @@ namespace Hertzole.SmallSteamworks.Helpers
 			}
 		}
 
-		public SteamCallback(CallbackType type, Action<T> onCallback, Predicate<T>? globalPredicate = null) : this(type, globalPredicate)
+		public SteamCallback(in CallbackType type, in Action<T> onCallback, in Predicate<T>? globalPredicate = null) : this(type, globalPredicate)
 		{
 			this.onCallback = onCallback;
 		}
 
-		public void RegisterOnce(Action<T> onCalled, Predicate<T>? predicate = null)
+		public void RegisterOnce(in Action<T> onCalled, in Predicate<T>? predicate = null)
 		{
 			registrations ??= new List<CallbackRegistration>();
 
@@ -60,7 +60,7 @@ namespace Hertzole.SmallSteamworks.Helpers
 			registrations.Add(registration);
 		}
 
-		public void RegisterOnce(SteamAPICall_t call, CallResultCallback<T> onCalled)
+		public void RegisterOnce(in SteamAPICall_t call, CallResultCallback<T> onCalled)
 		{
 			callResult?.Set(call, (param, failure) => { onCalled(param, failure); });
 		}

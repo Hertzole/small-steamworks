@@ -10,7 +10,7 @@ namespace Hertzole.SmallSteamworks.Helpers
 {
 	internal static class SteamUserHelpers
 	{
-		public static SteamUser GetSteamUser(SteamID steamId)
+		public static SteamUser GetSteamUser(in SteamID steamId)
 		{
 #if !DISABLESTEAMWORKS
 			return new SteamUser(steamId, // ID

@@ -126,22 +126,22 @@ namespace Hertzole.SmallSteamworks
 		private const uint INSTALL_DIRECTORY_START_BUFFER_SIZE = 64;
 		private const int INSTALLED_DEPOTS_BUFFER_SIZE = 128;
 
-		public bool IsSubscribedToApp(AppID appId)
+		public bool IsSubscribedToApp(in AppID appId)
 		{
 			return Steamworks.SteamApps.BIsSubscribedApp(appId);
 		}
 
-		public DateTime GetAppPurchaseTime(AppID appid)
+		public DateTime GetAppPurchaseTime(in AppID appid)
 		{
 			return DateTime.UnixEpoch.AddSeconds(Steamworks.SteamApps.GetEarliestPurchaseUnixTime(appid));
 		}
 
-		public string GetAppInstallDirectory(AppID appId)
+		public string GetAppInstallDirectory(in AppID appId)
 		{
 			return GetAppInstallDirectoryInternal(appId);
 		}
 
-		public void MarkContentCorrupt(bool missingFilesOnly)
+		public void MarkContentCorrupt(in bool missingFilesOnly)
 		{
 			Steamworks.SteamApps.MarkContentCorrupt(missingFilesOnly);
 		}
@@ -161,38 +161,38 @@ namespace Hertzole.SmallSteamworks
 			}
 		}
 
-		public bool IsDLCInstalled(AppID dlcId)
+		public bool IsDLCInstalled(in AppID dlcId)
 		{
 			return Steamworks.SteamApps.BIsDlcInstalled(dlcId);
 		}
 
-		public void InstallDLC(AppID dlcId)
+		public void InstallDLC(in AppID dlcId)
 		{
 			Steamworks.SteamApps.InstallDLC(dlcId);
 		}
 
-		public void UninstallDLC(AppID dlcId)
+		public void UninstallDLC(in AppID dlcId)
 		{
 			Steamworks.SteamApps.UninstallDLC(dlcId);
 		}
 
-		public bool TryGetDLCDownloadProgress(AppID dlcId, out ulong bytesDownloaded, out ulong bytesTotal)
+		public bool TryGetDLCDownloadProgress(in AppID dlcId, out ulong bytesDownloaded, out ulong bytesTotal)
 		{
 			return Steamworks.SteamApps.GetDlcDownloadProgress(dlcId, out bytesDownloaded, out bytesTotal);
 		}
 
-		public IReadOnlyList<DepotID> GetInstalledDepots(AppID appId)
+		public IReadOnlyList<DepotID> GetInstalledDepots(in AppID appId)
 		{
 			return GetInstalledDepotsInternal(appId);
 		}
 
-		public string? GetLaunchQueryParameter(string key)
+		public string? GetLaunchQueryParameter(in string key)
 		{
 			string? result = Steamworks.SteamApps.GetLaunchQueryParam(key);
 			return string.IsNullOrWhiteSpace(result) ? null : result;
 		}
 
-		public void GetFileDetails(string fileName, FileDetailsCallback? callback = null)
+		public void GetFileDetails(in string fileName, FileDetailsCallback? callback = null)
 		{
 			fileDetailsCallResult ??= new SteamCallback<FileDetailsResult_t>(CallbackType.CallResult);
 
@@ -232,7 +232,7 @@ namespace Hertzole.SmallSteamworks
 				param.m_unSecondsAllowed - param.m_unSecondsPlayed);
 		}
 
-		private string GetAppInstallDirectoryInternal(AppID id)
+		private string GetAppInstallDirectoryInternal(in AppID id)
 		{
 			logger.Log(id.ToString());
 
@@ -266,7 +266,7 @@ namespace Hertzole.SmallSteamworks
 			return directory;
 		}
 
-		private IReadOnlyList<DepotID> GetInstalledDepotsInternal(AppID appId)
+		private IReadOnlyList<DepotID> GetInstalledDepotsInternal(in AppID appId)
 		{
 			if (appDepotsCache.TryGetValue(appId, out DepotID[]? depots))
 			{
