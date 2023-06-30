@@ -12,8 +12,8 @@ namespace Hertzole.SmallSteamworks
 {
 	internal partial class SteamFriends
 	{
-		public Task<UserInformationRetrievedResponse> RequestUserInformationAsync(SteamID id,
-			bool requireNameOnly = true,
+		public Task<UserInformationRetrievedResponse> RequestUserInformationAsync(in SteamID id,
+			in bool requireNameOnly = true,
 			CancellationToken cancellationToken = default)
 		{
 			TaskCompletionSource<UserInformationRetrievedResponse> tcs = new TaskCompletionSource<UserInformationRetrievedResponse>();
@@ -32,7 +32,7 @@ namespace Hertzole.SmallSteamworks
 			return tcs.Task;
 		}
 
-		public Task<AvatarRetrievedResponse> GetCurrentUserAvatarAsync(AvatarSize size, CancellationToken cancellationToken = default)
+		public Task<AvatarRetrievedResponse> GetCurrentUserAvatarAsync(in AvatarSize size, CancellationToken cancellationToken = default)
 		{
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
 
@@ -50,7 +50,7 @@ namespace Hertzole.SmallSteamworks
 			return tcs.Task;
 		}
 
-		public Task<AvatarRetrievedResponse> GetAvatarAsync(SteamID id, AvatarSize size, CancellationToken cancellationToken = default)
+		public Task<AvatarRetrievedResponse> GetAvatarAsync(in SteamID id, in AvatarSize size, CancellationToken cancellationToken = default)
 		{
 			TaskCompletionSource<AvatarRetrievedResponse> tcs = new TaskCompletionSource<AvatarRetrievedResponse>();
 

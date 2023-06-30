@@ -27,7 +27,7 @@ namespace Hertzole.SmallSteamworks
 		/// </summary>
 		/// <param name="id">The ID of the user to get the name from.</param>
 		/// <returns>The name of the specified user.</returns>
-		string GetUserDisplayName(SteamID id);
+		string GetUserDisplayName(in SteamID id);
 
 		/// <summary>
 		///     Asynchronously requests information about the specified user.
@@ -38,14 +38,14 @@ namespace Hertzole.SmallSteamworks
 		///     is slower.
 		/// </param>
 		/// <param name="callback">The callback when the information has been retrieved.</param>
-		void RequestUserInformation(SteamID id, bool requireNameOnly = true, UserInformationRetrievedCallback? callback = null);
+		void RequestUserInformation(in SteamID id, in bool requireNameOnly = true, UserInformationRetrievedCallback? callback = null);
 
 		/// <summary>
 		///     Asynchronously gets the avatar of the current user.
 		/// </summary>
 		/// <param name="size">The size of the avatar.</param>
 		/// <param name="callback">The callback when the avatar has been retrieved.</param>
-		void GetCurrentUserAvatar(AvatarSize size, AvatarRetrievedCallback? callback = null);
+		void GetCurrentUserAvatar(in AvatarSize size, AvatarRetrievedCallback? callback = null);
 		
 		/// <summary>
 		///     Asynchronously gets the avatar of the specified user.
@@ -53,7 +53,7 @@ namespace Hertzole.SmallSteamworks
 		/// <param name="id">The ID of the user to get the avatar from.</param>
 		/// <param name="size">The size of the avatar.</param>
 		/// <param name="callback">The callback when the avatar has been retrieved.</param>
-		void GetAvatar(SteamID id, AvatarSize size, AvatarRetrievedCallback? callback = null);
+		void GetAvatar(in SteamID id, in AvatarSize size, AvatarRetrievedCallback? callback = null);
 
 		/// <summary>
 		///     Gets all the friends of the current user.
