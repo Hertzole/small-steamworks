@@ -20,5 +20,10 @@ namespace Hertzole.SmallSteamworks
 		///     If true, the current user's stats will be fetched when the game starts.
 		/// </summary>
 		bool FetchCurrentStatsOnBoot { get; set; }
+
+		/// <summary>
+		///     How many images to cache. The more images you cache, the more memory your application will use.
+		/// </summary>
+		int ImageCacheSize { get; set; }
 	}
 }
