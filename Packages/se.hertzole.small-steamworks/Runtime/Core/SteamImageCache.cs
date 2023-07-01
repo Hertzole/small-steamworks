@@ -5,6 +5,7 @@
 #if !DISABLESTEAMWORKS
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -21,6 +22,10 @@ namespace Hertzole.SmallSteamworks
 
 		private static readonly Dictionary<ImageResolution, ObjectPool<Texture2D>> texturePools = new Dictionary<ImageResolution, ObjectPool<Texture2D>>();
 		private static readonly Dictionary<ImageResolution, ObjectPool<byte[]>> imageBufferPools = new Dictionary<ImageResolution, ObjectPool<byte[]>>();
+
+#if DEBUG
+		private static readonly Dictionary<uint, string> imageNames = new Dictionary<uint, string>();
+#endif
 
 #if UNITY_EDITOR
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -58,6 +63,14 @@ namespace Hertzole.SmallSteamworks
 
 			texture = CreateTexture(handle);
 			cache.Add(id, texture);
+
+#if DEBUG
+			if (texture != null && imageNames.TryGetValue(id, out string imageName))
+			{
+				texture.name = imageName;
+			}
+#endif
+
 			return texture;
 		}
 
@@ -65,9 +78,21 @@ namespace Hertzole.SmallSteamworks
 		{
 			if (cache.TryGetValue(id, out Texture2D texture))
 			{
-				texturePools[new ImageResolution(texture.width, texture.height)].Release(texture);
+				if (texture != null)
+				{
+#if DEBUG
+					texture.name = $"Cached Steam Image ({texture.width}x{texture.height})";
+#endif
+
+					texturePools[new ImageResolution(texture.width, texture.height)].Release(texture);
+				}
+
 				cache.Remove(id);
 			}
+
+#if DEBUG
+			imageNames.Remove(id);
+#endif
 
 			disposedImages.Add(id);
 		}
@@ -83,14 +108,20 @@ namespace Hertzole.SmallSteamworks
 			{
 				if (value.Value != null)
 				{
+#if DEBUG
+					value.Value.name = $"Cached Steam Image ({value.Value.width}x{value.Value.height})";
+#endif
+
 					texturePools[new ImageResolution(value.Value.width, value.Value.height)].Release(value.Value);
 				}
-
-				disposedImages.Add(value.Key);
 			}
 
 			cache.Clear();
 			disposedImages.Clear();
+
+#if DEBUG
+			imageNames.Clear();
+#endif
 
 			nextId = 0;
 		}
@@ -121,7 +152,19 @@ namespace Hertzole.SmallSteamworks
 			texturePools.Clear();
 			imageBufferPools.Clear();
 
+#if DEBUG
+			imageNames.Clear();
+#endif
+
 			nextId = 0;
+		}
+
+		[Conditional("DEBUG")]
+		internal static void SetImageName(in SteamImage image, in string name)
+		{
+#if DEBUG
+			imageNames[image.id] = name;
+#endif
 		}
 
 		private static Texture2D CreateTexture(int handle)
@@ -138,7 +181,7 @@ namespace Hertzole.SmallSteamworks
 				// Create new values here to avoid a closure allocation with width and height.
 				int newWidth = (int) width;
 				int newHeight = (int) height;
-                
+
 				bufferPool = new ObjectPool<byte[]>(() => new byte[newWidth * newHeight * 4]);
 				imageBufferPools.Add(resolution, bufferPool);
 			}
@@ -184,9 +227,9 @@ namespace Hertzole.SmallSteamworks
 					// Create new values here to avoid a closure allocation with width and height.
 					int newWidth = (int) width;
 					int newHeight = (int) height;
-					
+
 					pool = new ObjectPool<Texture2D>(() => new Texture2D(newWidth, newHeight, TextureFormat.RGBA32, false), null, null,
-						Object.DestroyImmediate);
+						Object.DestroyImmediate, false);
 
 					texturePools.Add(resolution, pool);
 				}

@@ -43,5 +43,14 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 				avatar.texture = image.Texture;
 			});
 		}
+		
+		public void Clear()
+		{
+			rankLabel.text = string.Empty;
+			scoreLabel.text = string.Empty;
+			nameLabel.text = string.Empty;
+			avatar.texture = null;
+			avatarImage.Dispose();
+		}
 	}
 }

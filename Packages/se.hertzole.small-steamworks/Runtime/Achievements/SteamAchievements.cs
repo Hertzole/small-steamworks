@@ -201,13 +201,20 @@ namespace Hertzole.SmallSteamworks
 			{
 				if (onIconFetched != null)
 				{
-					userAchievementIconFetchedCallback.RegisterOnce(t => { onIconFetched?.Invoke(new SteamImage(t.m_nIconHandle)); },
+					userAchievementIconFetchedCallback.RegisterOnce(t =>
+						{
+							SteamImage img = new SteamImage(t.m_nIconHandle);
+							SteamImageCache.SetImageName(img, $"Achievement {achievementName}");
+							onIconFetched?.Invoke(img);
+						},
 						t => t.m_rgchAchievementName == achievementName);
 				}
 			}
 			else
 			{
-				onIconFetched?.Invoke(new SteamImage(handle));
+				SteamImage img = new SteamImage(handle);
+				SteamImageCache.SetImageName(img, $"Achievement {achievementName}");
+				onIconFetched?.Invoke(img);
 			}
 		}
 
@@ -229,7 +236,7 @@ namespace Hertzole.SmallSteamworks
 		public IEnumerable<SteamGlobalAchievementInfo> GetMostAchievedAchievements()
 		{
 			logger.Log($"Getting most achieved achievements | Has global stats: {HasGlobalStats}");
-			
+
 			ThrowIfGlobalStatsNotAvailable();
 
 			int i = SteamUserStats.GetMostAchievedAchievementInfo(out string name, Constants.k_cchStatNameMax, out float percentage, out bool achieved);

@@ -106,7 +106,11 @@ namespace Hertzole.SmallSteamworks.CompleteSample
 					b.gameObject.SetActive(true);
 					b.transform.SetAsLastSibling();
 				}, // On Get
-				b => b.gameObject.SetActive(false)); // On Release
+				b =>
+				{
+					b.Clear();
+					b.gameObject.SetActive(false);
+				}); // On Release
 			
 			getScoresButton.onClick.AddListener(ClickGetScores);
 

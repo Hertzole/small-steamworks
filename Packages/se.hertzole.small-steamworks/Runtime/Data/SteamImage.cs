@@ -13,11 +13,6 @@ namespace Hertzole.SmallSteamworks
 	public readonly struct SteamImage : IEquatable<SteamImage>, IDisposable
 	{
 		private readonly int handle;
-#if !DISABLESTEAMWORKS
-		private readonly uint id;
-
-		private static readonly SteamLogger<SteamImage> logger = new SteamLogger<SteamImage>();
-#endif
 
 		public Texture2D Texture
 		{
@@ -51,6 +46,11 @@ namespace Hertzole.SmallSteamworks
 			id = SteamImageCache.GetNextId();
 #endif
 		}
+#if !DISABLESTEAMWORKS
+		internal readonly uint id;
+
+		private static readonly SteamLogger<SteamImage> logger = new SteamLogger<SteamImage>();
+#endif
 
 		public bool Equals(SteamImage other)
 		{
