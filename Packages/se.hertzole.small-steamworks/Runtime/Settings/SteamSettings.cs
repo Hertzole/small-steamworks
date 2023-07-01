@@ -16,6 +16,8 @@ namespace Hertzole.SmallSteamworks
 		private bool restartAppIfNecessary = true;
 		[SerializeField]
 		private bool fetchCurrentStatsOnBoot = true;
+		[SerializeField] 
+		private int imageCacheSize = 200;
 
 		public AppID AppID
 		{
@@ -50,6 +52,19 @@ namespace Hertzole.SmallSteamworks
 				if (fetchCurrentStatsOnBoot != value)
 				{
 					fetchCurrentStatsOnBoot = value;
+					EditorSave();
+				}
+			}
+		}
+		
+		public int ImageCacheSize
+		{
+			get { return imageCacheSize; }
+			set
+			{
+				if (imageCacheSize != value)
+				{
+					imageCacheSize = value;
 					EditorSave();
 				}
 			}

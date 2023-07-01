@@ -42,6 +42,7 @@ namespace Hertzole.SmallSteamworks.Editor
 
 			CreateGeneralSettings(root);
 			CreateAchievementsAndStatsSettings(root);
+			CreateImagesSettings(root);
 
 			rootElement.Add(root);
 		}
@@ -86,6 +87,25 @@ namespace Hertzole.SmallSteamworks.Editor
 			root.Add(fetchStatsToggle);
 		}
 
+		private void CreateImagesSettings(VisualElement root)
+		{
+			IntegerField imageCacheSizeField = CreateField<IntegerField, int>("Image Cache Size");
+			imageCacheSizeField.SetValueWithoutNotify(settings.ImageCacheSize);
+			
+			imageCacheSizeField.RegisterCallback<ChangeEvent<int>, (IntegerField field, ISteamSettings settings)>((evt, args) =>
+			{
+				if (evt.newValue < 0)
+				{
+					args.field.SetValueWithoutNotify(0);
+				}
+				
+				args.settings.ImageCacheSize = args.field.value;
+			}, (imageCacheSizeField, settings));
+            
+			root.Add(CreateLabel("Images"));
+			root.Add(imageCacheSizeField);
+		}
+
 		private static TField CreateField<TField, TValue>(string label) where TField : BaseField<TValue>, new()
 		{
 			TField field = new TField
@@ -106,7 +126,7 @@ namespace Hertzole.SmallSteamworks.Editor
 				style =
 				{
 					unityFontStyleAndWeight = FontStyle.Bold,
-					marginLeft = 3,
+					marginLeft = 4,
 					paddingLeft = 0,
 					marginTop = 6
 				}

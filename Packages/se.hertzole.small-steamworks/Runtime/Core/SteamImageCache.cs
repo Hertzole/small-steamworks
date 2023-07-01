@@ -229,7 +229,7 @@ namespace Hertzole.SmallSteamworks
 					int newHeight = (int) height;
 
 					pool = new ObjectPool<Texture2D>(() => new Texture2D(newWidth, newHeight, TextureFormat.RGBA32, false), null, null,
-						Object.DestroyImmediate, false);
+						Object.DestroyImmediate, false, 10, (int) SteamSettings.Instance.ImageCacheSize);
 
 					texturePools.Add(resolution, pool);
 				}
