@@ -19,3 +19,9 @@ If this is enabled, the game will restart if it wasn't started through Steam. Th
 
 ### Fetch Current Stats On Boot
 If true, the game will fetch the current user's stats from Steam on boot. This is useful if you want to display the current stats or achievements on a UI element. Otherwise, you'd have to request the stats yourself. See [Request Current Stats](stats#request-current-stats) for more information.
+
+## Images
+
+### Image Cache Size
+
+How many unused images to cache. The more images you cache, the more memory your application will use. This does not impact how many images you can show at once. This only controls how many images of each resolution that are cached and ready to be reused.
