@@ -18,12 +18,15 @@ namespace Hertzole.SmallSteamworks
 		private readonly SteamCallback<PersonaStateChange_t> onPersonaStateChangedCallback;
 		private SteamCallback<AvatarImageLoaded_t>? onAvatarLoadedCallback;
 
+		public SteamUser CurrentUser
+		{
+			get { return SteamUserHelpers.GetSteamUser(Steamworks.SteamUser.GetSteamID()); }
+		}
+
 		public SteamFriends()
 		{
 			onPersonaStateChangedCallback = new SteamCallback<PersonaStateChange_t>(CallbackType.Callback, OnPersonaStateChanged);
 		}
-
-		public SteamUser CurrentUser { get { return SteamUserHelpers.GetSteamUser(Steamworks.SteamUser.GetSteamID()); } }
 
 		public string GetCurrentUserDisplayName()
 		{
@@ -45,7 +48,7 @@ namespace Hertzole.SmallSteamworks
 			{
 				// Create new values here to avoid a closure allocation in the lambda.
 				SteamID steamId = id;
-				
+
 				onPersonaStateChangedCallback.RegisterOnce(t =>
 				{
 					logger.Log($"Persona state changed callback received for user {t.m_ulSteamID} with {t.m_nChangeFlags}.");
@@ -105,7 +108,9 @@ namespace Hertzole.SmallSteamworks
 				bool gotSize = SteamUtils.GetImageSize(handle, out uint width, out uint height);
 				if (gotSize)
 				{
-					callback?.Invoke(new SteamImage(handle), id, (int) width, (int) height);
+					SteamImage img = new SteamImage(handle);
+					SteamImageCache.SetImageName(img, $"Avatar {id} ({size})");
+					callback?.Invoke(img, id, (int) width, (int) height);
 				}
 				else
 				{
@@ -118,12 +123,17 @@ namespace Hertzole.SmallSteamworks
 
 			// Create new values here to avoid a closure allocation in the lambda.
 			SteamID currentId = id;
+			AvatarSize newSize = size;
 
 			// Avatar is not loaded yet. Wait for callback.
 			onAvatarLoadedCallback.RegisterOnce(t =>
 			{
-				logger.Log($"Avatar loaded callback received :: {nameof(t.m_iImage)}: {t.m_iImage}, {nameof(t.m_steamID)}: {t.m_steamID}, {nameof(t.m_iWide)}: {t.m_iWide}, {nameof(t.m_iTall)}: {t.m_iTall}");
-				callback?.Invoke(new SteamImage(t.m_iImage), t.m_steamID, t.m_iWide, t.m_iTall);
+				logger.Log(
+					$"Avatar loaded callback received :: {nameof(t.m_iImage)}: {t.m_iImage}, {nameof(t.m_steamID)}: {t.m_steamID}, {nameof(t.m_iWide)}: {t.m_iWide}, {nameof(t.m_iTall)}: {t.m_iTall}");
+
+				SteamImage img = new SteamImage(t.m_iImage);
+				SteamImageCache.SetImageName(img, $"Avatar {t.m_steamID} ({newSize})");
+				callback?.Invoke(img, t.m_steamID, t.m_iWide, t.m_iTall);
 			}, t => t.m_steamID == currentId);
 		}
 
